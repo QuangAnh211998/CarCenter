@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "87710550772",
+    "project_id": "carcenter-c6725",
+    "storage_bucket": "carcenter-c6725.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87710550772:android:ee55ce52d8dfb41509eca1",
+        "android_client_info": {
+          "package_name": "com.example.carcenter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87710550772-85qojur6sgduboat1ekpkfhifk158qld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkw2UbEZ4UfDv9HP1V6f_TDH7S6-ZgNnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87710550772-85qojur6sgduboat1ekpkfhifk158qld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
