@@ -13,19 +13,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.carcenter.JavaClass.SingInActivity;
-import com.example.carcenter.JavaClass.DoiTTcanhan;
-import com.example.carcenter.JavaClass.Doimatkhau;
+import com.example.carcenter.JavaClass.LoginActivity;
+import com.example.carcenter.JavaClass.ChangeInformationActivity;
+import com.example.carcenter.JavaClass.ChangePasswordActivity;
 import com.example.carcenter.R;
 
-public class Frag_Canhan extends Fragment {
+public class AccountFragment extends Fragment {
     private Button btndangnhap;
     private LinearLayout lodoimk, lodoittcn;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_frag__canhan, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         btndangnhap = view.findViewById(R.id.btndangnhapac);
         lodoimk = view.findViewById(R.id.lodoimk);
@@ -40,7 +40,7 @@ public class Frag_Canhan extends Fragment {
         btndangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), SingInActivity.class));
+                startActivity(new Intent(getContext(), LoginActivity.class));
             }
         });
     }
@@ -49,14 +49,14 @@ public class Frag_Canhan extends Fragment {
         lodoimk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), Doimatkhau.class));
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
             }
         });
 
         lodoittcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), DoiTTcanhan.class));
+                startActivity(new Intent(getContext(), ChangeInformationActivity.class));
             }
         });
     }

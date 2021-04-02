@@ -18,7 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SingInActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private TextView tvDangky, tvquenmk;
     private ImageButton btnthoatdn;
@@ -29,7 +29,7 @@ public class SingInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dang_nhap);
+        setContentView(R.layout.activity_login);
 
         Anhxa();
         EventClick();
@@ -41,7 +41,7 @@ public class SingInActivity extends AppCompatActivity {
         tvDangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplication(), ResgiterActivity.class));
+                startActivity(new Intent(getApplication(), RegisterActivity.class));
             }
         });
 
@@ -61,7 +61,7 @@ login();
         tvquenmk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SingInActivity.this, "Chức năng này hiện đang bảo trì, vui lòng quay lại sau", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Chức năng này hiện đang bảo trì, vui lòng quay lại sau", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -72,15 +72,15 @@ login();
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                    if(task.isSuccessful()){
-                       Intent intent=new Intent(SingInActivity.this,MainActivity.class);
+                       Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                        startActivity(intent);
                        finish();
-                       Toast.makeText(SingInActivity.this, "thanh cong", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(LoginActivity.this, "thanh cong", Toast.LENGTH_SHORT).show();
 
                    }else {
                        String error=task.getException().getMessage();
-                       Toast.makeText(SingInActivity.this, error, Toast.LENGTH_SHORT).show();
+                       Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
                    }
                     }
                 });

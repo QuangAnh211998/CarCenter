@@ -9,18 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.example.carcenter.R;
 
-public class Frag_Dangtin extends Fragment {
-
-    private EditText edthangxe, edtphienban;
+public class SalonFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_frag__dangtin, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_salon, container, false);
         return view;
     }
 }

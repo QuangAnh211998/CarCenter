@@ -8,14 +8,14 @@ import android.view.View;
 
 import com.example.carcenter.R;
 
-public class Doimatkhau extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doimatkhau);
+        setContentView(R.layout.activity_chagepassword);
 
         toolbar = findViewById(R.id.toolbardoimk);
 

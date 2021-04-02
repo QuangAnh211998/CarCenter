@@ -8,14 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.carcenter.R;
 
-public class ResgiterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private ImageButton btnthoatdk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dang_ky);
+        setContentView(R.layout.activity_register);
 
         btnthoatdk = findViewById(R.id.btnthoatdk);
 

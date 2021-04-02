@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.carcenter.R;
 
-public class DoiTTcanhan extends AppCompatActivity {
+public class ChangeInformationActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView tvnoisong;
@@ -19,7 +19,7 @@ public class DoiTTcanhan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doi_ttcanhan);
+        setContentView(R.layout.activity_chageinformation);
 
         Anhxa();
         EventToolbar();

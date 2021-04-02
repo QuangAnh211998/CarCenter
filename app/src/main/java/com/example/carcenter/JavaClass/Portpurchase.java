@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.carcenter.R;
 
-public class Dangtinmua extends AppCompatActivity {
+public class Portpurchase extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView tvmuctien;
@@ -22,7 +22,7 @@ public class Dangtinmua extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dangtinmua);
+        setContentView(R.layout.activity_portpurchase);
 
         Anhxa();
         Eventclick();
@@ -50,7 +50,7 @@ public class Dangtinmua extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(Dangtinmua.this, "Chào mừng bạn đến với CarCenter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Portpurchase.this, "Chào mừng bạn đến với CarCenter", Toast.LENGTH_SHORT).show();
             }
         });
     }
