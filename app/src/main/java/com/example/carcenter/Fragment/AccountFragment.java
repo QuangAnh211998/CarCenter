@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.carcenter.JavaClass.LoginActivity;
 import com.example.carcenter.JavaClass.ChangeInformationActivity;
 import com.example.carcenter.JavaClass.ChangePasswordActivity;
 import com.example.carcenter.R;
@@ -40,7 +39,7 @@ public class AccountFragment extends Fragment {
         btndangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), LoginActivity.class));
+                startActivity(new Intent(getContext(), SignInFragment.class));
             }
         });
     }

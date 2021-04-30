@@ -21,7 +21,6 @@
         <activity android:name=".JavaClass.ChangePasswordActivity" />
         <activity android:name=".JavaClass.Portpurchase" />
         <activity android:name=".JavaClass.RegisterActivity" />
-        <activity android:name=".JavaClass.LoginActivity" />
         <activity android:name=".JavaClass.MainActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
