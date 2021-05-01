@@ -19,10 +19,6 @@ import com.example.carcenter.R;
 
 public class SignInFragment extends Fragment {
 
-    public SignInFragment() {
-        // Required empty public constructor
-    }
-
     private ImageButton exitSignInImage;
     private FrameLayout perentFrameLayout;
     private TextView signUpTextView;

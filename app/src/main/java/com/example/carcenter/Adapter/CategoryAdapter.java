@@ -36,7 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         String logo = categoryModelList.get(position).getCategoryLogo();
         String name = categoryModelList.get(position).getCategoryName();
-        holder.setCategoryName(name, position);
+        holder.setCategoryName(name);
 
     }
 
@@ -57,10 +57,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         private void setCategoryLogo(String iconUrl) {
-
         }
 
-        private void setCategoryName(String name, final int position) {
+        private void setCategoryName(String name) {
             categoryName.setText(name);
         }
     }
