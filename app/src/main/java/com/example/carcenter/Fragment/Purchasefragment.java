@@ -23,7 +23,7 @@ public class Purchasefragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_purchase, container, false);
 
-        tvdtmua = view.findViewById(R.id.tvdtmua);
+        tvdtmua = view.findViewById(R.id.postPurchase);
 
         tvdtmua.setOnClickListener(new View.OnClickListener() {
             @Override

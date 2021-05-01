@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".JavaClass.MailboxActivity"></activity>
-        <activity android:name=".JavaClass.SplashScreen">
+        <activity android:name=".JavaClass.ProductDetailActivity"></activity>
+        <activity android:name=".JavaClass.MailboxActivity" />
+        <activity
+            android:name=".JavaClass.SplashScreen"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +24,10 @@
         <activity android:name=".JavaClass.ChangePasswordActivity" />
         <activity android:name=".JavaClass.Portpurchase" />
         <activity android:name=".JavaClass.RegisterActivity" />
-        <activity android:name=".JavaClass.MainActivity"></activity>
+        <activity android:name=".JavaClass.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

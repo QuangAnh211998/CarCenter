@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGrayDark" />
+                    android:background="@color/colorGreyDark" />
             </LinearLayout>
 
 
@@ -471,7 +471,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayDark"/>
+                android:background="@color/colorGreyDark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -491,7 +491,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGrayDark" />
+                    android:background="@color/colorGreyDark" />
             </LinearLayout>
 
 
@@ -557,7 +557,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayDark"/>
+                android:background="@color/colorGreyDark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -577,7 +577,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGrayDark" />
+                    android:background="@color/colorGreyDark" />
             </LinearLayout>
 
 
@@ -683,7 +683,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayDark"/>
+                android:background="@color/colorGreyDark"/>
 
 
             <LinearLayout
@@ -711,7 +711,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGrayDark" />
+                    android:background="@color/colorGreyDark" />
             </LinearLayout>
 
 
@@ -741,7 +741,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayDark"/>
+                android:background="@color/colorGreyDark"/>
 
 
             <LinearLayout
@@ -762,7 +762,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGrayDark" />
+                    android:background="@color/colorGreyDark" />
             </LinearLayout>
 
 
@@ -782,7 +782,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrayDark"/>
+                android:background="@color/colorGreyDark"/>
 
 
             <Button
@@ -815,7 +815,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@color/colorGrayDark" />
+                    android:background="@color/colorGreyDark" />
             </LinearLayout>
 
 

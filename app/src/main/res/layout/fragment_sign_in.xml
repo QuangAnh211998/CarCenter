@@ -42,7 +42,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/view" />
 
                 <ImageButton
-                    android:id="@+id/btnthoatdn"
+                    android:id="@+id/btnexit_SignIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -138,11 +138,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/edtname" />
 
                 <Button
-                    android:id="@+id/btndangnhap"
+                    android:id="@+id/btnSignIn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/bg"
                     android:padding="14dp"
@@ -156,26 +156,26 @@
                     app:layout_constraintTop_toBottomOf="@+id/edtpass" />
 
                 <TextView
-                    android:id="@+id/tvquenmk"
+                    android:id="@+id/tvforgotPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="32dp"
                     android:text="Quên mật khẩu?"
                     android:textSize="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btndangnhap" />
+                    app:layout_constraintTop_toBottomOf="@+id/edtpass" />
 
                 <TextView
-                    android:id="@+id/tvdangky"
+                    android:id="@+id/tvSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="29dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="24dp"
                     android:text="Chưa có tài khoản? Đăng ký"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp"
@@ -183,12 +183,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvquenmk" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
