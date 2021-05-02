@@ -71,9 +71,9 @@ public class HomeFragment extends Fragment {
         productRecyclerView.setLayoutManager(layoutManagerProduct);
 
         productsModelList = new ArrayList<ProductsModel>();
-        productsModelList.add(new ProductsModel(1,R.drawable.vinfast,"Vinfast", "Lux A 2.0", "",
+        productsModelList.add(new ProductsModel(1,R.drawable.vinfast,"Vinfast", "Lux A 2.0", "Pemidum AT 2.0",
                 "2020", "Trong nước", "Xe cũ", 100, "Sedan",
-                "990 Triệu", "Vo Quang Anh", "Hà Nội"));
+                "1 Tỷ 990 Triệu", "Vo Quang Anh", "Hà Nội"));
         productsModelList.add(new ProductsModel(2,R.drawable.vinfast,"Vinfast", "Lux SA 2.0", "",
                 "2021", "Trong nước", "Xe cũ", 120, "Sedan",
                 "1 Tỷ 20 Triệu", "Quang Anh", "Nghệ An"));

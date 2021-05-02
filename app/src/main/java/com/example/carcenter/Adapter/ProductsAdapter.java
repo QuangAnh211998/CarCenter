@@ -91,8 +91,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                     itemView.getContext().startActivity(intent);
                 }
             });
-
         }
+
 
         private void setProductImage(int imageUrl){
             productImage.setImageResource(imageUrl);
