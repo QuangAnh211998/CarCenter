@@ -24,7 +24,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
     @NonNull
     @Override
     public PurchaseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.products_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.purchase_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -74,19 +74,19 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
             purchase_title.setText(title);
         }
         private void setPurchase_price_range(String price_range){
-            purchase_title.setText(price_range);
+            purchase_price_range.setText(price_range);
         }
         private void setPurchase_content(String content){
-            purchase_title.setText(content);
+            purchase_content.setText(content);
         }
         private void setPurchase_userName(String userName){
-            purchase_title.setText(userName);
+            purchase_userName.setText(userName);
         }
         private void setPurchase_userPhone(String userPhone){
-            purchase_title.setText(userPhone);
+            purchase_userPhone.setText(userPhone);
         }
         private void setPurchase_userAddress(String userAddress){
-            purchase_title.setText(userAddress);
+            purchase_userAddress.setText(userAddress);
         }
     }
 }

@@ -28,12 +28,12 @@ public class HomeFragment extends Fragment {
     public static final String TAG = "tagHomeFragment";
     private List<CategoryModel> categoryModelList;
     private CategoryAdapter categoryAdapter;
-    private RecyclerView categoryRecyclerView;
+    private RecyclerView category_RecyclerView;
 
     private List<ProductsModel> productsModelList;
     private ProductsAdapter productsAdapter;
-    private RecyclerView productRecyclerView;
-    private TextView productTitle;
+    private RecyclerView product_RecyclerView;
+    private TextView product_Title;
     private Button viewAll_btn;
 
     @Override
@@ -43,10 +43,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, viewGroup, false);
 
         ////////// Category
-        categoryRecyclerView = view.findViewById(R.id.category_recyclerView);
+        category_RecyclerView = view.findViewById(R.id.category_recyclerView);
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getActivity());
         layoutManagerCategory.setOrientation(LinearLayoutManager.HORIZONTAL);
-        categoryRecyclerView.setLayoutManager(layoutManagerCategory);
+        category_RecyclerView.setLayoutManager(layoutManagerCategory);
 
         categoryModelList = new ArrayList<CategoryModel>();
         categoryModelList.add(new CategoryModel(1, "link", "Vinfast"));
@@ -58,17 +58,17 @@ public class HomeFragment extends Fragment {
         categoryModelList.add(new CategoryModel(7, "link", "Toyota"));
 
         categoryAdapter = new CategoryAdapter(categoryModelList);
-        categoryRecyclerView.setAdapter(categoryAdapter);
+        category_RecyclerView.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
         ////////// Category
 
         ////////// Products
-        productTitle = view.findViewById(R.id.productTitle_tv);
+        product_Title = view.findViewById(R.id.productTitle_tv);
         viewAll_btn = view.findViewById(R.id.btn_viewAll);
-        productRecyclerView = view.findViewById(R.id.productRecyclerView);
-        LinearLayoutManager layoutManagerProduct = new LinearLayoutManager(getActivity());
-        layoutManagerProduct.setOrientation(LinearLayoutManager.VERTICAL);
-        productRecyclerView.setLayoutManager(layoutManagerProduct);
+        product_RecyclerView = view.findViewById(R.id.productRecyclerView);
+        LinearLayoutManager layoutManager_Product = new LinearLayoutManager(getActivity());
+        layoutManager_Product.setOrientation(LinearLayoutManager.VERTICAL);
+        product_RecyclerView.setLayoutManager(layoutManager_Product);
 
         productsModelList = new ArrayList<ProductsModel>();
         productsModelList.add(new ProductsModel(1,R.drawable.vinfast,"Vinfast", "Lux A 2.0", "Pemidum AT 2.0",
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
                 "1 Tỷ 20 Triệu", "Quang Anh", "Nghệ An"));
 
         productsAdapter = new ProductsAdapter(productsModelList);
-        productRecyclerView.setAdapter(productsAdapter);
+        product_RecyclerView.setAdapter(productsAdapter);
         productsAdapter.notifyDataSetChanged();
         ////////// Products
 
