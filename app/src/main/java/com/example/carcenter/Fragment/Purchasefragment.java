@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.carcenter.Adapter.PurchaseAdapter;
-import com.example.carcenter.JavaClass.Portpurchase;
+import com.example.carcenter.JavaClass.Postpurchase;
 import com.example.carcenter.Model.PurchaseModel;
 import com.example.carcenter.R;
 
@@ -70,7 +70,7 @@ public class Purchasefragment extends Fragment {
         postPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), Portpurchase.class));
+                startActivity(new Intent(getContext(), Postpurchase.class));
             }
         });
     }

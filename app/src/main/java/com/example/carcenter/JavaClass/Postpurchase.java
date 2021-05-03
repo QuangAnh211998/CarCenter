@@ -12,17 +12,18 @@ import android.widget.Toast;
 
 import com.example.carcenter.R;
 
-public class Portpurchase extends AppCompatActivity {
+public class Postpurchase extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView tvmuctien;
-    private EditText edttieude, edtnoidung;
+    private TextView postpurchase_price_range;
+    private EditText postpurchase_content;
+    private EditText postpurchase_title;
     private Button btndangtin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_portpurchase);
+        setContentView(R.layout.activity_postpurchase);
 
         Anhxa();
         Eventclick();
@@ -40,7 +41,7 @@ public class Portpurchase extends AppCompatActivity {
 
     void Eventclick(){
 
-        tvmuctien.setOnClickListener(new View.OnClickListener() {
+        postpurchase_price_range.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
@@ -50,16 +51,16 @@ public class Portpurchase extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(Portpurchase.this, "Chào mừng bạn đến với CarCenter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Postpurchase.this, "Chào mừng bạn đến với CarCenter", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     void Anhxa(){
-        toolbar = findViewById(R.id.toolbarbdtmua);
-        tvmuctien = findViewById(R.id.tvmuctien);
-        edtnoidung = findViewById(R.id.edtnoidungmua);
-        edttieude = findViewById(R.id.edttieudemua);
-        btndangtin = findViewById(R.id.btndtmua);
+        toolbar = findViewById(R.id.toolbarPostPurchase);
+        postpurchase_price_range = findViewById(R.id.post_price_range_tv);
+        postpurchase_content = findViewById(R.id.post_title_edt);
+        postpurchase_title = findViewById(R.id.post_content_edt);
+        btndangtin = findViewById(R.id.postpurchase_btn);
     }
 }

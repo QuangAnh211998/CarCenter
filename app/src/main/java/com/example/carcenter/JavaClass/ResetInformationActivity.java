@@ -10,16 +10,18 @@ import android.widget.TextView;
 
 import com.example.carcenter.R;
 
-public class ChangeInformationActivity extends AppCompatActivity {
+public class ResetInformationActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView tvnoisong;
-    private EditText edthoten, edtemail, edtsdt, edtdiachi;
+    private TextView reset_livingArea;
+    private EditText reset_name;
+    private EditText reset_phone;
+    private EditText reset_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chageinformation);
+        setContentView(R.layout.activity_resetinformation);
 
         Anhxa();
         EventToolbar();
@@ -38,11 +40,10 @@ public class ChangeInformationActivity extends AppCompatActivity {
     }
 
     void Anhxa(){
-        toolbar = findViewById(R.id.toolbardoittcn);
-        tvnoisong = findViewById(R.id.tvnoisong);
-        edthoten = findViewById(R.id.edthoten);
-        edtemail = findViewById(R.id.edtemail);
-        edtsdt = findViewById(R.id.edtsdt);
-        edtdiachi = findViewById(R.id.edtdiachi);
+        toolbar = findViewById(R.id.toolbarResetUser);
+        reset_livingArea = findViewById(R.id.reset_livingArea_tv);
+        reset_name = findViewById(R.id.reset_name_edt);
+        reset_phone = findViewById(R.id.reset_phone_edt);
+        reset_address = findViewById(R.id.reset_address_edt);
     }
 }

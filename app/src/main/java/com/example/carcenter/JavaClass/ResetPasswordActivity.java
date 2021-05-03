@@ -8,16 +8,16 @@ import android.view.View;
 
 import com.example.carcenter.R;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chagepassword);
+        setContentView(R.layout.activity_resetpassword);
 
-        toolbar = findViewById(R.id.toolbardoimk);
+        toolbar = findViewById(R.id.toolbarResetPassWord);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".JavaClass.ChangeInformationActivity" />
-        <activity android:name=".JavaClass.ChangePasswordActivity" />
-        <activity android:name=".JavaClass.Portpurchase" />
+        <activity android:name=".JavaClass.ResetInformationActivity" />
+        <activity android:name=".JavaClass.ResetPasswordActivity" />
+        <activity android:name=".JavaClass.Postpurchase" />
         <activity android:name=".JavaClass.RegisterActivity" />
         <activity android:name=".JavaClass.MainActivity" />
     </application>

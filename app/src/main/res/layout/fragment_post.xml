@@ -830,7 +830,7 @@
                     android:layout_weight="3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Tên:"
+                    android:text="Họ tên:"
                     android:textSize="18dp"
                     android:textColor="@color/colorBlack"
                     android:gravity="center|left"/>

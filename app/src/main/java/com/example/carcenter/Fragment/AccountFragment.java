@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.carcenter.JavaClass.ChangeInformationActivity;
-import com.example.carcenter.JavaClass.ChangePasswordActivity;
+import com.example.carcenter.JavaClass.ResetInformationActivity;
+import com.example.carcenter.JavaClass.ResetPasswordActivity;
 import com.example.carcenter.JavaClass.RegisterActivity;
 import com.example.carcenter.R;
 
@@ -49,14 +49,14 @@ public class AccountFragment extends Fragment {
         lodoimk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
+                startActivity(new Intent(getContext(), ResetPasswordActivity.class));
             }
         });
 
         lodoittcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), ChangeInformationActivity.class));
+                startActivity(new Intent(getContext(), ResetInformationActivity.class));
             }
         });
     }
