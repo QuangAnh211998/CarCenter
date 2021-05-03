@@ -34,7 +34,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder viewHolder, int position) {
-        int image = productsModelList.get(position).getProductImage();
+        int imageUrl = productsModelList.get(position).getProductImage();
         String company = productsModelList.get(position).getProductCompany();
         String name = productsModelList.get(position).getProductName();
         String version = productsModelList.get(position).getProductVersion();
@@ -44,7 +44,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         String username = productsModelList.get(position).getProductUserName();
         String livingArea = productsModelList.get(position).getProductUserLivingAre();
 
-        viewHolder.setProductImage(image);
+        viewHolder.setProductImage(imageUrl);
         viewHolder.setProductCompany(company);
         viewHolder.setProductName(name);
         viewHolder.setProductVersion(version);
