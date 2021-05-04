@@ -2,6 +2,7 @@ package com.example.carcenter.Model;
 
 public class PurchaseModel {
 
+    private int purchase_id;
     private String purchase_title;
     private String purchase_price_range;
     private String purchase_content;
@@ -9,14 +10,26 @@ public class PurchaseModel {
     private String purchase_userPhone;
     private String purchase_userAddress;
 
-    public PurchaseModel(String purchase_title, String purchase_price_range, String purchase_content, String purchase_userName,
+    public PurchaseModel() {
+    }
+
+    public PurchaseModel(int purchase_id, String purchase_title, String purchase_price_range, String purchase_content, String purchase_userName,
                          String purchase_userPhone, String purchase_userAddress) {
+        this.purchase_id = purchase_id;
         this.purchase_title = purchase_title;
         this.purchase_price_range = purchase_price_range;
         this.purchase_content = purchase_content;
         this.purchase_userName = purchase_userName;
         this.purchase_userPhone = purchase_userPhone;
         this.purchase_userAddress = purchase_userAddress;
+    }
+
+    public int getPurchase_id() {
+        return purchase_id;
+    }
+
+    public void setPurchase_id(int purchase_id) {
+        this.purchase_id = purchase_id;
     }
 
     public String getPurchase_title() {

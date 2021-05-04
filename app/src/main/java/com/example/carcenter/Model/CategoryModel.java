@@ -1,40 +1,76 @@
 package com.example.carcenter.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class CategoryModel implements Serializable {
+public class CategoryModel implements Parcelable {
 
-    private int categoryId;
-    private String categoryLogo;
-    private String categoryName;
+    private int category_Id;
+    private String category_Name;
+    private String category_Image;
 
-    public CategoryModel(int categoryId, String categoryLogo, String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryLogo = categoryLogo;
-        this.categoryName = categoryName;
+    public CategoryModel() {
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public CategoryModel(int category_Id, String category_Name, String category_Image) {
+        this.category_Id = category_Id;
+        this.category_Name = category_Name;
+        this.category_Image = category_Image;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    protected CategoryModel(Parcel in) {
+        category_Id = in.readInt();
+        category_Name = in.readString();
+        category_Image = in.readString();
     }
 
-    public String getCategoryLogo() {
-        return categoryLogo;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(category_Id);
+        dest.writeString(category_Name);
+        dest.writeString(category_Image);
     }
 
-    public void setCategoryLogo(String categoryLogo) {
-        this.categoryLogo = categoryLogo;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public static final Creator<CategoryModel> CREATOR = new Creator<CategoryModel>() {
+        @Override
+        public CategoryModel createFromParcel(Parcel in) {
+            return new CategoryModel(in);
+        }
+
+        @Override
+        public CategoryModel[] newArray(int size) {
+            return new CategoryModel[size];
+        }
+    };
+
+    public int getCategory_Id() {
+        return category_Id;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategory_Id(int category_Id) {
+        this.category_Id = category_Id;
+    }
+
+    public String getCategory_Name() {
+        return category_Name;
+    }
+
+    public void setCategory_Name(String category_Name) {
+        this.category_Name = category_Name;
+    }
+
+    public String getCategory_Image() {
+        return category_Image;
+    }
+
+    public void setCategory_Image(String category_Image) {
+        this.category_Image = category_Image;
     }
 }

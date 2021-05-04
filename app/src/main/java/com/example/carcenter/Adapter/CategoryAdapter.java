@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carcenter.Model.CategoryModel;
 import com.example.carcenter.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -28,15 +29,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item, viewGroup, false);
-
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        String logo = categoryModelList.get(position).getCategoryLogo();
-        String name = categoryModelList.get(position).getCategoryName();
-        holder.setCategoryName(name);
+    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder viewHolder, int position) {
+        String logo = categoryModelList.get(position).getCategory_Image();
+        String name = categoryModelList.get(position).getCategory_Name();
+
+        viewHolder.setCategoryName(name);
+        viewHolder.setCategoryImage(logo);
+
 
     }
 
@@ -56,7 +59,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             categoryName = itemView.findViewById(R.id.category_Name);
         }
 
-        private void setCategoryLogo(String iconUrl) {
+        private void  setCategoryImage(String image){
+            Picasso.get().load(image).into(categoryLogo);
         }
 
         private void setCategoryName(String name) {
