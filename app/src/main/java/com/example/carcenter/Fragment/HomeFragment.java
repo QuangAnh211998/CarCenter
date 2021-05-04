@@ -1,5 +1,6 @@
 package com.example.carcenter.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +20,15 @@ import com.example.carcenter.Adapter.ProductsAdapter;
 import com.example.carcenter.Model.CategoryModel;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
+import com.example.carcenter.Network.APIRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment {
 
@@ -49,17 +56,8 @@ public class HomeFragment extends Fragment {
         category_RecyclerView.setLayoutManager(layoutManagerCategory);
 
         categoryModelList = new ArrayList<CategoryModel>();
-        categoryModelList.add(new CategoryModel(1, "link", "Vinfast"));
-        categoryModelList.add(new CategoryModel(2, "link", "Audi"));
-        categoryModelList.add(new CategoryModel(3, "link", "BMW"));
-        categoryModelList.add(new CategoryModel(4, "link", "Honda"));
-        categoryModelList.add(new CategoryModel(5, "link", "Huyndai"));
-        categoryModelList.add(new CategoryModel(6, "link", "Kia"));
-        categoryModelList.add(new CategoryModel(7, "link", "Toyota"));
-
         categoryAdapter = new CategoryAdapter(categoryModelList);
         category_RecyclerView.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
         ////////// Category
 
         ////////// Products
@@ -88,8 +86,24 @@ public class HomeFragment extends Fragment {
         product_RecyclerView.setAdapter(productsAdapter);
         productsAdapter.notifyDataSetChanged();
         ////////// Products
-
+        getData();
         return view;
+    }
+
+    @SuppressLint("CheckResult")
+    private void getData(){
+        APIRequest.getCategory(getContext())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    Log.e("getData",jsonElement.toString());
+                    Gson gson = new Gson();
+                    ArrayList<CategoryModel> compareProduct = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<CategoryModel>>(){}.getType());
+                    categoryModelList.addAll(compareProduct);
+                    categoryAdapter.notifyDataSetChanged();
+                }, throwable -> {
+
+                });
     }
 
     @Override
