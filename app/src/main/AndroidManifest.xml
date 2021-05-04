@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".JavaClass.ProductDetailActivity"></activity>
         <activity android:name=".JavaClass.MailboxActivity" />
@@ -26,8 +27,8 @@
         <activity android:name=".JavaClass.RegisterActivity" />
         <activity android:name=".JavaClass.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
