@@ -1,9 +1,7 @@
 package com.example.carcenter.Adapter;
 
 import android.content.Intent;
-import android.media.tv.TvContentRating;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carcenter.JavaClass.ProductDetailActivity;
-import com.example.carcenter.Model.Product_ImageModel;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
-import com.example.carcenter.common.Utils;
+import com.example.carcenter.common.Custom_Price;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -117,7 +114,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             productYear.setText(nam);
         }
         private void setProductPrice(String price){
-            productPrice.setText(Utils.format(Long.parseLong(price)));
+            productPrice.setText(Custom_Price.format(Long.parseLong(price)));
         }
         private void setProductStatus(String status){
             productStatus.setText(status);
