@@ -381,7 +381,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="(đơn vị triệu đồng)"
+                    android:text="(đơn vị đồng)"
                     android:textColor="@color/colorReb"
                     android:textSize="16dp" />
 
