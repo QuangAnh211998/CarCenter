@@ -8,13 +8,15 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ProductImageAdapter extends PagerAdapter {
 
-    private List<Integer> productImages_List;
+    private List<String> productImages_List;
 
-    public ProductImageAdapter(List<Integer> productImages_List) {
+    public ProductImageAdapter(List<String> productImages_List) {
         this.productImages_List = productImages_List;
     }
 
@@ -22,7 +24,8 @@ public class ProductImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView productImage = new ImageView(container.getContext());
-        productImage.setImageResource(productImages_List.get(position));
+        String image = productImages_List.get(position);
+        Picasso.get().load(image).into(productImage);
         container.addView(productImage, 0);
 
         return productImage;
