@@ -31,12 +31,12 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull PurchaseAdapter.ViewHolder viewHolder, int position) {
-        String title = purchaseModelList.get(position).getPurchase_title();
-        String price_range = purchaseModelList.get(position).getPurchase_price_range();
-        String content = purchaseModelList.get(position).getPurchase_content();
-        String username = purchaseModelList.get(position).getPurchase_userName();
-        String userphone = purchaseModelList.get(position).getPurchase_userPhone();
-        String useraddress = purchaseModelList.get(position).getPurchase_userAddress();
+        String title = purchaseModelList.get(position).getPurchase_Title();
+        String price_range = purchaseModelList.get(position).getPurchase_PriceRange();
+        String content = purchaseModelList.get(position).getPurchase_Content();
+        String username = purchaseModelList.get(position).getPurchase_UserName();
+        String userphone = purchaseModelList.get(position).getPurchase_UserPhone();
+        String useraddress = purchaseModelList.get(position).getPurchase_UserAddress();
 
         viewHolder.setPurchase_title(title);
         viewHolder.setPurchase_price_range(price_range);

@@ -1,82 +1,123 @@
 package com.example.carcenter.Model;
 
-public class PurchaseModel {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private int purchase_id;
-    private String purchase_title;
-    private String purchase_price_range;
-    private String purchase_content;
-    private String purchase_userName;
-    private String purchase_userPhone;
-    private String purchase_userAddress;
+public class PurchaseModel implements Parcelable {
+
+    private int purchase_Id;
+    private String purchase_Title;
+    private String purchase_PriceRange;
+    private String purchase_Content;
+    private String purchase_UserName;
+    private String purchase_UserPhone;
+    private String purchase_UserAddress;
 
     public PurchaseModel() {
     }
 
-    public PurchaseModel(int purchase_id, String purchase_title, String purchase_price_range, String purchase_content, String purchase_userName,
-                         String purchase_userPhone, String purchase_userAddress) {
-        this.purchase_id = purchase_id;
-        this.purchase_title = purchase_title;
-        this.purchase_price_range = purchase_price_range;
-        this.purchase_content = purchase_content;
-        this.purchase_userName = purchase_userName;
-        this.purchase_userPhone = purchase_userPhone;
-        this.purchase_userAddress = purchase_userAddress;
+    public PurchaseModel(int purchase_Id, String purchase_Title, String purchase_PriceRange, String purchase_Content, String purchase_UserName,
+                         String purchase_UserPhone, String purchase_UserAddress) {
+        this.purchase_Id = purchase_Id;
+        this.purchase_Title = purchase_Title;
+        this.purchase_PriceRange = purchase_PriceRange;
+        this.purchase_Content = purchase_Content;
+        this.purchase_UserName = purchase_UserName;
+        this.purchase_UserPhone = purchase_UserPhone;
+        this.purchase_UserAddress = purchase_UserAddress;
     }
 
-    public int getPurchase_id() {
-        return purchase_id;
+    protected PurchaseModel(Parcel in) {
+        purchase_Id = in.readInt();
+        purchase_Title = in.readString();
+        purchase_PriceRange = in.readString();
+        purchase_Content = in.readString();
+        purchase_UserName = in.readString();
+        purchase_UserPhone = in.readString();
+        purchase_UserAddress = in.readString();
     }
 
-    public void setPurchase_id(int purchase_id) {
-        this.purchase_id = purchase_id;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(purchase_Id);
+        dest.writeString(purchase_Title);
+        dest.writeString(purchase_PriceRange);
+        dest.writeString(purchase_Content);
+        dest.writeString(purchase_UserName);
+        dest.writeString(purchase_UserPhone);
+        dest.writeString(purchase_UserAddress);
     }
 
-    public String getPurchase_title() {
-        return purchase_title;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setPurchase_title(String purchase_title) {
-        this.purchase_title = purchase_title;
+    public static final Creator<PurchaseModel> CREATOR = new Creator<PurchaseModel>() {
+        @Override
+        public PurchaseModel createFromParcel(Parcel in) {
+            return new PurchaseModel(in);
+        }
+
+        @Override
+        public PurchaseModel[] newArray(int size) {
+            return new PurchaseModel[size];
+        }
+    };
+
+    public int getPurchase_Id() {
+        return purchase_Id;
     }
 
-    public String getPurchase_price_range() {
-        return purchase_price_range;
+    public void setPurchase_Id(int purchase_Id) {
+        this.purchase_Id = purchase_Id;
     }
 
-    public void setPurchase_price_range(String purchase_price_range) {
-        this.purchase_price_range = purchase_price_range;
+    public String getPurchase_Title() {
+        return purchase_Title;
     }
 
-    public String getPurchase_content() {
-        return purchase_content;
+    public void setPurchase_Title(String purchase_Title) {
+        this.purchase_Title = purchase_Title;
     }
 
-    public void setPurchase_content(String purchase_content) {
-        this.purchase_content = purchase_content;
+    public String getPurchase_PriceRange() {
+        return purchase_PriceRange;
     }
 
-    public String getPurchase_userName() {
-        return purchase_userName;
+    public void setPurchase_PriceRange(String purchase_PriceRange) {
+        this.purchase_PriceRange = purchase_PriceRange;
     }
 
-    public void setPurchase_userName(String purchase_userName) {
-        this.purchase_userName = purchase_userName;
+    public String getPurchase_Content() {
+        return purchase_Content;
     }
 
-    public String getPurchase_userPhone() {
-        return purchase_userPhone;
+    public void setPurchase_Content(String purchase_Content) {
+        this.purchase_Content = purchase_Content;
     }
 
-    public void setPurchase_userPhone(String purchase_userPhone) {
-        this.purchase_userPhone = purchase_userPhone;
+    public String getPurchase_UserName() {
+        return purchase_UserName;
     }
 
-    public String getPurchase_userAddress() {
-        return purchase_userAddress;
+    public void setPurchase_UserName(String purchase_UserName) {
+        this.purchase_UserName = purchase_UserName;
     }
 
-    public void setPurchase_userAddress(String purchase_userAddress) {
-        this.purchase_userAddress = purchase_userAddress;
+    public String getPurchase_UserPhone() {
+        return purchase_UserPhone;
+    }
+
+    public void setPurchase_UserPhone(String purchase_UserPhone) {
+        this.purchase_UserPhone = purchase_UserPhone;
+    }
+
+    public String getPurchase_UserAddress() {
+        return purchase_UserAddress;
+    }
+
+    public void setPurchase_UserAddress(String purchase_UserAddress) {
+        this.purchase_UserAddress = purchase_UserAddress;
     }
 }
