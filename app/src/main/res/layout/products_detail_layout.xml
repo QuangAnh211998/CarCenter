@@ -39,7 +39,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_Year2_tv"
             android:text="2019"
             android:textSize="18dp"
             android:textColor="@color/colorBlack"
@@ -52,7 +54,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_fuel_tv"
             android:text="Xăng"
             android:textSize="18dp"
             android:textColor="@color/colorBlack"
@@ -79,7 +83,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_madein_tv"
             android:text="Trong nước"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -94,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
         <TextView
+            android:id="@+id/product_gear_tv"
             android:text="Số tự động"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -114,14 +121,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
         <TextView
             android:text="Dòng xe:"
             android:textSize="16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_type_tv"
             android:text="Sedan"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -135,7 +143,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_consume_tv"
             android:text="8L/100Km"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -163,7 +173,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_km_tv"
             android:text="40000Km"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -177,7 +189,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_driveTrain_tv"
             android:text="FWD"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -205,7 +219,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_outside_tv"
             android:text="Trắng"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -219,7 +235,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_inside_tv"
             android:text="Đen"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -247,7 +265,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_door_tv"
             android:text="4 cửa"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -261,7 +281,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"/>
+
         <TextView
+            android:id="@+id/product_seat_tv"
             android:text="5 chỗ"
             android:textSize="18dp"
             android:layout_marginStart="4dp"
@@ -285,7 +307,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/product_content_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -305,7 +327,7 @@
         android:background="@color/colorGreyDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+        app:layout_constraintTop_toBottomOf="@+id/product_content_tv"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -338,14 +360,16 @@
             android:background="@drawable/ic_person_outline"
             android:backgroundTint="@color/colorBlack"
             android:layout_gravity="center"/>
+
         <TextView
-            android:text="Vo Quang Anh"
-            android:textSize="18dp"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
+            android:id="@+id/product_username_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Vo Quang Anh"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -365,12 +389,14 @@
             android:layout_height="20dp"
             android:background="@drawable/ic_phone"
             android:layout_gravity="center"/>
+
         <TextView
-            android:text="0346945454"
-            android:textSize="18dp"
-            android:layout_marginStart="8dp"
+            android:id="@+id/product_userphone_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="0346945454"
+            android:textSize="18dp" />
     </LinearLayout>
 
     <ImageView
@@ -384,7 +410,7 @@
         app:srcCompat="@drawable/ic_address" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/product_useraddress_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"

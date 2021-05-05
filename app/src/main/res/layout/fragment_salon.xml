@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/product_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Salon - Showroom ô tô"
