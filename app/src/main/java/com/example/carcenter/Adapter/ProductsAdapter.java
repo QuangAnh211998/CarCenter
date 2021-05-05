@@ -2,6 +2,8 @@ package com.example.carcenter.Adapter;
 
 import android.content.Intent;
 import android.media.tv.TvContentRating;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carcenter.JavaClass.ProductDetailActivity;
+import com.example.carcenter.Model.Product_ImageModel;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
+import com.example.carcenter.common.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,7 +39,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder viewHolder, int position) {
-        String imageUrl = String.valueOf(productsModelList.get(position).getProduct_Image());
+        String imageUrl = productsModelList.get(position).getProduct_Image().get(0);
         String company = productsModelList.get(position).getProduct_Company();
         String name = productsModelList.get(position).getProduct_Name();
         String version = productsModelList.get(position).getProduct_Version();
@@ -89,6 +93,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), ProductDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    intent.putExtra("productDetail", productsModelList.get(getPosition()));
                     itemView.getContext().startActivity(intent);
                 }
             });
@@ -111,7 +117,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             productYear.setText(nam);
         }
         private void setProductPrice(String price){
-            productPrice.setText(price);
+            productPrice.setText(Utils.format(Long.parseLong(price)));
         }
         private void setProductStatus(String status){
             productStatus.setText(status);

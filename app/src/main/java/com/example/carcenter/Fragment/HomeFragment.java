@@ -100,9 +100,10 @@ public class HomeFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-//                    Log.e("product", jsonElement.toString());
-                    Gson gson1 = new Gson();
-                    ArrayList<ProductsModel> productsModels = gson1.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<ProductsModel>>(){}.getType());
+                    //Log.e("product", jsonElement.toString());
+                    Gson gson = new Gson();
+                    ArrayList<ProductsModel> productsModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<ProductsModel>>(){}.getType());
+                    Log.e("product", productsModels.get(0).getProduct_Image().get(0));
                     productsModelList.addAll(productsModels);
                     productsAdapter.notifyDataSetChanged();
                 }, throwable -> {

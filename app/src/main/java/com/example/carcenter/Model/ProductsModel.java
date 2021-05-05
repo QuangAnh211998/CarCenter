@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ProductsModel implements Parcelable {
 
@@ -25,7 +26,7 @@ public class ProductsModel implements Parcelable {
     private String product_DriveTrain;
     private String product_Fuel;
     private int product_Consume;
-    private Product_ImageModel product_Image;
+    private ArrayList<String> product_Image;
     private String product_Content;
     private String product_UserName;
     private String product_UserPhone;
@@ -33,14 +34,14 @@ public class ProductsModel implements Parcelable {
     private String product_UserLivingArea;
     private int user_Id;
 
-    public ProductsModel(){
+    public ProductsModel() {
 
     }
 
     public ProductsModel(int product_Id, String product_Company, String product_Name, String product_Version, int product_Year,
                          String product_MadeIn, String product_Status, int product_KmWent, String product_Type, int product_Price,
                          String product_OutSide, String product_InSide, int product_Door, int product_Seat, String product_Gear,
-                         String product_DriveTrain, String product_Fuel, int product_Consume, Product_ImageModel product_Image,
+                         String product_DriveTrain, String product_Fuel, int product_Consume, ArrayList<String> product_Image,
                          String product_Content, String product_UserName, String product_UserPhone, String product_UserAddress,
                          String product_UserLivingArea, int user_Id) {
         this.product_Id = product_Id;
@@ -70,6 +71,7 @@ public class ProductsModel implements Parcelable {
         this.user_Id = user_Id;
     }
 
+
     protected ProductsModel(Parcel in) {
         product_Id = in.readInt();
         product_Company = in.readString();
@@ -89,7 +91,7 @@ public class ProductsModel implements Parcelable {
         product_DriveTrain = in.readString();
         product_Fuel = in.readString();
         product_Consume = in.readInt();
-        product_Image = in.readParcelable(Product_ImageModel.class.getClassLoader());
+        product_Image = in.createStringArrayList();
         product_Content = in.readString();
         product_UserName = in.readString();
         product_UserPhone = in.readString();
@@ -118,7 +120,7 @@ public class ProductsModel implements Parcelable {
         dest.writeString(product_DriveTrain);
         dest.writeString(product_Fuel);
         dest.writeInt(product_Consume);
-        dest.writeParcelable(product_Image, flags);
+        dest.writeStringList(product_Image);
         dest.writeString(product_Content);
         dest.writeString(product_UserName);
         dest.writeString(product_UserPhone);
@@ -288,11 +290,11 @@ public class ProductsModel implements Parcelable {
         this.product_Consume = product_Consume;
     }
 
-    public Product_ImageModel getProduct_Image() {
+    public ArrayList<String> getProduct_Image() {
         return product_Image;
     }
 
-    public void setProduct_Image(Product_ImageModel product_Image) {
+    public void setProduct_Image(ArrayList<String> product_Image) {
         this.product_Image = product_Image;
     }
 
@@ -342,5 +344,9 @@ public class ProductsModel implements Parcelable {
 
     public void setUser_Id(int user_Id) {
         this.user_Id = user_Id;
+    }
+
+    public static Creator<ProductsModel> getCREATOR() {
+        return CREATOR;
     }
 }
