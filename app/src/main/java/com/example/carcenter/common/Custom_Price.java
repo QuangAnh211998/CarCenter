@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public class CustomPrice {
+public class Custom_Price {
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
     static {
         suffixes.put(1_000L, " Nghìn");
