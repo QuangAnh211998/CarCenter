@@ -1,45 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tbtinmua"
+        android:id="@+id/toolbarpost"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="?attr/actionBarSize"
         android:layout_weight="1"
-        android:background="@color/colorGrey">
+        android:background="@color/colorGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/seach"
-                android:layout_weight="8.5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="8dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_weight="7"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/logo"/>
-
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="16dp">
 
             <ImageButton
                 android:id="@+id/btntimkiem"
-                android:layout_weight="1.5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -47,22 +31,50 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_weight="1.5"
                 android:background="@null"
                 android:src="@drawable/ic_search_black_24dp" />
+
+            <LinearLayout
+                android:id="@+id/seach"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="8.5"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:background="@drawable/logo" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#bdbdbd"/>
+        android:layout_height="2dp"
+        android:background="#bdbdbd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarpost"/>
 
     <ScrollView
-        android:layout_weight="9"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scrollbars="vertical">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -74,15 +86,17 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Thông số cơ bản"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
                     android:gravity="center"
-                    android:layout_marginLeft="16dp"/>
+                    android:text="Thông số cơ bản"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -92,401 +106,425 @@
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:layout_weight="3.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="3.5"
+                    android:gravity="center|left"
                     android:text="Hãng xe:"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18dp"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn hãng xe"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Đời xe:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn đời xe"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Phiên bản:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:hint="Nhập phiên bản"
                     android:inputType="text"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Năm sản xuất:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn năm sản xuất"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Xuất xứ:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn xuất xứ"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Tình trạng:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn tình trạng"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Số Km đã đi:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:hint="Nhập số Km đã đi"
                     android:inputType="number"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Dòng xe:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn dòng xe"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Giá tiền:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:hint="Nhập giá tiền"
                     android:inputType="number"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="12dp">
-                
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="(đơn vị triệu đồng)"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorReb"/>
+                    android:textColor="@color/colorReb"
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Ngoại thất:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Màu ngoại thất"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Nội thất:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Màu nội thất"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Số cửa:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:hint="Số cửa"
                     android:inputType="number"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp" />
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Số chỗ ngồi:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:hint="Số chỗ ngồi"
                     android:inputType="number"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp" />
+
             </LinearLayout>
 
-
             <TextView
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGreyDark"/>
+                android:layout_marginTop="12dp"
+                android:background="@color/colorGreyDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Hộp số chuyển động"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
                     android:gravity="center"
-                    android:layout_marginLeft="16dp"/>
+                    android:text="Hộp số chuyển động"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -494,85 +532,89 @@
                     android:background="@color/colorGreyDark" />
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Hộp số:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn hộp số"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Dẫn động:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn dẫn động"
-                    android:textSize="18dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
-
             <TextView
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGreyDark"/>
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Nhiên liệu"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
                     android:gravity="center"
-                    android:layout_marginLeft="16dp"/>
+                    android:text="Nhiên liệu"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -582,189 +624,166 @@
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Nhiên liệu:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <TextView
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:drawableEnd="@drawable/ic_expand_more"
+                    android:gravity="center|left"
+                    android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text="Chọn nhiên liệu"
-                    android:textSize="18dp"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.5"
                     android:gravity="center|left"
-                    android:paddingLeft="8dp"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="Hệ thống nạp nhiên liệu:"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
-                <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:hint="Hệ thống nạp nhiên liệu"
-                    android:inputType="text"
-                    android:paddingLeft="8dp"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="3.5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
                     android:text="Mức tiêu thụ nhiên liệu:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="6.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="6.5"
+                    android:background="@drawable/boderedt"
                     android:hint="Mức tiêu thụ nhiên liệu"
                     android:inputType="number"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp" />
+
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="12dp"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:layout_weight="3.5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="3.5"
+                    android:gravity="center|right"
                     android:text="L/100Km"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18dp"
-                    android:gravity="center|right"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
-
             <TextView
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGreyDark"/>
-
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Đăng ảnh xe "
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="(chọn tối đa 10 ảnh)"
                     android:gravity="center"
+                    android:text="Đăng ảnh xe "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="(chọn tối đa 10 ảnh)"
                     android:textSize="18dp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
                     android:background="@color/colorGreyDark" />
             </LinearLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
             </androidx.recyclerview.widget.RecyclerView>
-
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="32dp"
                 android:background="@drawable/bg2"
                 android:text="Chọn ảnh xe"
                 android:textColor="@color/colorWhite"
-                android:textSize="18dp"/>
-
+                android:textSize="18dp" />
 
             <TextView
-                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGreyDark"/>
-
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Thông tin mô tả"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
                     android:gravity="center"
-                    android:layout_marginLeft="16dp"/>
+                    android:text="Thông tin mô tả"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="8dp"
                     android:background="@color/colorGreyDark" />
             </LinearLayout>
-
 
             <EditText
                 android:layout_width="match_parent"
@@ -772,45 +791,44 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/boderedt"
+                android:gravity="top"
                 android:hint="Nhập tiếng việt có dấu (từ 50-1000 ký tự)"
-                android:textSize="14dp"
                 android:paddingLeft="8dp"
-                android:gravity="top"/>
-
-
-            <TextView
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGreyDark"/>
-
+                android:textSize="14dp" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="32dp"
                 android:background="@drawable/bg"
                 android:text="Đăng tin"
                 android:textColor="@color/colorWhite"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Thông tin liên hệ"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
                     android:gravity="center"
-                    android:layout_marginLeft="16dp"/>
+                    android:text="Thông tin liên hệ"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -820,123 +838,129 @@
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Họ tên:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="7"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:background="@drawable/boderedt"
                     android:hint="Võ Quang Ánh"
-                    android:textSize="12dp"
                     android:inputType="text"
-                    android:paddingLeft="12dp"/>
+                    android:paddingLeft="12dp"
+                    android:textSize="12dp" />
+
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Điện thoại:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="7"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:background="@drawable/boderedt"
                     android:hint="0346945454"
                     android:inputType="number"
-                    android:textSize="12dp"
-                    android:paddingLeft="12dp"/>
+                    android:paddingLeft="12dp"
+                    android:textSize="12dp" />
+
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:text="Địa chỉ:"
-                    android:textSize="18dp"
                     android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
+                    android:textSize="18dp" />
+
                 <EditText
-                    android:background="@drawable/boderedt"
-                    android:layout_weight="7"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:background="@drawable/boderedt"
                     android:hint="25 Nguyễn Huy Tưởng, Thanh Xuân, Hà nội"
                     android:inputType="text"
-                    android:textSize="12dp"
-                    android:paddingLeft="12dp"/>
+                    android:paddingLeft="12dp"
+                    android:textSize="12dp" />
+
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Nơi sống: "
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="- Hà nội"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack"
-                    android:gravity="center|left"/>
-            </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="Nơi sống: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="Hà nội"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp" />
+            </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="32dp"
                 android:background="@drawable/bg2"
                 android:text="Thay đổi thông tin liên hệ"
                 android:textColor="@color/colorWhite"
-                android:textSize="18dp"/>
-
+                android:textSize="18dp" />
 
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

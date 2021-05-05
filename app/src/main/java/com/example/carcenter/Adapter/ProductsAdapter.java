@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.carcenter.JavaClass.ProductDetailActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,15 +35,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder viewHolder, int position) {
-        int imageUrl = productsModelList.get(position).getProductImage();
-        String company = productsModelList.get(position).getProductCompany();
-        String name = productsModelList.get(position).getProductName();
-        String version = productsModelList.get(position).getProductVersion();
-        String year = productsModelList.get(position).getProductYear();
-        String price = productsModelList.get(position).getProductPrice();
-        String status = productsModelList.get(position).getProductStatus();
-        String username = productsModelList.get(position).getProductUserName();
-        String livingArea = productsModelList.get(position).getProductUserLivingAre();
+        String imageUrl = String.valueOf(productsModelList.get(position).getProduct_Image());
+        String company = productsModelList.get(position).getProduct_Company();
+        String name = productsModelList.get(position).getProduct_Name();
+        String version = productsModelList.get(position).getProduct_Version();
+        String year = String.valueOf(productsModelList.get(position).getProduct_Year());
+        String price = String.valueOf(productsModelList.get(position).getProduct_Price());
+        String status = productsModelList.get(position).getProduct_Status();
+        String username = productsModelList.get(position).getProduct_UserName();
+        String livingArea = productsModelList.get(position).getProduct_UserLivingArea();
 
         viewHolder.setProductImage(imageUrl);
         viewHolder.setProductCompany(company);
@@ -94,8 +95,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         }
 
 
-        private void setProductImage(int imageUrl){
-            productImage.setImageResource(imageUrl);
+        private void setProductImage(String imageUrl){
+            Picasso.get().load(imageUrl).into(productImage);
         }
         private void setProductCompany(String company){
             productCompany.setText(company);

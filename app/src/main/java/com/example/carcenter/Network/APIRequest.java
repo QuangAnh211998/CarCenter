@@ -9,4 +9,14 @@ public class APIRequest {
         HashMap<String, Object> queryMap = new HashMap<>();
         return BaseAPIRequest.getInstanceRequestV2(context).getCategory(queryMap);
     }
+
+    public static Observable<JsonElement> getProduct(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getProduct(queryMap);
+    }
+
+    public static Observable<JsonElement> getPurchase(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getPurchase(queryMap);
+    }
 }
