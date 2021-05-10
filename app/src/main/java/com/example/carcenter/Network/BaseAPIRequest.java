@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BaseAPIRequest {
     public static APIEndpoints getInstanceRequestV2(Context context) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.6:8080")
+                .baseUrl("http://192.168.1.6:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
