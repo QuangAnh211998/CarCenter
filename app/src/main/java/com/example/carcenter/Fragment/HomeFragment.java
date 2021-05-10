@@ -1,6 +1,8 @@
 package com.example.carcenter.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +22,7 @@ import com.example.carcenter.Adapter.CategoryAdapter;
 import com.example.carcenter.Adapter.ProductsAdapter;
 import com.example.carcenter.Model.CategoryModel;
 import com.example.carcenter.Model.ProductsModel;
+import com.example.carcenter.Model.Users;
 import com.example.carcenter.R;
 import com.example.carcenter.Network.APIRequest;
 import com.google.gson.Gson;
@@ -43,6 +47,8 @@ public class HomeFragment extends Fragment {
     private TextView product_Title;
     private Button viewAll_btn;
 
+    Context context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -56,7 +62,7 @@ public class HomeFragment extends Fragment {
         layoutManagerCategory.setOrientation(LinearLayoutManager.HORIZONTAL);
         category_RecyclerView.setLayoutManager(layoutManagerCategory);
         categoryModelList = new ArrayList<CategoryModel>();
-        categoryAdapter = new CategoryAdapter(categoryModelList);
+        categoryAdapter = new CategoryAdapter(categoryModelList,onCLick);
         category_RecyclerView.setAdapter(categoryAdapter);
         ////////// Category
 
@@ -77,6 +83,13 @@ public class HomeFragment extends Fragment {
         getDataProduct();
         return view;
     }
+
+    private CategoryAdapter.OnItemOnCLick onCLick = new CategoryAdapter.OnItemOnCLick() {
+        @Override
+        public void onClick(String name) {
+            getDataProductbyCompany(name);
+        }
+    };
 
     @SuppressLint("CheckResult")
     private void getDataCategory(){
@@ -108,6 +121,24 @@ public class HomeFragment extends Fragment {
                     productsAdapter.notifyDataSetChanged();
                 }, throwable -> {
 
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void getDataProductbyCompany(String company){
+        productsModelList.clear();
+        APIRequest.getProductbyCompany(getContext(), company)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    Log.e("getproduct", jsonElement.toString());
+                    Gson gson = new Gson();
+                    ArrayList<ProductsModel> productsModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<ProductsModel>>(){}.getType());
+                    productsModelList.addAll(productsModels);
+                    productsAdapter.notifyDataSetChanged();
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    Toast.makeText(getContext(), "Không có sản phẩm nào tương tự", Toast.LENGTH_LONG).show();
                 });
     }
 

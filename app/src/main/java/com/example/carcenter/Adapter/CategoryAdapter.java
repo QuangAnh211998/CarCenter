@@ -1,7 +1,5 @@
 package com.example.carcenter.Adapter;
 
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,11 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     private List<CategoryModel> categoryModelList;
+    private OnItemOnCLick itemOnLick;
 
-    public CategoryAdapter(List<CategoryModel> categoryModels) {
+    public CategoryAdapter(List<CategoryModel> categoryModels,OnItemOnCLick itemOnLick) {
         this.categoryModelList = categoryModels;
+        this.itemOnLick = itemOnLick;
     }
 
     @NonNull
@@ -57,15 +57,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             categoryLogo = itemView.findViewById(R.id.category_Image);
             categoryName = itemView.findViewById(R.id.category_Name);
+
+
         }
 
-        private void  setCategoryImage(String image){
+        private void setCategoryImage(String image) {
             Picasso.get().load(image).into(categoryLogo);
         }
 
         private void setCategoryName(String name) {
             categoryName.setText(name);
+
+            itemView.setOnClickListener(v -> itemOnLick.onClick(name));
         }
+    }
+
+    public interface OnItemOnCLick {
+        void onClick(String name);
     }
 }
 

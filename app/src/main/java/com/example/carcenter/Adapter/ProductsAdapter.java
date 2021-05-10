@@ -90,7 +90,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), ProductDetailActivity.class);
-                    Bundle bundle = new Bundle();
                     intent.putExtra("productDetail", productsModelList.get(getPosition()));
                     itemView.getContext().startActivity(intent);
                 }
