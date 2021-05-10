@@ -79,7 +79,7 @@ public class Purchasefragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-                    Log.e("getData",jsonElement.toString());
+//                    Log.e("getData",jsonElement.toString());
                     Gson gson = new Gson();
                     ArrayList<PurchaseModel> purchaseModels = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<PurchaseModel>>(){}.getType());
                     purchaseModelList.addAll(purchaseModels);
