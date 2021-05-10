@@ -20,19 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/btnGioHang"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1.5"
-                android:background="@null"
-                android:src="@drawable/ic_search_black_24dp" />
-
             <LinearLayout
                 android:id="@+id/seach"
                 android:layout_width="0dp"
@@ -52,6 +39,19 @@
                     android:layout_weight="7"
                     android:background="@drawable/logo" />
             </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnGioHang"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1.5"
+                android:background="@null"
+                android:src="@drawable/ic_search_black_24dp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 

@@ -96,8 +96,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.548" />
 
-                <TextView
-                    android:id="@+id/tvnoisong"
+                <EditText
+                    android:id="@+id/edt_livingArea"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -106,10 +106,8 @@
                     android:background="@drawable/boder2"
                     android:drawablePadding="16dp"
                     android:ems="10"
-                    android:text="Chọn khu vực sống"
-                    android:textSize="17dp"
-                    android:drawableEnd="@drawable/ic_expand_more"
-                    android:paddingRight="8dp"
+                    android:hint="Nơi sinh sống"
+                    android:inputType="text"
                     android:padding="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -117,7 +115,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 <EditText
-                    android:id="@+id/edtname"
+                    android:id="@+id/edt_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -132,10 +130,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvnoisong" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_livingArea" />
 
                 <EditText
-                    android:id="@+id/edtsdt"
+                    android:id="@+id/edt_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -151,10 +149,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtname" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_name" />
 
                 <EditText
-                    android:id="@+id/edtemail"
+                    android:id="@+id/edt_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -169,10 +167,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtsdt" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_phone" />
 
                 <EditText
-                    android:id="@+id/edtpass1"
+                    android:id="@+id/edt_pass1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -188,10 +186,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtemail" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_email" />
 
                 <EditText
-                    android:id="@+id/edtpass2"
+                    android:id="@+id/edt_pass2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -207,10 +205,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtpass1" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_pass1" />
 
                 <EditText
-                    android:id="@+id/edtdiachi"
+                    android:id="@+id/edt_address"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -225,7 +223,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtpass2" />
+                    app:layout_constraintTop_toBottomOf="@+id/edt_pass2" />
 
                 <LinearLayout
                     android:id="@+id/layoutdieukhoan"
@@ -235,10 +233,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_SignUp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtdiachi">
+                    app:layout_constraintTop_toBottomOf="@+id/edt_address">
 
                     <CheckBox
                         android:id="@+id/checkdieukhoan"
@@ -258,7 +256,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btnSignUp"
+                    android:id="@+id/btn_SignUp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

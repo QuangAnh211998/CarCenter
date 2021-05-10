@@ -58,12 +58,13 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:id="@+id/infor_email_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
                     android:padding="8dp"
-                    android:text="voquanganh12@gmail.com"
+                    android:text=""
                     android:textSize="18dp" />
             </LinearLayout>
 
@@ -79,14 +80,14 @@
                     android:layout_marginTop="12dp"
                     android:text="Họ Tên:"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:inputType="text"/>
                 <EditText
-                    android:id="@+id/reset_name_edt"
+                    android:id="@+id/infor_name_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
-                    android:hint="Võ Quang Ánh"
                     android:padding="8dp"
                     android:textSize="18dp" />
             </LinearLayout>
@@ -106,13 +107,14 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/reset_phone_edt"
+                    android:id="@+id/infor_phone_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
                     android:padding="8dp"
-                    android:text=""
+                    android:inputType="phone"
+                    android:maxLength="10"
                     android:textSize="18dp" />
             </LinearLayout>
 
@@ -131,17 +133,26 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp" />
 
-                <TextView
-                    android:id="@+id/reset_livingArea_tv"
+                <EditText
+                    android:id="@+id/infor_livingarea_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
-                    android:drawableEnd="@drawable/ic_expand_more"
                     android:padding="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Hà Nội"
                     android:textSize="18dp" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/reset_livingArea_tv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:background="@drawable/boderedt"-->
+<!--                    android:drawableEnd="@drawable/ic_expand_more"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:paddingRight="8dp"-->
+<!--                    android:text="Hà Nội"-->
+<!--                    android:textSize="18dp" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -159,18 +170,17 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/reset_address_edt"
+                    android:id="@+id/infor_address_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
                     android:padding="8dp"
-                    android:text=""
                     android:textSize="18dp" />
             </LinearLayout>
 
             <Button
-                android:id="@+id/reset_user_btn"
+                android:id="@+id/reset_infor_btn"
                 android:text="Lưu thay đổi"
                 android:textSize="16dp"
                 android:textStyle="bold"

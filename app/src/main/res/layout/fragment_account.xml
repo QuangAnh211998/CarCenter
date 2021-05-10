@@ -48,7 +48,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvhoten"
+                        android:id="@+id/tv_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Họ tên"
@@ -57,15 +57,15 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvmatk"
+                        android:id="@+id/tv_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="Mã tài khoản: "
+                        android:text="Số điện thoại: "
                         android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/tvsldangtin"
+                        android:id="@+id/tv_numberpost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -73,7 +73,7 @@
                         android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/tvtien"
+                        android:id="@+id/tv_money"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -99,7 +99,7 @@
                     android:paddingLeft="16dp"
                     android:text="Quản lý tin đăng"
                     android:textSize="20dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -109,7 +109,7 @@
                     android:paddingRight="24dp"
                     android:text=">"
                     android:textSize="25dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +128,7 @@
                     android:paddingLeft="16dp"
                     android:text="Tin đã lưu"
                     android:textSize="20dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -138,7 +138,7 @@
                     android:paddingRight="24dp"
                     android:text=">"
                     android:textSize="25dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
             </LinearLayout>
 
             <LinearLayout
@@ -157,7 +157,7 @@
                     android:paddingLeft="16dp"
                     android:text="Dịch vụ SMS"
                     android:textSize="20dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -167,7 +167,7 @@
                     android:paddingRight="24dp"
                     android:text=">"
                     android:textSize="25dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
             </LinearLayout>
 
             <LinearLayout
@@ -186,7 +186,7 @@
                     android:paddingLeft="16dp"
                     android:text="Đổi thông tin cá nhân"
                     android:textSize="20dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -196,7 +196,7 @@
                     android:paddingRight="24dp"
                     android:text=">"
                     android:textSize="25dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
             </LinearLayout>
 
             <LinearLayout
@@ -215,7 +215,7 @@
                     android:paddingLeft="16dp"
                     android:text="Đổi mật khẩu"
                     android:textSize="20dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -225,7 +225,7 @@
                     android:paddingRight="24dp"
                     android:text=">"
                     android:textSize="25dp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorBlue"/>
             </LinearLayout>
 
             <TextView
@@ -234,7 +234,7 @@
                 android:background="#bdbdbd"/>
 
             <Button
-                android:id="@+id/btndangnhapac"
+                android:id="@+id/btn_signin_ac"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="50dp"
@@ -243,20 +243,22 @@
                 android:background="@drawable/bg"
                 android:text="Đăng Nhập"
                 android:textColor="@color/colorWhite"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:visibility="gone"/>
 
             <Button
-                android:id="@+id/btndangxuatac"
+                android:id="@+id/btn_signout_ac"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bg2"
                 android:text="Đăng Xuất"
                 android:textColor="@color/colorWhite"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
