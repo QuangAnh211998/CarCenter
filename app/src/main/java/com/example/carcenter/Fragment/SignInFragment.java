@@ -1,21 +1,39 @@
 package com.example.carcenter.Fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.carcenter.Model.Users;
+import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SignInFragment extends Fragment {
 
@@ -23,6 +41,12 @@ public class SignInFragment extends Fragment {
     private FrameLayout perentFrameLayout;
     private TextView signUpTextView;
     private TextView forgotPassWord;
+    private EditText edt_name;
+    private EditText edt_pass;
+    private Button SignIn_Btn;
+
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +57,9 @@ public class SignInFragment extends Fragment {
         perentFrameLayout = getActivity().findViewById(R.id.register_frameLayout);
         signUpTextView = view.findViewById(R.id.tvSignUp);
         forgotPassWord = view.findViewById(R.id.tvforgotPassword);
+        edt_name = view.findViewById(R.id.edt_name);
+        edt_pass = view.findViewById(R.id.edtpass);
+        SignIn_Btn = view.findViewById(R.id.btnSignIn);
 
         return view;
     }
@@ -40,6 +67,8 @@ public class SignInFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         exitSignInImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +90,73 @@ public class SignInFragment extends Fragment {
                 setFragment(new ForgotPassWordFragment());
             }
         });
+
+        edt_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkInput();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edt_pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkInput();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        SignIn_Btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String name = edt_name.getText().toString();
+                String pass = edt_pass.getText().toString();
+                SignIn(context,name, pass );
+            }
+        });
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void SignIn(Context context, String name, String pass){
+        if (edt_name.getText().toString().matches(emailPattern)) {
+                SignIn_Btn.setEnabled(false);
+                SignIn_Btn.setTextColor(Color.argb(50, 255, 255, 255));
+                APIRequest.SignIn(context, name, pass)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(jsonElement -> {
+                            Gson gson = new Gson();
+                            ArrayList<Users> users = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<Users>>(){}.getType());
+                            Log.e("signin", users.get(0).getUserEmail());
+                            getActivity().finish();
+                        }, throwable -> {
+                            throwable.printStackTrace();
+                            Toast.makeText(getContext(), "Email hoặc mật khẩu không đúng", Toast.LENGTH_LONG).show();
+                        });
+        }else {
+            Toast.makeText(getContext(), "Email không đúng", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setFragment(Fragment fragment) {
@@ -75,6 +171,21 @@ public class SignInFragment extends Fragment {
         fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slideout_from_right);
         fragmentTransaction.replace(perentFrameLayout.getId(), fragment);
         fragmentTransaction.commit();
+    }
+
+    private void checkInput() {
+        if (!TextUtils.isEmpty(edt_name.getText().toString())) {
+            if (edt_pass.getText().length() >= 8) {
+                SignIn_Btn.setEnabled(true);
+                SignIn_Btn.setTextColor(Color.rgb(255, 255, 255));
+            } else {
+                SignIn_Btn.setEnabled(false);
+                SignIn_Btn.setTextColor(Color.argb(50, 255, 255, 255));
+            }
+        } else {
+            SignIn_Btn.setEnabled(false);
+            SignIn_Btn.setTextColor(Color.argb(50, 255, 255, 255));
+        }
     }
 
 }
