@@ -2,6 +2,7 @@ package com.example.carcenter.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -30,6 +31,8 @@ import com.example.carcenter.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,7 +49,8 @@ public class SignInFragment extends Fragment {
     private Button SignIn_Btn;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    Context context;
+
+    public SharedPreferences seveSignIn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,12 +65,15 @@ public class SignInFragment extends Fragment {
         edt_pass = view.findViewById(R.id.edtpass);
         SignIn_Btn = view.findViewById(R.id.btnSignIn);
 
+        seveSignIn = getContext().getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
 
 
@@ -131,24 +138,38 @@ public class SignInFragment extends Fragment {
             public void onClick(View v) {
                 String name = edt_name.getText().toString();
                 String pass = edt_pass.getText().toString();
-                SignIn(context,name, pass );
+                SignIn(name, pass );
             }
         });
     }
 
 
     @SuppressLint("CheckResult")
-    private void SignIn(Context context, String name, String pass){
+    private void SignIn( String name, String pass){
         if (edt_name.getText().toString().matches(emailPattern)) {
                 SignIn_Btn.setEnabled(false);
                 SignIn_Btn.setTextColor(Color.argb(50, 255, 255, 255));
-                APIRequest.SignIn(context, name, pass)
+                APIRequest.SignIn(getActivity(), name, pass)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonElement -> {
                             Gson gson = new Gson();
                             ArrayList<Users> users = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<Users>>(){}.getType());
                             Log.e("signin", users.get(0).getUserEmail());
+
+                            SharedPreferences.Editor editor = seveSignIn.edit();
+                            editor.putInt("user_Id", users.get(0).getUserId());
+                            editor.putString("user_Name", users.get(0).getUserName());
+                            editor.putString("user_Email", users.get(0).getUserEmail());
+                            editor.putString("user_Phone", users.get(0).getUserPhone());
+                            editor.putString("user_Address", users.get(0).getUserAddress());
+                            editor.putString("user_LivingArea", users.get(0).getUserLivingArea());
+                            editor.putString("user_PassWord", users.get(0).getUserPassWord());
+                            editor.putString("user_Type", users.get(0).getUserType());
+                            editor.commit();
+
+                            EventBus.getDefault().post(true,"loginSuccess");
+
                             getActivity().finish();
                         }, throwable -> {
                             throwable.printStackTrace();
