@@ -7,7 +7,7 @@
     android:layout_marginTop="8dp">
 
     <ImageView
-        android:id="@+id/productImageView"
+        android:id="@+id/product_ImageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="24dp"
@@ -23,13 +23,13 @@
         android:layout_height="20dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/productUserName_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/product_UserName_tv"
         app:layout_constraintEnd_toStartOf="@+id/productLivingArea_tv"
         app:layout_constraintTop_toBottomOf="@+id/productPrice_tv"
         app:srcCompat="@drawable/ic_address" />
 
     <TextView
-        android:id="@+id/productCompany_tv"
+        android:id="@+id/product_Company_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,10 +39,22 @@
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/product_ImageView" />
 
     <TextView
-        android:id="@+id/productName_tv"
+        android:id="@+id/product_Status_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:gravity="right"
+        android:text="Xe cũ"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_Company_tv" />
+
+    <TextView
+        android:id="@+id/product_Name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -51,11 +63,11 @@
         android:textColor="@color/colorBlack"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/productCompany_tv"
-        app:layout_constraintTop_toBottomOf="@+id/productImageView" />
+        app:layout_constraintStart_toEndOf="@+id/product_Company_tv"
+        app:layout_constraintTop_toBottomOf="@+id/product_ImageView" />
 
     <TextView
-        android:id="@+id/productVersion_tv"
+        android:id="@+id/product_Version_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -64,11 +76,11 @@
         android:textColor="@color/colorBlack"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/productName_tv"
-        app:layout_constraintTop_toBottomOf="@+id/productImageView" />
+        app:layout_constraintStart_toEndOf="@+id/product_Name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/product_ImageView" />
 
     <TextView
-        android:id="@+id/productYear_tv"
+        android:id="@+id/product_Year_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -77,11 +89,11 @@
         android:textColor="@color/colorBlack"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/productVersion_tv"
-        app:layout_constraintTop_toBottomOf="@+id/productImageView" />
+        app:layout_constraintStart_toEndOf="@+id/product_Version_tv"
+        app:layout_constraintTop_toBottomOf="@+id/product_ImageView" />
 
     <TextView
-        android:id="@+id/productUserName_tv"
+        android:id="@+id/product_UserName_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -90,7 +102,7 @@
         android:textColor="@color/colorBlack"
         android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/productStatus_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/product_Status_tv" />
 
     <TextView
         android:id="@+id/productPrice_tv"
@@ -102,19 +114,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productYear_tv" />
-
-    <TextView
-        android:id="@+id/productStatus_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:gravity="right"
-        android:text="Xe cũ"
-        android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productCompany_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/product_Year_tv" />
 
     <TextView
         android:id="@+id/productLivingArea_tv"
@@ -125,7 +125,7 @@
         android:text="Hà nội"
         android:textColor="@color/colorBlack"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/productUserName_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/product_UserName_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productPrice_tv"
         app:layout_constraintVertical_bias="1.0" />
@@ -146,9 +146,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/productUserName_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/product_UserName_tv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/productUserName_tv"
+        app:layout_constraintTop_toTopOf="@+id/product_UserName_tv"
         android:background="@drawable/ic_person_outline"
         android:backgroundTint="@color/colorBlack"/>
 

@@ -84,7 +84,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/qldonhang"
+                android:id="@+id/post_management_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="10dp"
@@ -113,7 +113,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dhchovanchuyen"
+                android:id="@+id/my_wishlist_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="2dp"
@@ -142,7 +142,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dhdanggiao"
+                android:id="@+id/sms_service_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="2dp"
@@ -171,7 +171,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lodoittcn"
+                android:id="@+id/reset_infor_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="2dp"
@@ -185,8 +185,8 @@
                     android:gravity="left|center"
                     android:paddingLeft="16dp"
                     android:text="Đổi thông tin cá nhân"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorBlue"/>
+                    android:textColor="@color/colorBlue"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -200,7 +200,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lodoimk"
+                android:id="@+id/reset_password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="2dp"
