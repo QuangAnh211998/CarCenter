@@ -1,7 +1,6 @@
 package com.example.carcenter.Adapter;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,14 +75,14 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.productImageView);
-            productCompany = itemView.findViewById(R.id.productCompany_tv);
-            productName = itemView.findViewById(R.id.productName_tv);
-            productVersion = itemView.findViewById(R.id.productVersion_tv);
-            productYear = itemView.findViewById(R.id.productYear_tv);
+            productImage = itemView.findViewById(R.id.product_ImageView);
+            productCompany = itemView.findViewById(R.id.product_Company_tv);
+            productName = itemView.findViewById(R.id.product_Name_tv);
+            productVersion = itemView.findViewById(R.id.product_Version_tv);
+            productYear = itemView.findViewById(R.id.product_Year_tv);
             productPrice = itemView.findViewById(R.id.productPrice_tv);
-            productStatus = itemView.findViewById(R.id.productStatus_tv);
-            productUserName = itemView.findViewById(R.id.productUserName_tv);
+            productStatus = itemView.findViewById(R.id.product_Status_tv);
+            productUserName = itemView.findViewById(R.id.product_UserName_tv);
             productUserLivingAre = itemView.findViewById(R.id.productLivingArea_tv);
 
             itemView.setOnClickListener(new View.OnClickListener() {

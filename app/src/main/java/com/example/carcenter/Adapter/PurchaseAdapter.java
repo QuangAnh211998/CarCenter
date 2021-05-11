@@ -65,7 +65,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
             purchase_title = itemView.findViewById(R.id.purchase_title_tv);
             purchase_price_range = itemView.findViewById(R.id.purchase_priceRange_tv);
             purchase_content = itemView.findViewById(R.id.purchase_content_tv);
-            purchase_userName = itemView.findViewById(R.id.purchase_userName_tv);
+            purchase_userName = itemView.findViewById(R.id.purchase_Name_tv);
             purchase_userPhone = itemView.findViewById(R.id.purchase_userPhone_tv);
             purchase_userAddress = itemView.findViewById(R.id.purchase_userAddress_tv);
         }

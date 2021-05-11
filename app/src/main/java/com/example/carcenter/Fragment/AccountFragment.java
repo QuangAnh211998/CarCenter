@@ -19,9 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carcenter.JavaClass.MainActivity;
+import com.example.carcenter.JavaClass.PostManagementActivity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
 import com.example.carcenter.JavaClass.RegisterActivity;
+import com.example.carcenter.JavaClass.SMSServiceActivity;
 import com.example.carcenter.R;
 
 import org.simple.eventbus.EventBus;
@@ -30,7 +32,11 @@ import org.simple.eventbus.Subscriber;
 public class AccountFragment extends Fragment {
     private Button btn_SignIn;
     private Button btn_SignOut;
-    private LinearLayout lodoimk, lodoittcn;
+    private LinearLayout reset_password;
+    private LinearLayout reset_infor;
+    private LinearLayout post_management;
+    private LinearLayout my_wishlist;
+    private LinearLayout sms_service;
     private TextView userName_tv;
     private TextView userPhone_tv;
     private TextView numberPost_tv;
@@ -46,8 +52,11 @@ public class AccountFragment extends Fragment {
 
         btn_SignIn = view.findViewById(R.id.btn_signin_ac);
         btn_SignOut = view.findViewById(R.id.btn_signout_ac);
-        lodoimk = view.findViewById(R.id.lodoimk);
-        lodoittcn = view.findViewById(R.id.lodoittcn);
+        reset_password = view.findViewById(R.id.reset_password_layout);
+        reset_infor = view.findViewById(R.id.reset_infor_layout);
+        post_management = view.findViewById(R.id.post_management_layout);
+        my_wishlist = view.findViewById(R.id.my_wishlist_layout);
+        sms_service = view.findViewById(R.id.sms_service_layout);
         userName_tv = view.findViewById(R.id.tv_name);
         userPhone_tv = view.findViewById(R.id.tv_phone);
 
@@ -78,11 +87,12 @@ public class AccountFragment extends Fragment {
 //                MainActivity.checkid();
             }
         });
+
     }
 
 
     void EventLinearLayout(){
-        lodoimk.setOnClickListener(new View.OnClickListener() {
+        reset_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = saveSignIn.getString("user_Email", "");
@@ -94,12 +104,36 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        lodoittcn.setOnClickListener(new View.OnClickListener() {
+        reset_infor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = saveSignIn.getString("user_Email", "");
                 if(!TextUtils.isEmpty(email)){
                     startActivity(new Intent(getContext(), ResetInformationActivity.class));
+                }else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+
+        post_management.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = saveSignIn.getString("user_Email", "");
+                if(!TextUtils.isEmpty(email)){
+                    startActivity(new Intent(getContext(), PostManagementActivity.class));
+                }else {
+                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                }
+            }
+        });
+
+        sms_service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = saveSignIn.getString("user_Email", "");
+                if(!TextUtils.isEmpty(email)){
+                    startActivity(new Intent(getContext(), SMSServiceActivity.class));
                 }else {
                     startActivity(new Intent(getContext(), RegisterActivity.class));
                 }
