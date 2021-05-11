@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.carcenter.R;
 
-public class MailboxActivity extends AppCompatActivity {
+public class SMSServiceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mailbox);
+        setContentView(R.layout.activity_sms_service);
     }
 }
