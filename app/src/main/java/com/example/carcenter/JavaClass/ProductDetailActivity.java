@@ -36,8 +36,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private TabLayout viewpager_tablayout;
     private FloatingActionButton add_to_Wishlist_btn;
     private FloatingActionButton floatingbtn_call;
-    private TextView product_company, product_name, product_vesion, product_year, product_price, product_status;
-    private TextView product_year2, product_made_in, product_type, product_km_went, product_outside_color, product_inside_color;
+    private TextView product_company, product_name, product_vesion, product_year, product_price;
+    private TextView product_status, product_made_in, product_type, product_km_went, product_outside_color, product_inside_color;
     private TextView product_door, product_seat, product_gear, product_drive_train, product_fuel, product_consume, product_content;
     private TextView product_username;
     private TextView product_userphone;
@@ -83,52 +83,31 @@ public class ProductDetailActivity extends AppCompatActivity {
         ProductsModel productsModel = getIntent().getParcelableExtra("productDetail");
 
         //// get dữ liệu về
-        String company = productsModel.getProduct_Company();
-        String name = productsModel.getProduct_Name();
-        String version = productsModel.getProduct_Version();
-        int year = productsModel.getProduct_Year();
-        String madeIn = productsModel.getProduct_MadeIn();
-        String status = productsModel.getProduct_Status();
-        int km_went = productsModel.getProduct_KmWent();
-        String type = productsModel.getProduct_Type();
         int price = productsModel.getProduct_Price();
-        String outside = productsModel.getProduct_OutSide();
-        String inside = productsModel.getProduct_InSide();
-        int door = productsModel.getProduct_Door();
-        int seat = productsModel.getProduct_Seat();
-        String drivetrain = productsModel.getProduct_DriveTrain();
-        String gear = productsModel.getProduct_Gear();
-        String fuel = productsModel.getProduct_Fuel();
-        int consume = productsModel.getProduct_Consume();
-        String content = productsModel.getProduct_Content();
-        String username = productsModel.getProduct_UserName();
-        String userphone = productsModel.getProduct_UserPhone();
-        String useraddress = productsModel.getProduct_UserAddress();
         image = productsModel.getProduct_Image();
 
         //// set dữ liệu lên textView
-        product_company.setText(company);
-        product_name.setText(name);
-        product_vesion.setText(version);
-        product_year.setText(String.valueOf(year));
+        product_company.setText(productsModel.getProduct_Company());
+        product_name.setText(productsModel.getProduct_Name());
+        product_vesion.setText(productsModel.getProduct_Version());
+        product_year.setText(String.valueOf(productsModel.getProduct_Year()));
         product_price.setText(Custom_Price.format(Long.parseLong(String.valueOf(price))));
-        product_status.setText(status);
-        product_year2.setText(String.valueOf(year));
-        product_made_in.setText(madeIn);
-        product_km_went.setText(String.valueOf(km_went));
-        product_type.setText(type);
-        product_outside_color.setText(outside);
-        product_inside_color.setText(inside);
-        product_door.setText(String.valueOf(door));
-        product_seat.setText(String.valueOf(seat));
-        product_drive_train.setText(drivetrain);
-        product_gear.setText(gear);
-        product_fuel.setText(fuel);
-        product_consume.setText(String.valueOf(consume));
-        product_content.setText(content);
-        product_username.setText(username);
-        product_userphone.setText(userphone);
-        product_useraddress.setText(useraddress);
+        product_status.setText(productsModel.getProduct_Status());
+        product_made_in.setText(productsModel.getProduct_MadeIn());
+        product_km_went.setText(String.valueOf(productsModel.getProduct_KmWent()));
+        product_type.setText(productsModel.getProduct_Type());
+        product_outside_color.setText(productsModel.getProduct_OutSide());
+        product_inside_color.setText(productsModel.getProduct_InSide());
+        product_door.setText(String.valueOf(productsModel.getProduct_Door()));
+        product_seat.setText(String.valueOf(productsModel.getProduct_Seat()));
+        product_drive_train.setText(productsModel.getProduct_DriveTrain());
+        product_gear.setText(productsModel.getProduct_Gear());
+        product_fuel.setText(productsModel.getProduct_Fuel());
+        product_consume.setText(String.valueOf(productsModel.getProduct_Consume()));
+        product_content.setText(productsModel.getProduct_Content());
+        product_username.setText(productsModel.getProduct_UserName());
+        product_userphone.setText(productsModel.getProduct_UserPhone());
+        product_useraddress.setText(productsModel.getProduct_UserAddress());
 
     }
 
@@ -168,9 +147,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_name = findViewById(R.id.product_name_tv);
         product_vesion = findViewById(R.id.product_version_tv);
         product_year = findViewById(R.id.product_year_tv);
-        product_year2 = findViewById(R.id.product_Year2_tv);
         product_made_in = findViewById(R.id.product_madein_tv);
-        product_status = findViewById(R.id.product_status_tv);
+        product_status = findViewById(R.id.product_Status_tv);
         product_km_went = findViewById(R.id.product_km_tv);
         product_type = findViewById(R.id.product_type_tv);
         product_price = findViewById(R.id.product_price_tv);
