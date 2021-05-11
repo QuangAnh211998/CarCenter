@@ -35,6 +35,19 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).SignUp(livingarea, name, email,phone, address, password);
     }
 
+    public static Observable<JsonElement> PostPurchase(Context context, String title, String price, String content, String name,
+                                                       String phone, String address, int user_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).PostPurchase(title, price, content, name, phone, address, user_id);
+    }
+
+    public static Observable<JsonElement> getMyPost(Context context, int user_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getMyPost(user_id);
+    }
+
+    public static Observable<JsonElement> getMyPurchase(Context context, int user_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getMyPurchase(user_id);
+    }
+
     public static Observable<JsonElement> UpdateAndDelete(Context context, String query){
         return BaseAPIRequest.getInstanceRequestV2(context).UpdateAndDelete(query);
     }
