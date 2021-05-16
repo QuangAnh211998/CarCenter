@@ -22,7 +22,7 @@ public interface APIEndpoints {
 
     @FormUrlEncoded
     @POST("carcenter/getProductbyCompany.php")
-    Observable<JsonElement> getProductbyCompany(@Field("key") String company);
+    Observable<JsonElement> getProductbyCompany(@Field("query") String query);
 
     @FormUrlEncoded
     @POST("carcenter/SignIn.php")
@@ -51,5 +51,17 @@ public interface APIEndpoints {
     @FormUrlEncoded
     @POST("carcenter/getMyPurchase.php")
     Observable<JsonElement> getMyPurchase (@Field("key") int user_id);
+
+    @FormUrlEncoded
+    @POST("carcenter/postWishlist.php")
+    Observable<JsonElement> postWishlist (@Field("user_id") int user_id, @Field("product_id") int product_id);
+
+    @FormUrlEncoded
+    @POST("carcenter/getWishlist.php")
+    Observable<JsonElement> getWishlist (@Field("key") int user_id);
+
+    @FormUrlEncoded
+    @POST("carcenter/Search.php")
+    Observable<JsonElement> Search (@Field("key") String key);
 }
 

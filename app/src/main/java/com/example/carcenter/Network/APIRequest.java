@@ -51,4 +51,16 @@ public class APIRequest {
     public static Observable<JsonElement> UpdateAndDelete(Context context, String query){
         return BaseAPIRequest.getInstanceRequestV2(context).UpdateAndDelete(query);
     }
+
+    public static Observable<JsonElement> postWishlist(Context context, int user_id, int product_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).postWishlist(user_id, product_id);
+    }
+
+    public static Observable<JsonElement> getWishlist(Context context, int user_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getWishlist(user_id);
+    }
+
+    public static Observable<JsonElement> Search(Context context, String key){
+        return BaseAPIRequest.getInstanceRequestV2(context).Search(key);
+    }
 }

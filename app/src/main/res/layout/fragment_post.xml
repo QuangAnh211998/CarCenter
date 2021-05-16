@@ -62,7 +62,7 @@
         android:id="@+id/mySale_Delete_tv"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#bdbdbd"
+        android:background="@color/colorGreyDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarpost"/>
@@ -796,6 +796,7 @@
                 android:textSize="14dp" />
 
             <Button
+                android:id="@+id/postsale_btn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="32dp"

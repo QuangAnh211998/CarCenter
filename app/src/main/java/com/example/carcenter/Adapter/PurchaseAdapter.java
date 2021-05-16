@@ -1,8 +1,13 @@
 package com.example.carcenter.Adapter;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +20,18 @@ import java.util.List;
 
 public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHolder> {
 
+    private Context context;
     private List<PurchaseModel> purchaseModelList;
 
-    public PurchaseAdapter(List<PurchaseModel> purchaseModelList) {
+    public PurchaseAdapter(Context context, List<PurchaseModel> purchaseModelList) {
+        this.context = context;
         this.purchaseModelList = purchaseModelList;
     }
 
     @NonNull
     @Override
     public PurchaseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.purchase_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_purchase, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -44,6 +51,13 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
         viewHolder.setPurchase_userName(username);
         viewHolder.setPurchase_userPhone(userphone);
         viewHolder.setPurchase_userAddress(useraddress);
+
+        viewHolder.purchase_userPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogCallPhone(userphone);
+            }
+        });
     }
 
     @Override
@@ -88,5 +102,34 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
         private void setPurchase_userAddress(String userAddress){
             purchase_userAddress.setText(userAddress);
         }
+    }
+
+    private void DialogCallPhone(String phone){
+        Dialog callDialog = new Dialog(context);
+        callDialog.setContentView(R.layout.dialog_callphone);
+        callDialog.setCancelable(true);
+        callDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        Button callDialog_btn = callDialog.findViewById(R.id.call_dialog_btn);
+        Button exitDialog_btn = callDialog.findViewById(R.id.exit_dialog_btn);
+        TextView phone_dialog = callDialog.findViewById(R.id.dialog_phone);
+        phone_dialog.setText(phone);
+        callDialog_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callDialog.dismiss();
+                Intent call_intent = new Intent(Intent.ACTION_CALL);
+                call_intent.setData(Uri.parse("tel:"+phone));
+                context.startActivity(call_intent);
+            }
+        });
+
+        exitDialog_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callDialog.dismiss();
+            }
+        });
+        callDialog.show();
     }
 }

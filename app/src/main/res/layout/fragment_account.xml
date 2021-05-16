@@ -20,7 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@color/colorWhite"
+                android:background="@color/colorGrey"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -83,11 +83,15 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorGreyDark"/>
+
             <LinearLayout
                 android:id="@+id/post_management_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal">
 

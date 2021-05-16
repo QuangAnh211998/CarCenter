@@ -54,18 +54,8 @@ public class Purchasefragment extends Fragment {
         purchase_recyclerView.setLayoutManager(layoutManager_Purchase);
 
         purchaseModelList = new ArrayList<PurchaseModel>();
-//        purchaseModelList.add(new PurchaseModel(1, "Cần mua Vinfast Lux A 2.0 2020", "800 - 1 Tỷ",
-//                "Cần mua gấp", "Quang Anh", "0346945454", "Hà Nội"));
-//        purchaseModelList.add(new PurchaseModel(2, "Cần mua Vinfast Lux SA 2.0 2020", "Trên 1 Tỷ",
-//                "Cần mua gấp, rất gấp", "Quang Nam", "0972489988", "Hà Nội"));
-//        purchaseModelList.add(new PurchaseModel(3, "Cần mua Vinfast Lux A 2.0 2020", "800 - 1 Tỷ",
-//                "Cần mua gấp", "Quang Anh", "0346945454", "Hà Nội"));
-//        purchaseModelList.add(new PurchaseModel(4, "Cần mua Vinfast Lux SA 2.0 2020", "Trên 1 Tỷ",
-//                "Cần mua gấp, rất gấp", "Quang Nam", "0972489988", "Hà Nội"));
-//        purchaseModelList.add(new PurchaseModel(5, "Cần mua Vinfast Lux A 2.0 2020", "800 - 1 Tỷ",
-//                "Cần mua gấp", "Quang Anh", "0346945454", "Hà Nội"));
 
-        purchaseAdapter = new PurchaseAdapter(purchaseModelList);
+        purchaseAdapter = new PurchaseAdapter(getContext(),purchaseModelList);
         purchase_recyclerView.setAdapter(purchaseAdapter);
 //        purchaseAdapter.notifyDataSetChanged();
 

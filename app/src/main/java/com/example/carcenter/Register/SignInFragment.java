@@ -1,13 +1,15 @@
-package com.example.carcenter.Fragment;
+package com.example.carcenter.Register;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carcenter.Fragment.ForgotPassWordFragment;
 import com.example.carcenter.Model.Users;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
@@ -49,13 +52,16 @@ public class SignInFragment extends Fragment {
     private Button SignIn_Btn;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
     public SharedPreferences seveSignIn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_sign_in, container, false);
+
+        if(Build.VERSION.SDK_INT>=22){
+            getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(getActivity(),R.color.colorPrimary));
+        }
 
         exitSignInImage = view.findViewById(R.id.btnexit_SignIn);
         perentFrameLayout = getActivity().findViewById(R.id.register_frameLayout);
@@ -176,7 +182,7 @@ public class SignInFragment extends Fragment {
                             Toast.makeText(getContext(), "Email hoặc mật khẩu không đúng", Toast.LENGTH_LONG).show();
                         });
         }else {
-            Toast.makeText(getContext(), "Email không đúng", Toast.LENGTH_SHORT).show();
+            edt_name.setError("Email không đúng");
         }
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context=".JavaClass.ResetInformationActivity">
 
@@ -12,6 +12,7 @@
         android:id="@+id/toolbarResetUser"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,10 +20,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center|left"
             android:text="Đổi thông tin cá nhân"
             android:textColor="@color/colorBlack"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:paddingLeft="50dp"/>
     </androidx.appcompat.widget.Toolbar>
 
     <TextView

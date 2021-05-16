@@ -11,8 +11,7 @@
         android:id="@+id/toolbarhome"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorWhite"
-        android:theme="?attr/actionBarTheme"
+        android:background="@color/colorGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -42,7 +41,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/btnGioHang"
+                android:id="@+id/search_imageButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -63,7 +62,7 @@
         android:background="@color/colorGreyDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarhome"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbarhome" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,26 +75,74 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/category_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:elevation="3dp"/>
+                android:backgroundTint="@color/colorGrey"
+                android:elevation="3dp" />
 
-            <TextView
+            <View
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGreyDark" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@color/colorWhite">
+
+                <LinearLayout
+                    android:id="@+id/province_linearlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_province"
+                        android:text="Hà nội"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:background="@drawable/ic_arrow_drop_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"/>
+
+                </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/spinner_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:gravity="center"
+                        android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorGreyDark" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include layout="@layout/products_layout"/>
-            </LinearLayout>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp" />
 
         </LinearLayout>
 

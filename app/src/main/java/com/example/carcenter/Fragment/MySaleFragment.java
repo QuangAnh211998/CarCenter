@@ -57,7 +57,7 @@ public class MySaleFragment extends Fragment {
         layoutManager_Product.setOrientation(LinearLayoutManager.VERTICAL);
         my_sale_recyclerView.setLayoutManager(layoutManager_Product);
         productsModelList = new ArrayList<ProductsModel>();
-        mySaleAdapter = new MySaleAdapter(productsModelList);
+        mySaleAdapter = new MySaleAdapter(getContext(),productsModelList);
         my_sale_recyclerView.setAdapter(mySaleAdapter);
 
         getMyPost();
@@ -68,7 +68,7 @@ public class MySaleFragment extends Fragment {
     private void getMyPost(){
         int user_id = saveSignIn.getInt("user_Id", -1);
 
-        APIRequest.getMyPost(getActivity(), user_id)
+        APIRequest.getMyPost(getContext(), user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {

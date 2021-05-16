@@ -57,7 +57,7 @@ public class MyPurchaseFragment extends Fragment {
         layoutManager_purchase.setOrientation(LinearLayoutManager.VERTICAL);
         my_purchase_recyclerView.setLayoutManager(layoutManager_purchase);
         purchaseModelList = new ArrayList<PurchaseModel>();
-        myPurchaseAdapter = new MyPurchaseAdapter(purchaseModelList);
+        myPurchaseAdapter = new MyPurchaseAdapter(getContext(),purchaseModelList );
         my_purchase_recyclerView.setAdapter(myPurchaseAdapter);
 
         getMyPurchase();
@@ -67,7 +67,7 @@ public class MyPurchaseFragment extends Fragment {
     private void getMyPurchase(){
         int user_id = saveSignIn.getInt("user_Id", -1);
 
-        APIRequest.getMyPurchase(getActivity(), user_id)
+        APIRequest.getMyPurchase(getContext(), user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {

@@ -1,20 +1,18 @@
-package com.example.carcenter.JavaClass;
+package com.example.carcenter.Register;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.carcenter.Fragment.SignInFragment;
 import com.example.carcenter.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FrameLayout frameLayout;
+    public static boolean setSignUpFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +20,13 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         frameLayout = findViewById(R.id.register_frameLayout);
-        setFragment(new SignInFragment());
+
+        if(setSignUpFragment){
+            setSignUpFragment = false;
+            setFragment(new SignUpFragment());
+        }else {
+            setFragment(new SignInFragment());
+        }
     }
 
     private void setFragment(Fragment fragment) {

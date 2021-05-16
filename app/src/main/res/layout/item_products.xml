@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
     android:layout_marginTop="8dp">
 
     <ImageView
@@ -111,7 +112,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:text="1 Tỷ 200 Triệu"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorGreen"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_Year_tv" />

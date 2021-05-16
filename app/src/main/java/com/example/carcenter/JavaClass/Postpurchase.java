@@ -2,11 +2,13 @@ package com.example.carcenter.JavaClass;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -46,6 +48,11 @@ public class Postpurchase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postpurchase);
+
+        if(Build.VERSION.SDK_INT>=22){
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(ContextCompat.getColor(Postpurchase.this,R.color.colorGrey));
+        }
 
         EventBus.getDefault().register(this);
         saveSignIn = getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);

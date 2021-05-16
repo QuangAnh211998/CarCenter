@@ -6,13 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context=".JavaClass.Postpurchase">
 
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarPostPurchase"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorGrey">
         
         <TextView
             android:layout_width="match_parent"

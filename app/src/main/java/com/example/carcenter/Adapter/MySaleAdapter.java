@@ -1,33 +1,47 @@
 package com.example.carcenter.Adapter;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carcenter.Model.ProductsModel;
+import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
 import com.example.carcenter.common.Custom_Price;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder> {
 
+    private Context context;
     private List<ProductsModel> productsModelList;
 
-    public MySaleAdapter(List<ProductsModel> productsModelList) {
+    public MySaleAdapter(Context context, List<ProductsModel> productsModelList) {
+        this.context = context;
         this.productsModelList = productsModelList;
     }
 
     @NonNull
     @Override
     public MySaleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_sale_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_my_sale, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -48,6 +62,13 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         viewHolder.setProductYear(year);
         viewHolder.setProductPrice(price);
         viewHolder.setProductUserName(username);
+
+        viewHolder.mySale_Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfirmDelete(productsModelList.get(position).getProduct_Id(), position);
+            }
+        });
     }
 
     @Override
@@ -107,5 +128,45 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         private void setProductUserName(String userName){
             mySale_UserName.setText(userName);
         }
+    }
+
+    private void ConfirmDelete(final int id, int position){
+        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
+        dialogXoa.setMessage("Bạn có muốn xóa tin này không?");
+        dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                String query = "DELETE FROM products WHERE product_Id ='"+id+"'";
+                DeleteMySale(query, position);
+            }
+        });
+        dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+
+            }
+        });
+        dialogXoa.show();
+    }
+
+    @SuppressLint("CheckResult")
+    private void DeleteMySale(String query, int position){
+
+        APIRequest.UpdateAndDelete(context,query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    Log.e("resetpass", jsonElement.toString());
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    String status = jsonObject.getString("status");
+                    if(status.equals("success")) {
+                        productsModelList.remove(position);
+                        notifyDataSetChanged();
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    }
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_LONG).show();
+                });
     }
 }

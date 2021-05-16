@@ -2,9 +2,11 @@ package com.example.carcenter.JavaClass;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,9 +25,12 @@ public class PostManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_management);
 
-        mTabLayout = findViewById(R.id.tabLayout_mypost);
-        mViewPager = findViewById(R.id.viewpager_mypost);
-        toolbar = findViewById(R.id.toolbar_PostManagement);
+        if(Build.VERSION.SDK_INT>=22){
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PostManagementActivity.this,R.color.colorGrey));
+        }
+
+        Innit();
 
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mViewPager.setAdapter(viewPageAdapter);
@@ -43,5 +48,11 @@ public class PostManagementActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void Innit(){
+        mTabLayout = findViewById(R.id.tabLayout_mypost);
+        mViewPager = findViewById(R.id.viewpager_mypost);
+        toolbar = findViewById(R.id.toolbar_PostManagement);
     }
 }

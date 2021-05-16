@@ -25,7 +25,7 @@ public class SalonAdapter extends RecyclerView.Adapter<SalonAdapter.ViewHolder> 
     @NonNull
     @Override
     public SalonAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.salon_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_salon, viewGroup, false);
 
         return new ViewHolder(view);
     }

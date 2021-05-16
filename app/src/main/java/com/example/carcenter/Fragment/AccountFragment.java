@@ -1,5 +1,6 @@
 package com.example.carcenter.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,16 +19,18 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.carcenter.JavaClass.MainActivity;
+import com.example.carcenter.JavaClass.MyWishlistActivity;
 import com.example.carcenter.JavaClass.PostManagementActivity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
-import com.example.carcenter.JavaClass.RegisterActivity;
+import com.example.carcenter.Register.RegisterActivity;
 import com.example.carcenter.JavaClass.SMSServiceActivity;
 import com.example.carcenter.R;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
+
+import static com.example.carcenter.Register.RegisterActivity.setSignUpFragment;
 
 public class AccountFragment extends Fragment {
     private Button btn_SignIn;
@@ -92,14 +95,14 @@ public class AccountFragment extends Fragment {
 
 
     void EventLinearLayout(){
+        String email = saveSignIn.getString("user_Email", "");
         reset_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = saveSignIn.getString("user_Email", "");
                 if(!TextUtils.isEmpty(email)){
                     startActivity(new Intent(getContext(), ResetPasswordActivity.class));
                 }else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    DialogSignIn();
                 }
             }
         });
@@ -107,11 +110,10 @@ public class AccountFragment extends Fragment {
         reset_infor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = saveSignIn.getString("user_Email", "");
                 if(!TextUtils.isEmpty(email)){
                     startActivity(new Intent(getContext(), ResetInformationActivity.class));
                 }else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    DialogSignIn();
                 }
             }
         });
@@ -119,11 +121,21 @@ public class AccountFragment extends Fragment {
         post_management.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = saveSignIn.getString("user_Email", "");
                 if(!TextUtils.isEmpty(email)){
                     startActivity(new Intent(getContext(), PostManagementActivity.class));
                 }else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    DialogSignIn();
+                }
+            }
+        });
+
+        my_wishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(email)){
+                    startActivity(new Intent(getContext(), MyWishlistActivity.class));
+                }else {
+                    DialogSignIn();
                 }
             }
         });
@@ -131,11 +143,10 @@ public class AccountFragment extends Fragment {
         sms_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = saveSignIn.getString("user_Email", "");
                 if(!TextUtils.isEmpty(email)){
                     startActivity(new Intent(getContext(), SMSServiceActivity.class));
                 }else {
-                    startActivity(new Intent(getContext(), RegisterActivity.class));
+                    DialogSignIn();
                 }
             }
         });
@@ -161,5 +172,34 @@ public class AccountFragment extends Fragment {
             userName_tv.setText("Họ tên");
             userPhone_tv.setText("Số điện thoại");
         }
+    }
+
+    private void DialogSignIn(){
+        Dialog signInDialog = new Dialog(getContext());
+        signInDialog.setContentView(R.layout.dialog_signin);
+        signInDialog.setCancelable(true);
+        signInDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        Button signIn_btn = signInDialog.findViewById(R.id.signin_dialog_btn);
+        Button signUp_btn = signInDialog.findViewById(R.id.signup_dialog_btn);
+        Intent registerIntent = new Intent(getContext(), RegisterActivity.class);
+        signIn_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInDialog.dismiss();
+                setSignUpFragment = false;
+                startActivity(registerIntent);
+            }
+        });
+
+        signUp_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInDialog.dismiss();
+                setSignUpFragment = true;
+                startActivity(registerIntent);
+            }
+        });
+        signInDialog.show();
     }
 }

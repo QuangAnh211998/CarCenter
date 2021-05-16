@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".JavaClass.PostManagementActivity"></activity>
+        <activity android:name=".JavaClass.SearchActivity"></activity>
+        <activity android:name=".JavaClass.MyWishlistActivity" />
+        <activity android:name=".JavaClass.PostManagementActivity" />
         <activity android:name=".JavaClass.ProductDetailActivity" />
         <activity android:name=".JavaClass.SMSServiceActivity" />
         <activity
@@ -25,9 +27,10 @@
         <activity android:name=".JavaClass.ResetInformationActivity" />
         <activity android:name=".JavaClass.ResetPasswordActivity" />
         <activity android:name=".JavaClass.Postpurchase" />
-        <activity android:name=".JavaClass.RegisterActivity" />
+        <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".JavaClass.MainActivity" />
     </application>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
