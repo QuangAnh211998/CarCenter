@@ -78,7 +78,6 @@
                     app:srcCompat="@drawable/ic_person" />
 
                 <TextView
-                    android:id="@+id/mySale_Delete_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -96,8 +95,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.548" />
 
-                <EditText
-                    android:id="@+id/edt_livingArea"
+                <TextView
+                    android:id="@+id/signup_livingArea_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -105,9 +104,10 @@
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/boder2"
                     android:drawablePadding="16dp"
+                    android:drawableEnd="@drawable/ic_expand_more"
                     android:ems="10"
-                    android:hint="Nơi sinh sống"
-                    android:inputType="text"
+                    android:text="Chọn nơi sống"
+                    android:textSize="18dp"
                     android:padding="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -130,7 +130,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edt_livingArea" />
+                    app:layout_constraintTop_toBottomOf="@+id/signup_livingArea_tv" />
 
                 <EditText
                     android:id="@+id/edt_phone"

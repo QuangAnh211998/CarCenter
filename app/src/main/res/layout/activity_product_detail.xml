@@ -64,9 +64,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/products_image_layout" />
+            <include layout="@layout/layout_products_image" />
 
-            <include layout="@layout/products_detail_layout"/>
+            <include layout="@layout/layout_products_detail"/>
 
             <TextView
                 android:layout_marginTop="8dp"

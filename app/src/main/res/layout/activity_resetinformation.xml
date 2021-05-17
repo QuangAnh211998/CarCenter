@@ -135,14 +135,16 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp" />
 
-                <EditText
-                    android:id="@+id/infor_livingarea_edt"
+                <TextView
+                    android:id="@+id/infor_livingarea_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
+                    android:drawableEnd="@drawable/ic_expand_more"
                     android:padding="8dp"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"/>
 
 <!--                <TextView-->
 <!--                    android:id="@+id/reset_livingArea_tv"-->
