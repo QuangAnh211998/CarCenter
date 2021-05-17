@@ -22,25 +22,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carcenter.Adapter.ProvinceAdapter;
+import com.example.carcenter.Custom.BottomSheetProvince;
+import com.example.carcenter.Model.ProvinceModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class SignUpFragment extends Fragment {
 
-    public SignUpFragment() {
-        // Required empty public constructor
-    }
+    private List<ProvinceModel> provinceModelList;
 
     private ImageButton exitSignUpImageButton;
     private FrameLayout perentFrameLayout;
-    private EditText livingArea_edt;
+    private TextView livingArea_tv;
     private EditText name_edt;
     private EditText phone_edt;
     private EditText email_edt;
@@ -63,7 +70,7 @@ public class SignUpFragment extends Fragment {
 
         exitSignUpImageButton = view.findViewById(R.id.btnexit_SignUp);
         perentFrameLayout = getActivity().findViewById(R.id.register_frameLayout);
-        livingArea_edt = view.findViewById(R.id.edt_livingArea);
+        livingArea_tv = view.findViewById(R.id.signup_livingArea_tv);
         name_edt = view.findViewById(R.id.edt_name);
         phone_edt = view.findViewById(R.id.edt_phone);
         email_edt = view.findViewById(R.id.edt_email);
@@ -72,8 +79,51 @@ public class SignUpFragment extends Fragment {
         address_edt = view.findViewById(R.id.edt_address);
         SignUp_btn = view.findViewById(R.id.btn_SignUp);
 
+        provinceModelList = new ArrayList<>();
+        getDataProvince();
+        ShowBottomSheet();
         return view;
     }
+
+
+
+    ////// show bottom sheet
+    private void ShowBottomSheet(){
+        livingArea_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetProvince bottomSheetProvince = new BottomSheetProvince(provinceModelList, new ProvinceAdapter.OnItemOnCLick() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(String name) {
+                        livingArea_tv.setText(name);
+                    }
+                });
+                bottomSheetProvince.show(getFragmentManager(), bottomSheetProvince.getTag());
+            }
+        });
+    }
+
+
+
+    ////// get Province
+    @SuppressLint("CheckResult")
+    private void getDataProvince(){
+        APIRequest.getProvince(getContext())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    Log.e("province",jsonElement.toString());
+                    Gson gson = new Gson();
+                    ArrayList<ProvinceModel> provinceModels = gson.fromJson(jsonElement.getAsJsonArray(),
+                            new TypeToken<ArrayList<ProvinceModel>>(){}.getType());
+                    provinceModelList.addAll(provinceModels);
+                }, throwable -> {
+
+                });
+    }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -86,7 +136,8 @@ public class SignUpFragment extends Fragment {
             }
         });
 
-        livingArea_edt.addTextChangedListener(new TextWatcher() {
+
+        livingArea_tv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -175,7 +226,7 @@ public class SignUpFragment extends Fragment {
         SignUp_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String living = livingArea_edt.getText().toString();
+                String living = livingArea_tv.getText().toString();
                 String name = name_edt.getText().toString();
                 String email = email_edt.getText().toString();
                 String phone = phone_edt.getText().toString();
@@ -188,6 +239,8 @@ public class SignUpFragment extends Fragment {
 
     }
 
+
+    ////// thực hiện đăng ký tài khoản
     @SuppressLint("CheckResult")
     private void SignUp(String livingarea, String name, String email, String phone, String address, String pass){
         if (email_edt.getText().toString().matches(emailPattern)) {
@@ -220,6 +273,8 @@ public class SignUpFragment extends Fragment {
         }
     }
 
+
+    ////// set chuyển màn hình fragment
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_from_left, R.anim.slideout_from_left);
@@ -227,8 +282,10 @@ public class SignUpFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
+
+    ////// check điều kiện hiển thị button
     private void checkInput() {
-        if(!TextUtils.isEmpty(livingArea_edt.getText())){
+        if(!TextUtils.isEmpty(livingArea_tv.getText())){
             if (!TextUtils.isEmpty(email_edt.getText().toString())) {
                 if (!TextUtils.isEmpty(name_edt.getText())) {
                     if(phone_edt.length()==10){
