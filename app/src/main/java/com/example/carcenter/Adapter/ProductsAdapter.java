@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.carcenter.JavaClass.ProductDetailActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
-import com.example.carcenter.common.Custom_Price;
+import com.example.carcenter.Custom.Custom_Price;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

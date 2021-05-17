@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
-import com.example.carcenter.common.Custom_Price;
+import com.example.carcenter.Custom.Custom_Price;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
