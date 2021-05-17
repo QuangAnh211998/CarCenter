@@ -17,12 +17,19 @@ public interface APIEndpoints {
     @GET("carcenter/getProduct.php")
     Observable<JsonElement> getProduct(@QueryMap Map<String, Object> queryMap);
 
+    @GET("carcenter/getProvince.php")
+    Observable<JsonElement> getProvince(@QueryMap Map<String, Object> queryMap);
+
     @GET("carcenter/getPurchase.php")
     Observable<JsonElement> getPurchase(@QueryMap Map<String, Object> queryMap);
 
     @FormUrlEncoded
     @POST("carcenter/getProductbyCompany.php")
     Observable<JsonElement> getProductbyCompany(@Field("query") String query);
+
+    @FormUrlEncoded
+    @POST("carcenter/getPurchasebyKey.php")
+    Observable<JsonElement> getPurchasebyKey(@Field("query") String query);
 
     @FormUrlEncoded
     @POST("carcenter/SignIn.php")

@@ -31,7 +31,7 @@ import com.example.carcenter.Register.RegisterActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
-import com.example.carcenter.common.Custom_Price;
+import com.example.carcenter.Custom.Custom_Price;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 

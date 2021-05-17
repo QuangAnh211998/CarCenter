@@ -74,9 +74,12 @@ public class Postpurchase extends AppCompatActivity {
 
     }
 
+
+
+    //////
     void Eventclick(){
 
-        String[] listprice = new String[]{"Dưới 200 triệu","200-400 Triệu","400-600 Triệu","600-800 Triệu","800-1 Tỷ","Trên 1 Tỷ"};
+        String[] listprice = new String[]{"Dưới 200 Triệu","200 - 400 Triệu","400 - 600 Triệu","600 - 800 Triệu","800 - 1 Tỷ","Trên 1 Tỷ"};
 
         final ArrayAdapter<String> arrprice = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listprice);
         spinner_price.setAdapter(arrprice);

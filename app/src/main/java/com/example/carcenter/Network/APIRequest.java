@@ -18,6 +18,11 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).getProduct(queryMap);
     }
 
+    public static Observable<JsonElement> getProvince(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getProvince(queryMap);
+    }
+
     public static Observable<JsonElement> getPurchase (Context context) {
         HashMap<String, Object> queryMap = new HashMap<>();
         return BaseAPIRequest.getInstanceRequestV2(context).getPurchase(queryMap);
@@ -25,6 +30,10 @@ public class APIRequest {
 
     public static Observable<JsonElement> getProductbyCompany (Context context, String company){
         return BaseAPIRequest.getInstanceRequestV2(context).getProductbyCompany(company);
+    }
+
+    public static Observable<JsonElement> getPurchasebyKey (Context context, String company){
+        return BaseAPIRequest.getInstanceRequestV2(context).getPurchasebyKey(company);
     }
 
     public static Observable<JsonElement> SignIn(Context context, String email, String password){
