@@ -161,17 +161,18 @@ public class SignInFragment extends Fragment {
                         .subscribe(jsonElement -> {
                             Gson gson = new Gson();
                             ArrayList<Users> users = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<Users>>(){}.getType());
-                            Log.e("signin", users.get(0).getUserEmail());
+                            Log.e("signin", users.get(0).getUser_Email());
 
                             SharedPreferences.Editor editor = seveSignIn.edit();
-                            editor.putInt("user_Id", users.get(0).getUserId());
-                            editor.putString("user_Name", users.get(0).getUserName());
-                            editor.putString("user_Email", users.get(0).getUserEmail());
-                            editor.putString("user_Phone", users.get(0).getUserPhone());
-                            editor.putString("user_Address", users.get(0).getUserAddress());
-                            editor.putString("user_LivingArea", users.get(0).getUserLivingArea());
-                            editor.putString("user_PassWord", users.get(0).getUserPassWord());
-                            editor.putString("user_Type", users.get(0).getUserType());
+                            editor.putInt("user_Id", users.get(0).getUser_Id());
+                            editor.putString("user_Name", users.get(0).getUser_Name());
+                            editor.putString("user_Email", users.get(0).getUser_Email());
+                            editor.putString("user_Phone", users.get(0).getUser_Phone());
+                            editor.putString("user_Address", users.get(0).getUser_Address());
+                            editor.putString("user_LivingArea", users.get(0).getUser_LivingArea());
+                            editor.putString("user_PassWord", users.get(0).getUser_PassWord());
+                            editor.putString("user_Type", users.get(0).getUser_Type());
+                            editor.putInt("user_Money", users.get(0).getUser_Money());
                             editor.commit();
 
                             EventBus.getDefault().post(true,"loginSuccess");

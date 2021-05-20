@@ -182,7 +182,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_id = productsModel.getProduct_Id();
         int price = productsModel.getProduct_Price();
         image = productsModel.getProduct_Image();
-        phone = productsModel.getProduct_UserPhone();
+        phone = productsModel.getUser_Phone();
 
         //// set dữ liệu lên textView
         product_company.setText(productsModel.getProduct_Company());
@@ -203,9 +203,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_fuel.setText(productsModel.getProduct_Fuel());
         product_consume.setText(String.valueOf(productsModel.getProduct_Consume()));
         product_content.setText(productsModel.getProduct_Content());
-        product_username.setText(productsModel.getProduct_UserName());
+        product_username.setText(productsModel.getUser_Name());
         product_userphone.setText(phone);
-        product_useraddress.setText(productsModel.getProduct_UserAddress());
+        product_useraddress.setText(productsModel.getUser_Address());
 
     }
 

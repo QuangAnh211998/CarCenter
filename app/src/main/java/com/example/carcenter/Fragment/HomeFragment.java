@@ -21,11 +21,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.carcenter.Adapter.CategoryAdapter;
+import com.example.carcenter.Adapter.CompanyAdapter;
 import com.example.carcenter.Adapter.ProductsAdapter;
 import com.example.carcenter.Adapter.ProvinceAdapter;
 import com.example.carcenter.JavaClass.SearchActivity;
-import com.example.carcenter.Model.CategoryModel;
+import com.example.carcenter.Model.CompanyModel;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Model.ProvinceModel;
 import com.example.carcenter.R;
@@ -42,8 +42,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment {
 
-    private List<CategoryModel> categoryModelList;
-    private CategoryAdapter categoryAdapter;
+    private List<CompanyModel> companyModelList;
+    private CompanyAdapter companyAdapter;
     private RecyclerView category_RecyclerView;
 
     List<ProvinceModel> provinceModelList;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
     String sort;
     String province = "Toàn quốc";
-    String category_name = "";
+    String category_name = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -82,9 +82,9 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getActivity());
         layoutManagerCategory.setOrientation(LinearLayoutManager.HORIZONTAL);
         category_RecyclerView.setLayoutManager(layoutManagerCategory);
-        categoryModelList = new ArrayList<CategoryModel>();
-        categoryAdapter = new CategoryAdapter(categoryModelList, onCLickCategory);
-        category_RecyclerView.setAdapter(categoryAdapter);
+        companyModelList = new ArrayList<CompanyModel>();
+        companyAdapter = new CompanyAdapter(companyModelList, onCLickCategory);
+        category_RecyclerView.setAdapter(companyAdapter);
         ////////// Category
 
         ////////// Products
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
 
         provinceModelList = new ArrayList<>();
 
-        getDataCategory();
+        getDataCompany();
         getDataProduct();
         getDataProvince();
         SpinnerOnClick();
@@ -120,23 +120,23 @@ public class HomeFragment extends Fragment {
                         province = name;
                         String query;
                         if (sort.equals("Giá thấp->cao") && category_name == null) {
-                            query = "SELECT * FROM products WHERE product_UserLivingArea = '" + name + "' ORDER BY product_Price";
-                            getDataProductWithkey(query);
+                            query = "SELECT * FROM products WHERE user_LivingArea = '" + name + "' ORDER BY product_Price";
+                            getDataProductbyKey(query);
                         } else if (sort.equals("Giá cao->thấp") && category_name == null) {
-                            query = "SELECT * FROM products WHERE product_UserLivingArea = '" + name + "' ORDER BY product_Price DESC";
-                            getDataProductWithkey(query);
+                            query = "SELECT * FROM products WHERE user_LivingArea = '" + name + "' ORDER BY product_Price DESC";
+                            getDataProductbyKey(query);
                         } else if(!sort.equals("Giá thấp->cao") && !sort.equals("Giá cao->thấp") && category_name != null){
-                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND product_UserLivingArea ='"+name+"' ORDER BY product_Id DESC";
-                            getDataProductWithkey(query);
+                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' ORDER BY product_Id DESC";
+                            getDataProductbyKey(query);
                         } else if(sort.equals("Giá thấp->cao") && category_name != null){
-                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND product_UserLivingArea ='"+name+"' ORDER BY product_Price";
-                            getDataProductWithkey(query);
+                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' ORDER BY product_Price";
+                            getDataProductbyKey(query);
                         }else if(sort.equals("Giá cao->thấp") && category_name != null){
-                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND product_UserLivingArea ='"+name+"' ORDER BY product_Price DESC";
-                            getDataProductWithkey(query);
+                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' ORDER BY product_Price DESC";
+                            getDataProductbyKey(query);
                         }else {
-                            query = "SELECT * FROM products WHERE product_UserLivingArea = '" + name + "' ORDER BY product_Id DESC";
-                            getDataProductWithkey(query);
+                            query = "SELECT * FROM products WHERE user_LivingArea = '" + name + "' ORDER BY product_Id DESC";
+                            getDataProductbyKey(query);
                         }
                     }
                 });
@@ -159,34 +159,34 @@ public class HomeFragment extends Fragment {
                 if (province.equals("Toàn quốc") && category_name == null) {
                     if (sort.equals("Giá thấp->cao")) {
                         query = "SELECT * FROM products ORDER BY product_Price";
-                        getDataProductWithkey(query);
+                        getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
                         query = "SELECT * FROM products ORDER BY product_Price DESC";
-                        getDataProductWithkey(query);
+                        getDataProductbyKey(query);
                     }
                 } else if(!province.equals("Toàn quốc") && category_name == null) {
                     if (sort.equals("Giá thấp->cao")) {
-                        query = "SELECT * FROM products WHERE product_UserLivingArea = '" + province + "' ORDER BY product_Price";
-                        getDataProductWithkey(query);
+                        query = "SELECT * FROM products WHERE user_LivingArea = '" + province + "' ORDER BY product_Price";
+                        getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
-                        query = "SELECT * FROM products WHERE product_UserLivingArea = '" + province + "' ORDER BY product_Price DESC";
-                        getDataProductWithkey(query);
+                        query = "SELECT * FROM products WHERE user_LivingArea = '" + province + "' ORDER BY product_Price DESC";
+                        getDataProductbyKey(query);
                     }
                 }else if(province.equals("Toàn quốc") && category_name != null){
                     if (sort.equals("Giá thấp->cao")) {
                         query = "SELECT * FROM products WHERE product_Company = '" + category_name + "' ORDER BY product_Price";
-                        getDataProductWithkey(query);
+                        getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
                         query = "SELECT * FROM products WHERE product_Company = '" + category_name + "' ORDER BY product_Price DESC";
-                        getDataProductWithkey(query);
+                        getDataProductbyKey(query);
                     }
                 }else if(!province.equals("Toàn quốc") && category_name != null){
                     if (sort.equals("Giá thấp->cao")) {
-                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND product_UserLivingArea ='"+province+"' ORDER BY product_Price";
-                        getDataProductWithkey(query);
+                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price";
+                        getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
-                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND product_UserLivingArea ='"+province+"' ORDER BY product_Price DESC";
-                        getDataProductWithkey(query);
+                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price DESC";
+                        getDataProductbyKey(query);
                     }
                 }
             }
@@ -200,29 +200,29 @@ public class HomeFragment extends Fragment {
 
 
     ////// interface onclick categoryadapter
-    private CategoryAdapter.OnItemOnCLick onCLickCategory = new CategoryAdapter.OnItemOnCLick() {
+    private CompanyAdapter.OnItemOnCLick onCLickCategory = new CompanyAdapter.OnItemOnCLick() {
         @Override
         public void onClick(String name) {
             category_name = name;
             String query;
             if(!province.equals("Toàn quốc") && !sort.equals("Giá thấp->cao") && !sort.equals("Giá cao->thấp")){
-                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_UserLivingArea ='"+province+"' ORDER BY product_Id DESC";
-                getDataProductWithkey(query);
+                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Id DESC";
+                getDataProductbyKey(query);
             }else if(!province.equals("Toàn quốc") && sort.equals("Giá thấp->cao")){
-                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_UserLivingArea ='"+province+"' ORDER BY product_Price";
-                getDataProductWithkey(query);
+                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price";
+                getDataProductbyKey(query);
             }else if(!province.equals("Toàn quốc") && sort.equals("Giá cao->thấp")){
-                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_UserLivingArea ='"+province+"' ORDER BY product_Price DESC";
-                getDataProductWithkey(query);
+                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price DESC";
+                getDataProductbyKey(query);
             }else if(province.equals("Toàn quốc") && sort.equals("Giá thấp->cao")){
                 query = "SELECT * FROM products WHERE product_Company = '" + name + "' ORDER BY product_Price";
-                getDataProductWithkey(query);
+                getDataProductbyKey(query);
             }else if(province.equals("Toàn quốc") && sort.equals("Giá thấp->cao")){
                 query = "SELECT * FROM products WHERE product_Company = '" + name + "' ORDER BY product_Price DESC";
-                getDataProductWithkey(query);
+                getDataProductbyKey(query);
             }else {
                 query = "SELECT * FROM products WHERE product_Company = '" + name + "' ORDER BY product_Id DESC";
-                getDataProductWithkey(query);
+                getDataProductbyKey(query);
             }
         }
     };
@@ -230,17 +230,17 @@ public class HomeFragment extends Fragment {
 
     ////// get dữ liệu hãng
     @SuppressLint("CheckResult")
-    private void getDataCategory() {
-        APIRequest.getCategory(getContext())
+    private void getDataCompany() {
+        APIRequest.getCompany(getContext())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
                     Log.e("category", jsonElement.toString());
                     Gson gson = new Gson();
-                    ArrayList<CategoryModel> categoryModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<CategoryModel>>() {
+                    ArrayList<CompanyModel> companyModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<CompanyModel>>() {
                     }.getType());
-                    categoryModelList.addAll(categoryModels);
-                    categoryAdapter.notifyDataSetChanged();
+                    companyModelList.addAll(companyModels);
+                    companyAdapter.notifyDataSetChanged();
                 }, throwable -> {
 
                 });
@@ -255,7 +255,7 @@ public class HomeFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-                    Log.e("product", jsonElement.toString());
+//                    Log.e("product", jsonElement.toString());
                     Gson gson = new Gson();
                     ArrayList<ProductsModel> productsModels = gson.fromJson(jsonElement.getAsJsonArray(),
                             new TypeToken<ArrayList<ProductsModel>>() {
@@ -270,9 +270,9 @@ public class HomeFragment extends Fragment {
 
     ////// get dữ liệu product khi click
     @SuppressLint("CheckResult")
-    public void getDataProductWithkey(String query) {
+    public void getDataProductbyKey(String query) {
         productsModelList.clear();
-        APIRequest.getProductbyCompany(getContext(), query)
+        APIRequest.getProductbyKey(getContext(), query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
@@ -298,7 +298,7 @@ public class HomeFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-                    Log.e("province", jsonElement.toString());
+//                    Log.e("province", jsonElement.toString());
                     Gson gson = new Gson();
                     ArrayList<ProvinceModel> provinceModels = gson.fromJson(jsonElement.getAsJsonArray(),
                             new TypeToken<ArrayList<ProvinceModel>>() {

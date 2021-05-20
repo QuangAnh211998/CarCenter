@@ -28,22 +28,30 @@ public class ProductsModel implements Parcelable {
     private int product_Consume;
     private ArrayList<String> product_Image;
     private String product_Content;
-    private String product_UserName;
-    private String product_UserPhone;
-    private String product_UserAddress;
-    private String product_UserLivingArea;
+    private String user_Name;
+    private String user_Phone;
+    private String user_Address;
+    private String user_LivingArea;
+    private int system_Air_Bag;
+    private String system_ABS;
+    private String system_EBA;
+    private String system_ESP;
+    private String system_Anti_Slip;
+    private String system_Reverse_Warning;
+    private String system_Anti_theft;
     private int user_Id;
+    private String product_PostApproval;
 
     public ProductsModel() {
-
     }
 
     public ProductsModel(int product_Id, String product_Company, String product_Name, String product_Version, int product_Year,
                          String product_MadeIn, String product_Status, int product_KmWent, String product_Type, int product_Price,
                          String product_OutSide, String product_InSide, int product_Door, int product_Seat, String product_Gear,
                          String product_DriveTrain, String product_Fuel, int product_Consume, ArrayList<String> product_Image,
-                         String product_Content, String product_UserName, String product_UserPhone, String product_UserAddress,
-                         String product_UserLivingArea, int user_Id) {
+                         String product_Content, String user_Name, String user_Phone, String user_Address, String user_LivingArea,
+                         int system_Air_Bag, String system_ABS, String system_EBA, String system_ESP, String system_Anti_Slip,
+                         String system_Reverse_Warning, String system_Anti_theft, int user_Id, String product_PostApproval) {
         this.product_Id = product_Id;
         this.product_Company = product_Company;
         this.product_Name = product_Name;
@@ -64,13 +72,20 @@ public class ProductsModel implements Parcelable {
         this.product_Consume = product_Consume;
         this.product_Image = product_Image;
         this.product_Content = product_Content;
-        this.product_UserName = product_UserName;
-        this.product_UserPhone = product_UserPhone;
-        this.product_UserAddress = product_UserAddress;
-        this.product_UserLivingArea = product_UserLivingArea;
+        this.user_Name = user_Name;
+        this.user_Phone = user_Phone;
+        this.user_Address = user_Address;
+        this.user_LivingArea = user_LivingArea;
+        this.system_Air_Bag = system_Air_Bag;
+        this.system_ABS = system_ABS;
+        this.system_EBA = system_EBA;
+        this.system_ESP = system_ESP;
+        this.system_Anti_Slip = system_Anti_Slip;
+        this.system_Reverse_Warning = system_Reverse_Warning;
+        this.system_Anti_theft = system_Anti_theft;
         this.user_Id = user_Id;
+        this.product_PostApproval = product_PostApproval;
     }
-
 
     protected ProductsModel(Parcel in) {
         product_Id = in.readInt();
@@ -93,11 +108,19 @@ public class ProductsModel implements Parcelable {
         product_Consume = in.readInt();
         product_Image = in.createStringArrayList();
         product_Content = in.readString();
-        product_UserName = in.readString();
-        product_UserPhone = in.readString();
-        product_UserAddress = in.readString();
-        product_UserLivingArea = in.readString();
+        user_Name = in.readString();
+        user_Phone = in.readString();
+        user_Address = in.readString();
+        user_LivingArea = in.readString();
+        system_Air_Bag = in.readInt();
+        system_ABS = in.readString();
+        system_EBA = in.readString();
+        system_ESP = in.readString();
+        system_Anti_Slip = in.readString();
+        system_Reverse_Warning = in.readString();
+        system_Anti_theft = in.readString();
         user_Id = in.readInt();
+        product_PostApproval = in.readString();
     }
 
     @Override
@@ -122,11 +145,19 @@ public class ProductsModel implements Parcelable {
         dest.writeInt(product_Consume);
         dest.writeStringList(product_Image);
         dest.writeString(product_Content);
-        dest.writeString(product_UserName);
-        dest.writeString(product_UserPhone);
-        dest.writeString(product_UserAddress);
-        dest.writeString(product_UserLivingArea);
+        dest.writeString(user_Name);
+        dest.writeString(user_Phone);
+        dest.writeString(user_Address);
+        dest.writeString(user_LivingArea);
+        dest.writeInt(system_Air_Bag);
+        dest.writeString(system_ABS);
+        dest.writeString(system_EBA);
+        dest.writeString(system_ESP);
+        dest.writeString(system_Anti_Slip);
+        dest.writeString(system_Reverse_Warning);
+        dest.writeString(system_Anti_theft);
         dest.writeInt(user_Id);
+        dest.writeString(product_PostApproval);
     }
 
     @Override
@@ -306,36 +337,92 @@ public class ProductsModel implements Parcelable {
         this.product_Content = product_Content;
     }
 
-    public String getProduct_UserName() {
-        return product_UserName;
+    public String getUser_Name() {
+        return user_Name;
     }
 
-    public void setProduct_UserName(String product_UserName) {
-        this.product_UserName = product_UserName;
+    public void setUser_Name(String user_Name) {
+        this.user_Name = user_Name;
     }
 
-    public String getProduct_UserPhone() {
-        return product_UserPhone;
+    public String getUser_Phone() {
+        return user_Phone;
     }
 
-    public void setProduct_UserPhone(String product_UserPhone) {
-        this.product_UserPhone = product_UserPhone;
+    public void setUser_Phone(String user_Phone) {
+        this.user_Phone = user_Phone;
     }
 
-    public String getProduct_UserAddress() {
-        return product_UserAddress;
+    public String getUser_Address() {
+        return user_Address;
     }
 
-    public void setProduct_UserAddress(String product_UserAddress) {
-        this.product_UserAddress = product_UserAddress;
+    public void setUser_Address(String user_Address) {
+        this.user_Address = user_Address;
     }
 
-    public String getProduct_UserLivingArea() {
-        return product_UserLivingArea;
+    public String getUser_LivingArea() {
+        return user_LivingArea;
     }
 
-    public void setProduct_UserLivingArea(String product_UserLivingArea) {
-        this.product_UserLivingArea = product_UserLivingArea;
+    public void setUser_LivingArea(String user_LivingArea) {
+        this.user_LivingArea = user_LivingArea;
+    }
+
+    public int getSystem_Air_Bag() {
+        return system_Air_Bag;
+    }
+
+    public void setSystem_Air_Bag(int system_Air_Bag) {
+        this.system_Air_Bag = system_Air_Bag;
+    }
+
+    public String getSystem_ABS() {
+        return system_ABS;
+    }
+
+    public void setSystem_ABS(String system_ABS) {
+        this.system_ABS = system_ABS;
+    }
+
+    public String getSystem_EBA() {
+        return system_EBA;
+    }
+
+    public void setSystem_EBA(String system_EBA) {
+        this.system_EBA = system_EBA;
+    }
+
+    public String getSystem_ESP() {
+        return system_ESP;
+    }
+
+    public void setSystem_ESP(String system_ESP) {
+        this.system_ESP = system_ESP;
+    }
+
+    public String getSystem_Anti_Slip() {
+        return system_Anti_Slip;
+    }
+
+    public void setSystem_Anti_Slip(String system_Anti_Slip) {
+        this.system_Anti_Slip = system_Anti_Slip;
+    }
+
+    public String getSystem_Reverse_Warning() {
+        return system_Reverse_Warning;
+    }
+
+    public void setSystem_Reverse_Warning(String system_Reverse_Warning) {
+        this.system_Reverse_Warning = system_Reverse_Warning;
+    }
+
+    public String getSystem_Anti_theft() {
+        return system_Anti_theft;
+    }
+
+    public void setSystem_Anti_theft(String system_Anti_theft) {
+        this.system_Anti_theft = system_Anti_theft;
     }
 
     public int getUser_Id() {
@@ -346,7 +433,11 @@ public class ProductsModel implements Parcelable {
         this.user_Id = user_Id;
     }
 
-    public static Creator<ProductsModel> getCREATOR() {
-        return CREATOR;
+    public String getProduct_PostApproval() {
+        return product_PostApproval;
+    }
+
+    public void setProduct_PostApproval(String product_PostApproval) {
+        this.product_PostApproval = product_PostApproval;
     }
 }

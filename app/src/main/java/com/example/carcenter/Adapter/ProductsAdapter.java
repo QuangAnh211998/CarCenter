@@ -42,8 +42,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         String year = String.valueOf(productsModelList.get(position).getProduct_Year());
         String price = String.valueOf(productsModelList.get(position).getProduct_Price());
         String status = productsModelList.get(position).getProduct_Status();
-        String username = productsModelList.get(position).getProduct_UserName();
-        String livingArea = productsModelList.get(position).getProduct_UserLivingArea();
+        String username = productsModelList.get(position).getUser_Name();
+        String livingArea = productsModelList.get(position).getUser_LivingArea();
 
         viewHolder.setProductImage(imageUrl);
         viewHolder.setProductCompany(company);

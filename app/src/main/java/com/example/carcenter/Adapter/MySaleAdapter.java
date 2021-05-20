@@ -53,7 +53,7 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         String version = productsModelList.get(position).getProduct_Version();
         String year = String.valueOf(productsModelList.get(position).getProduct_Year());
         String price = String.valueOf(productsModelList.get(position).getProduct_Price());
-        String username = productsModelList.get(position).getProduct_UserName();
+        String username = productsModelList.get(position).getUser_Name();
 
         viewHolder.setProductImage(imageUrl);
         viewHolder.setProductCompany(company);
