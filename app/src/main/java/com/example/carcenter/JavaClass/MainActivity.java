@@ -57,19 +57,19 @@ public class MainActivity extends AppCompatActivity {
                     Fragment fragment = null;
 
                     switch (menuItem.getItemId()){
-                        case R.id.nav_trangchu:
+                        case R.id.nav_home:
                             fragment = new HomeFragment();
                             break;
-                        case R.id.nav_tinmua:
+                        case R.id.nav_purchase:
                             fragment = new Purchasefragment();
                             break;
-                        case R.id.nav_dangtin:
+                        case R.id.nav_post:
                                 fragment = new PostFragment();
                             break;
                         case R.id.nav_salon:
                             fragment = new SalonFragment();
                             break;
-                        case R.id.nav_canhan:
+                        case R.id.nav_account:
                             fragment = new AccountFragment();
                             break;
                     }
