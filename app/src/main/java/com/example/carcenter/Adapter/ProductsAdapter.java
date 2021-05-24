@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.carcenter.JavaClass.ProductDetailActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
@@ -97,7 +98,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
 
         private void setProductImage(String imageUrl){
-            Picasso.get().load(imageUrl).into(productImage);
+            Glide.with(itemView).load(imageUrl).centerCrop().into(productImage);
+//            Picasso.get().load(imageUrl).into(productImage);
         }
         private void setProductCompany(String company){
             productCompany.setText(company);

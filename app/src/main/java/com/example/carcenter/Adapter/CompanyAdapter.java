@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.carcenter.Model.CompanyModel;
 import com.example.carcenter.R;
 import com.squareup.picasso.Picasso;
@@ -50,19 +51,19 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView companyLogo;
+        private ImageView companyImage;
         private TextView companyName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            companyLogo = itemView.findViewById(R.id.category_Image);
+            companyImage = itemView.findViewById(R.id.category_Image);
             companyName = itemView.findViewById(R.id.category_Name);
 
 
         }
 
         private void setCompanyImage(String image) {
-            Picasso.get().load(image).into(companyLogo);
+            Glide.with(itemView).load(image).into(companyImage);
         }
 
         private void setCompanyName(String name) {
