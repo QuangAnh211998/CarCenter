@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_trangchu"
+        android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Trang chủ" />
     <item
-        android:id="@+id/nav_tinmua"
+        android:id="@+id/nav_purchase"
         android:icon="@drawable/ic_directions_car_black_24dp"
         android:title="Tin mua" />
     <item
-        android:id="@+id/nav_dangtin"
+        android:id="@+id/nav_post"
         android:icon="@drawable/ic_add_to_photos_black_24dp"
         android:title="Đăng tin bán" />
     <item
@@ -19,7 +19,7 @@
         android:icon="@drawable/ic_store"
         android:title="Cửa Hàng" />
     <item
-        android:id="@+id/nav_canhan"
+        android:id="@+id/nav_account"
         android:icon="@drawable/ic_supervisor_account_black_24dp"
         android:title="Cá nhân" />
 

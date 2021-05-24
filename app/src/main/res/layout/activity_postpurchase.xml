@@ -116,6 +116,7 @@
                     android:background="@drawable/boderedt"
                     android:padding="8dp"
                     android:hint="Nhập tiêu đề"
+                    android:inputType="text"
                     android:textSize="16dp"/>
             </LinearLayout>
 
@@ -142,6 +143,7 @@
                     android:padding="8dp"
                     android:gravity="top"
                     android:hint="Nhập nội dung"
+                    android:inputType="text"
                     android:textSize="14dp"/>
             </LinearLayout>
 

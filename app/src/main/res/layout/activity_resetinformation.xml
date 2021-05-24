@@ -91,7 +91,8 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
                     android:padding="8dp"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:inputType="text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -180,7 +181,8 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
                     android:padding="8dp"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:inputType="text"/>
             </LinearLayout>
 
             <Button
