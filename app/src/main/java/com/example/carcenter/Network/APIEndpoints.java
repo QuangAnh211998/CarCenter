@@ -4,15 +4,26 @@ import com.google.gson.JsonElement;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.QueryMap;
 
 public interface APIEndpoints {
-    @GET("carcenter/getCategory.php")
-    Observable<JsonElement> getCategory(@QueryMap Map<String, Object> queryMap);
+    @GET("carcenter/getCompany.php")
+    Observable<JsonElement> getCompany(@QueryMap Map<String, Object> queryMap);
+
+    @GET("carcenter/getAllCompany.php")
+    Observable<JsonElement> getAllCompany(@QueryMap Map<String, Object> queryMap);
+
+    @FormUrlEncoded
+    @POST("carcenter/getCategory.php")
+    Observable<JsonElement> getCategory(@Field("key") int id);
 
     @GET("carcenter/getProduct.php")
     Observable<JsonElement> getProduct(@QueryMap Map<String, Object> queryMap);
@@ -25,7 +36,7 @@ public interface APIEndpoints {
 
     @FormUrlEncoded
     @POST("carcenter/getProductbyCompany.php")
-    Observable<JsonElement> getProductbyCompany(@Field("query") String query);
+    Observable<JsonElement> getProductbyKey(@Field("query") String query);
 
     @FormUrlEncoded
     @POST("carcenter/getPurchasebyKey.php")
@@ -70,5 +81,9 @@ public interface APIEndpoints {
     @FormUrlEncoded
     @POST("carcenter/Search.php")
     Observable<JsonElement> Search (@Field("key") String key);
+
+    @Multipart
+    @POST("carcenter/uploadImage.php")
+    Call<String> uploadImage(@Part MultipartBody.Part image);
 }
 

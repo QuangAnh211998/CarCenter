@@ -4,13 +4,24 @@ import android.content.Context;
 import com.google.gson.JsonElement;
 import java.util.HashMap;
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 
 public class APIRequest {
 
-    public static Observable<JsonElement> getCategory(Context context) {
+    public static Observable<JsonElement> getCompany(Context context) {
         HashMap<String, Object> queryMap = new HashMap<>();
-        return BaseAPIRequest.getInstanceRequestV2(context).getCategory(queryMap);
+        return BaseAPIRequest.getInstanceRequestV2(context).getCompany(queryMap);
+    }
+
+    public static Observable<JsonElement> getAllCompany(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getAllCompany(queryMap);
+    }
+
+    public static Observable<JsonElement> getCategory (Context context, int id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getCategory(id);
     }
 
     public static Observable<JsonElement> getProduct(Context context) {
@@ -28,8 +39,8 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).getPurchase(queryMap);
     }
 
-    public static Observable<JsonElement> getProductbyCompany (Context context, String company){
-        return BaseAPIRequest.getInstanceRequestV2(context).getProductbyCompany(company);
+    public static Observable<JsonElement> getProductbyKey (Context context, String query){
+        return BaseAPIRequest.getInstanceRequestV2(context).getProductbyKey(query);
     }
 
     public static Observable<JsonElement> getPurchasebyKey (Context context, String company){
@@ -71,5 +82,9 @@ public class APIRequest {
 
     public static Observable<JsonElement> Search(Context context, String key){
         return BaseAPIRequest.getInstanceRequestV2(context).Search(key);
+    }
+
+    public static Call<String> uploadImage(Context context, MultipartBody.Part image){
+        return BaseAPIRequest.getInstanceRequestV2(context).uploadImage(image);
     }
 }
