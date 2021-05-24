@@ -23,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +52,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     ProductImageAdapter productImageAdapter;
     ArrayList<String> image;
     private static boolean addtowishlist = false;
+    private boolean click_safe = false;
     private String phone;
     private int product_id;
     private int user_id;
@@ -63,12 +66,38 @@ public class ProductDetailActivity extends AppCompatActivity {
     private TabLayout viewpager_tablayout;
     private FloatingActionButton add_to_Wishlist_btn;
     private FloatingActionButton floatingbtn_call;
-    private TextView product_company, product_name, product_vesion, product_year, product_price;
-    private TextView product_status, product_made_in, product_type, product_km_went, product_outside_color, product_inside_color;
-    private TextView product_door, product_seat, product_gear, product_drive_train, product_fuel, product_consume, product_content;
+    private TextView product_company;
+    private TextView product_status;
+    private TextView product_door;
     private TextView product_username;
     private TextView product_userphone;
     private TextView product_useraddress;
+    private TextView product_name;
+    private TextView product_vesion;
+    private TextView product_year;
+    private TextView product_price;
+    private TextView product_made_in;
+    private TextView product_type;
+    private TextView product_km_went;
+    private TextView product_outside_color;
+    private TextView product_inside_color;
+    private TextView product_seat;
+    private TextView product_consume;
+    private TextView product_gear;
+    private TextView product_drive_train;
+    private TextView product_fuel;
+    private TextView product_content;
+    private TextView air_Bag;
+    private TextView system_ABS;
+    private TextView system_EBA;
+    private TextView system_ESP;
+    private TextView anti_Slip;
+    private TextView reverse_Warning;
+    private TextView anti_theft;
+    private LinearLayout layout_safe;
+    private LinearLayout layout_view;
+    private ImageView imageView_up;
+    private ImageView imageView_down;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +159,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
+
         floatingbtn_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,10 +169,29 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
+
         product_userphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogCallPhone(phone);
+            }
+        });
+
+
+        layout_safe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (click_safe){
+                    click_safe = false;
+                    layout_view.setVisibility(View.GONE);
+                    imageView_down.setVisibility(View.VISIBLE);
+                    imageView_up.setVisibility(View.GONE);
+                }else {
+                    click_safe = true;
+                    layout_view.setVisibility(View.VISIBLE);
+                    imageView_down.setVisibility(View.GONE);
+                    imageView_up.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -183,6 +232,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         int price = productsModel.getProduct_Price();
         image = productsModel.getProduct_Image();
         phone = productsModel.getUser_Phone();
+        int airbag = productsModel.getSystem_Air_Bag();
 
         //// set dữ liệu lên textView
         product_company.setText(productsModel.getProduct_Company());
@@ -206,6 +256,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_username.setText(productsModel.getUser_Name());
         product_userphone.setText(phone);
         product_useraddress.setText(productsModel.getUser_Address());
+        air_Bag.setText(String.valueOf(airbag+" Túi"));
+        system_ABS.setText(productsModel.getSystem_ABS());
+        system_EBA.setText(productsModel.getSystem_EBA());
+        system_ESP.setText(productsModel.getSystem_ESP());
+        anti_Slip.setText(productsModel.getSystem_Anti_Slip());
+        anti_theft.setText(productsModel.getSystem_Anti_theft());
+        reverse_Warning.setText(productsModel.getSystem_Reverse_Warning());
 
     }
 
@@ -236,6 +293,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_username = findViewById(R.id.product_username_tv);
         product_userphone = findViewById(R.id.product_userphone_tv);
         product_useraddress = findViewById(R.id.product_address_tv);
+        air_Bag = findViewById(R.id.air_Bag_tv);
+        system_ABS = findViewById(R.id.abs_tv);
+        system_EBA = findViewById(R.id.eba_tv);
+        system_ESP = findViewById(R.id.esp_tv);
+        anti_Slip = findViewById(R.id.anti_Slip_tv);
+        reverse_Warning = findViewById(R.id.reverse_Warning_tv);
+        anti_theft = findViewById(R.id.anti_theft_tv);
+        layout_safe = findViewById(R.id.layout_safe);
+        layout_view = findViewById(R.id.layoutview);
+        imageView_up = findViewById(R.id.imageView_up);
+        imageView_down = findViewById(R.id.imageView_down);
 
     }
 

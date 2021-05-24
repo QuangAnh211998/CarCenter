@@ -49,6 +49,7 @@ public class Purchasefragment extends Fragment {
 
     private String price_range = "Mức giá";
     private String province = "Toàn quốc";
+    private String status = "Đã duyệt";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,11 +104,11 @@ public class Purchasefragment extends Fragment {
 
                         String query;
                         if( province.equals("Toàn quốc")){
-                            query = "SELECT * FROM purchase WHERE purchase_PriceRange = '"+name+"' ORDER BY purchase_Id DESC";
+                            query = "SELECT * FROM purchase WHERE purchase_PriceRange = '"+name+"' AND purchase_PostApproval = '"+status+"'  ORDER BY purchase_Id DESC";
                             getDataPurchasebyKey(query);
                         }else if( !province.equals("Toàn quốc")){
-                            query = "SELECT * FROM purchase WHERE purchase_PriceRange = '"+name+"' AND " +
-                                    "purchase_UserAddress LIKE '%"+province+"%'  ORDER BY purchase_Id DESC";
+                            query = "SELECT * FROM purchase WHERE purchase_PriceRange = '"+name+"' AND purchase_UserAddress LIKE '%"+province+"%' " +
+                                    "AND purchase_PostApproval = '"+status+"'  ORDER BY purchase_Id DESC";
                             getDataPurchasebyKey(query);
                         }
                     }
@@ -134,11 +135,11 @@ public class Purchasefragment extends Fragment {
 
                         String query;
                         if( price_range.equals("Mức giá")){
-                            query = "SELECT * FROM purchase WHERE purchase_UserAddress LIKE '%"+name+"%' ORDER BY purchase_Id DESC";
+                            query = "SELECT * FROM purchase WHERE purchase_UserAddress LIKE '%"+name+"%' AND purchase_PostApproval = '"+status+"' ORDER BY purchase_Id DESC";
                             getDataPurchasebyKey(query);
                         }else if( !price_range.equals("Mức giá")){
-                            query = "SELECT * FROM purchase WHERE purchase_PriceRange = '"+price_range+"' AND " +
-                                    "purchase_UserAddress LIKE '%"+name+"%'  ORDER BY purchase_Id DESC";
+                            query = "SELECT * FROM purchase WHERE purchase_PriceRange = '"+price_range+"' AND purchase_UserAddress LIKE '%"+name+"%' " +
+                                    "AND purchase_PostApproval = '"+status+"'  ORDER BY purchase_Id DESC";
                             getDataPurchasebyKey(query);
                         }
                     }

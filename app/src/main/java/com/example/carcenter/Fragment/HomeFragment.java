@@ -57,9 +57,10 @@ public class HomeFragment extends Fragment {
     private LinearLayout province_Layout;
     private TextView tv_province;
 
-    String sort;
-    String province = "Toàn quốc";
-    String category_name = null;
+    private String sort;
+    private String province = "Toàn quốc";
+    private String category_name = null;
+    private String status = "Đã duyệt";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -120,22 +121,22 @@ public class HomeFragment extends Fragment {
                         province = name;
                         String query;
                         if (sort.equals("Giá thấp->cao") && category_name == null) {
-                            query = "SELECT * FROM products WHERE user_LivingArea = '" + name + "' ORDER BY product_Price";
+                            query = "SELECT * FROM products WHERE user_LivingArea = '"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price";
                             getDataProductbyKey(query);
                         } else if (sort.equals("Giá cao->thấp") && category_name == null) {
-                            query = "SELECT * FROM products WHERE user_LivingArea = '" + name + "' ORDER BY product_Price DESC";
+                            query = "SELECT * FROM products WHERE user_LivingArea = '"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                             getDataProductbyKey(query);
                         } else if(!sort.equals("Giá thấp->cao") && !sort.equals("Giá cao->thấp") && category_name != null){
-                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' ORDER BY product_Id DESC";
+                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Id DESC";
                             getDataProductbyKey(query);
                         } else if(sort.equals("Giá thấp->cao") && category_name != null){
-                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' ORDER BY product_Price";
+                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price";
                             getDataProductbyKey(query);
                         }else if(sort.equals("Giá cao->thấp") && category_name != null){
-                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' ORDER BY product_Price DESC";
+                            query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                             getDataProductbyKey(query);
                         }else {
-                            query = "SELECT * FROM products WHERE user_LivingArea = '" + name + "' ORDER BY product_Id DESC";
+                            query = "SELECT * FROM products WHERE user_LivingArea = '"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Id DESC";
                             getDataProductbyKey(query);
                         }
                     }
@@ -158,34 +159,34 @@ public class HomeFragment extends Fragment {
                 sort = arrprice.getItem(position);
                 if (province.equals("Toàn quốc") && category_name == null) {
                     if (sort.equals("Giá thấp->cao")) {
-                        query = "SELECT * FROM products ORDER BY product_Price";
+                        query = "SELECT * FROM products WHERE product_PostApproval = '"+status+"' ORDER BY product_Price";
                         getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
-                        query = "SELECT * FROM products ORDER BY product_Price DESC";
+                        query = "SELECT * FROM products WHERE product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                         getDataProductbyKey(query);
                     }
                 } else if(!province.equals("Toàn quốc") && category_name == null) {
                     if (sort.equals("Giá thấp->cao")) {
-                        query = "SELECT * FROM products WHERE user_LivingArea = '" + province + "' ORDER BY product_Price";
+                        query = "SELECT * FROM products WHERE user_LivingArea = '"+province+"' ORDER BY product_Price";
                         getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
-                        query = "SELECT * FROM products WHERE user_LivingArea = '" + province + "' ORDER BY product_Price DESC";
+                        query = "SELECT * FROM products WHERE user_LivingArea = '"+province+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                         getDataProductbyKey(query);
                     }
                 }else if(province.equals("Toàn quốc") && category_name != null){
                     if (sort.equals("Giá thấp->cao")) {
-                        query = "SELECT * FROM products WHERE product_Company = '" + category_name + "' ORDER BY product_Price";
+                        query = "SELECT * FROM products WHERE product_Company = '"+category_name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price";
                         getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
-                        query = "SELECT * FROM products WHERE product_Company = '" + category_name + "' ORDER BY product_Price DESC";
+                        query = "SELECT * FROM products WHERE product_Company = '"+category_name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                         getDataProductbyKey(query);
                     }
                 }else if(!province.equals("Toàn quốc") && category_name != null){
                     if (sort.equals("Giá thấp->cao")) {
-                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price";
+                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+province+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price";
                         getDataProductbyKey(query);
                     } else if (sort.equals("Giá cao->thấp")) {
-                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price DESC";
+                        query = "SELECT * FROM products WHERE product_Company ='"+category_name+"' AND user_LivingArea ='"+province+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                         getDataProductbyKey(query);
                     }
                 }
@@ -206,22 +207,22 @@ public class HomeFragment extends Fragment {
             category_name = name;
             String query;
             if(!province.equals("Toàn quốc") && !sort.equals("Giá thấp->cao") && !sort.equals("Giá cao->thấp")){
-                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Id DESC";
+                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' AND product_PostApproval = '"+status+"' ORDER BY product_Id DESC";
                 getDataProductbyKey(query);
             }else if(!province.equals("Toàn quốc") && sort.equals("Giá thấp->cao")){
-                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price";
+                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price";
                 getDataProductbyKey(query);
             }else if(!province.equals("Toàn quốc") && sort.equals("Giá cao->thấp")){
-                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' ORDER BY product_Price DESC";
+                query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND user_LivingArea ='"+province+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                 getDataProductbyKey(query);
             }else if(province.equals("Toàn quốc") && sort.equals("Giá thấp->cao")){
-                query = "SELECT * FROM products WHERE product_Company = '" + name + "' ORDER BY product_Price";
+                query = "SELECT * FROM products WHERE product_Company = '"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price";
                 getDataProductbyKey(query);
             }else if(province.equals("Toàn quốc") && sort.equals("Giá thấp->cao")){
-                query = "SELECT * FROM products WHERE product_Company = '" + name + "' ORDER BY product_Price DESC";
+                query = "SELECT * FROM products WHERE product_Company = '"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Price DESC";
                 getDataProductbyKey(query);
             }else {
-                query = "SELECT * FROM products WHERE product_Company = '" + name + "' ORDER BY product_Id DESC";
+                query = "SELECT * FROM products WHERE product_Company = '"+name+"' AND product_PostApproval = '"+status+"' ORDER BY product_Id DESC";
                 getDataProductbyKey(query);
             }
         }
