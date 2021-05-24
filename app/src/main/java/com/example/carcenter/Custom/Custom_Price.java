@@ -1,4 +1,4 @@
-package com.example.carcenter.common;
+package com.example.carcenter.Custom;
 
 import java.util.Map;
 import java.util.NavigableMap;
@@ -7,9 +7,9 @@ import java.util.TreeMap;
 public class Custom_Price {
     private static final NavigableMap<Long, String> suffixes = new TreeMap<>();
     static {
-        suffixes.put(1_000L, " Nghìn");
-        suffixes.put(1_000_000L, "  Triệu");
-        suffixes.put(1_000_000_000L, " Tỷ");
+        suffixes.put(1_000L, " Triệu");
+        suffixes.put(1_000_000L, "  Tỷ");
+        suffixes.put(1_000_000_000L, " Nghìn Tỷ");
         suffixes.put(1_000_000_000_000L, " T");
         suffixes.put(1_000_000_000_000_000L, " P");
         suffixes.put(1_000_000_000_000_000_000L, " E");
