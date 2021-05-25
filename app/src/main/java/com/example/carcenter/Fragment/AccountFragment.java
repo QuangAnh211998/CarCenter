@@ -19,8 +19,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.carcenter.JavaClass.MainActivity;
 import com.example.carcenter.JavaClass.MyWishlistActivity;
 import com.example.carcenter.JavaClass.PostManagementActivity;
+import com.example.carcenter.JavaClass.PostManagement_Admin_Activity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
 import com.example.carcenter.Register.RegisterActivity;
@@ -40,6 +42,8 @@ public class AccountFragment extends Fragment {
     private LinearLayout post_management;
     private LinearLayout my_wishlist;
     private LinearLayout sms_service;
+    private LinearLayout post_management_admin;
+    private LinearLayout account_management;
     private TextView userName_tv;
     private TextView userPhone_tv;
     private TextView numberPost_tv;
@@ -60,8 +64,12 @@ public class AccountFragment extends Fragment {
         post_management = view.findViewById(R.id.post_management_layout);
         my_wishlist = view.findViewById(R.id.my_wishlist_layout);
         sms_service = view.findViewById(R.id.sms_service_layout);
+        post_management_admin = view.findViewById(R.id.postmanagement_admin_layout);
+        account_management = view.findViewById(R.id.account_management_layout);
         userName_tv = view.findViewById(R.id.tv_name);
         userPhone_tv = view.findViewById(R.id.tv_phone);
+        money_tv = view.findViewById(R.id.tv_money);
+        numberPost_tv = view.findViewById(R.id.tv_numberpost);
 
         EventBus.getDefault().register(this);
         saveSignIn = getContext().getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
@@ -87,7 +95,7 @@ public class AccountFragment extends Fragment {
                 editor.clear();
                 editor.commit();
                 CheckData();
-//                MainActivity.checkid();
+                MainActivity.CheckAccount();
             }
         });
 
@@ -150,6 +158,13 @@ public class AccountFragment extends Fragment {
                 }
             }
         });
+
+        post_management_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PostManagement_Admin_Activity.class));
+            }
+        });
     }
 
     @Subscriber(tag = "loginSuccess")
@@ -159,18 +174,33 @@ public class AccountFragment extends Fragment {
 
     private void CheckData() {
         String email = saveSignIn.getString("user_Email", "");
-        Log.e("acc", email);
+        String type = saveSignIn.getString("user_Type", "");
+
         if (!TextUtils.isEmpty(email)) {
             btn_SignOut.setVisibility(View.VISIBLE);
             btn_SignIn.setVisibility(View.GONE);
             userName_tv.setText(saveSignIn.getString("user_Name", ""));
             userPhone_tv.setText(saveSignIn.getString("user_Phone", ""));
+            money_tv.setText("0");
+            if(type.equals("Admin")){
+                account_management.setVisibility(View.VISIBLE);
+                post_management_admin.setVisibility(View.VISIBLE);
+                post_management.setVisibility(View.GONE);
+                reset_password.setVisibility(View.GONE);
+                reset_infor.setVisibility(View.GONE);
+                my_wishlist.setVisibility(View.GONE);
+                numberPost_tv.setVisibility(View.GONE);
+            }else {
+                account_management.setVisibility(View.GONE);
+                post_management_admin.setVisibility(View.GONE);
+            }
 
         } else {
             btn_SignIn.setVisibility(View.VISIBLE);
             btn_SignOut.setVisibility(View.GONE);
             userName_tv.setText("Họ tên");
             userPhone_tv.setText("Số điện thoại");
+            money_tv.setText("");
         }
     }
 

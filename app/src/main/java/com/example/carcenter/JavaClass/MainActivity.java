@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.carcenter.Admin.PostPurchaseFragment;
+import com.example.carcenter.Admin.PostSaleFragment;
 import com.example.carcenter.Fragment.AccountFragment;
 import com.example.carcenter.Fragment.PostFragment;
 import com.example.carcenter.Fragment.SalonFragment;
@@ -21,19 +23,19 @@ import com.example.carcenter.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 public class MainActivity extends AppCompatActivity {
 
     private static BottomNavigationView bottomNavigation;
 
-    private SharedPreferences saveSignIn;
-    private SharedPreferences.Editor editor;
+    private static SharedPreferences saveSignIn;
+    private static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if(Build.VERSION.SDK_INT>=22){
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.colorGrey));
@@ -42,12 +44,37 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         saveSignIn = getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
         editor = saveSignIn.edit();
-
+        String user_type = saveSignIn.getString("user_Type", "");
         bottomNavigation = findViewById(R.id.btn_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+        if(user_type.equals("Admin")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
+        }else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+        CheckAccount();
+    }
 
+    @Subscriber(tag = "loginSuccess")
+    private void loginSuccess(boolean b){
+        CheckAccount();
+    }
+
+
+    public static void CheckAccount(){
+        String user_type = saveSignIn.getString("user_Type", "");
+        if(user_type.equals("Admin")){
+            bottomNavigation.getMenu().findItem(R.id.nav_post).setVisible(false);
+            bottomNavigation.getMenu().findItem(R.id.nav_home).setVisible(false);
+            bottomNavigation.getMenu().findItem(R.id.nav_purchase).setVisible(false);
+            bottomNavigation.getMenu().findItem(R.id.nav_salon).setVisible(false);
+        }else {
+            bottomNavigation.getMenu().findItem(R.id.nav_home).setVisible(true);
+            bottomNavigation.getMenu().findItem(R.id.nav_post).setVisible(true);
+            bottomNavigation.getMenu().findItem(R.id.nav_purchase).setVisible(true);
+            bottomNavigation.getMenu().findItem(R.id.nav_salon).setVisible(true);
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
