@@ -72,18 +72,31 @@
                         android:text="Số lần đăng tin:"
                         android:textSize="20dp" />
 
-                    <TextView
-                        android:id="@+id/tv_money"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <LinearLayout
                         android:layout_marginTop="2dp"
-                        android:text="Tài khoản:"
-                        android:textSize="20dp" />
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tài khoản:"
+                            android:textSize="20dp" />
+                        <TextView
+                            android:id="@+id/tv_money"
+                            android:layout_marginLeft="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20dp"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/colorGreyDark"/>
@@ -104,6 +117,66 @@
                     android:text="Quản lý tin đăng"
                     android:textSize="20dp"
                     android:textColor="@color/colorBlue"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|right"
+                    android:paddingRight="24dp"
+                    android:text=">"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorBlue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/postmanagement_admin_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8.5"
+                    android:gravity="left|center"
+                    android:paddingLeft="16dp"
+                    android:text="Quản lý bài đăng"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|right"
+                    android:paddingRight="24dp"
+                    android:text=">"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorBlue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/account_management_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8.5"
+                    android:gravity="left|center"
+                    android:paddingLeft="16dp"
+                    android:text="Quản lý tài khoản"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -232,7 +305,7 @@
                     android:textColor="@color/colorBlue"/>
             </LinearLayout>
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#bdbdbd"/>
