@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.carcenter.Admin.PostPurchaseFragment;
-import com.example.carcenter.Admin.PostSaleFragment;
 import com.example.carcenter.Fragment.AccountFragment;
 import com.example.carcenter.Fragment.PostFragment;
 import com.example.carcenter.Fragment.SalonFragment;

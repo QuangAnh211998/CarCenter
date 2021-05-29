@@ -23,11 +23,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carcenter.Adapter.ProvinceAdapter;
+import com.example.carcenter.Custom.BottomSheetPrice;
+import com.example.carcenter.Model.ProvinceModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
 
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -39,7 +45,6 @@ public class Postpurchase extends AppCompatActivity {
     private EditText postpurchase_content;
     private EditText postpurchase_title;
     private Button postpurchase_btn;
-    private Spinner spinner_price;
 
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
@@ -79,32 +84,43 @@ public class Postpurchase extends AppCompatActivity {
     //////
     void Eventclick(){
 
-        String[] listprice = new String[]{"Dưới 200 Triệu","200 - 400 Triệu","400 - 600 Triệu","600 - 800 Triệu","800 - 1 Tỷ","Trên 1 Tỷ"};
-
-        final ArrayAdapter<String> arrprice = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listprice);
-        spinner_price.setAdapter(arrprice);
-        spinner_price.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        postpurchase_price_range.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                postpurchase_price_range.setText(arrprice.getItem(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                List<ProvinceModel> list = new ArrayList<>();
+                list.add(new ProvinceModel(1, "Dưới 200 Triệu"));
+                list.add(new ProvinceModel(2, "200 - 400 Triệu"));
+                list.add(new ProvinceModel(3, "400 - 600 Triệu"));
+                list.add(new ProvinceModel(4, "600 - 800 Triệu"));
+                list.add(new ProvinceModel(5, "800 - 1 Tỷ"));
+                list.add(new ProvinceModel(6, "Trên 1 Tỷ"));
+                BottomSheetPrice bottomSheetPrice = new BottomSheetPrice(list, new ProvinceAdapter.OnItemOnCLick() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(String name) {
+                        postpurchase_price_range.setText(name);
+                    }
+                });
+                bottomSheetPrice.show(getSupportFragmentManager(), bottomSheetPrice.getTag());
             }
         });
 
         postpurchase_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              PostPurchase();
+                String approval = "Chờ duyệt";
+                String user_type = saveSignIn.getString("user_Type", "");
+                if(user_type.equals("Vip1") || user_type.equals("Vip2")){
+                    approval = "Đã duyệt";
+                    PostPurchase(approval);
+                }
+              PostPurchase(approval);
             }
         });
     }
 
     @SuppressLint("CheckResult")
-    private void PostPurchase(){
+    private void PostPurchase(String approval){
         String title = postpurchase_title.getText().toString();
         String content = postpurchase_content.getText().toString();
         String price = postpurchase_price_range.getText().toString();
@@ -118,7 +134,7 @@ public class Postpurchase extends AppCompatActivity {
                 postpurchase_btn.setEnabled(false);
                 postpurchase_btn.setTextColor(Color.argb(50, 255, 255, 255));
 
-                APIRequest.PostPurchase(getApplication(),title, price, content, name, phone, address, user_id)
+                APIRequest.PostPurchase(getApplication(),title, price, content, name, phone, address, user_id, approval)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonElement -> {
@@ -201,12 +217,12 @@ public class Postpurchase extends AppCompatActivity {
     }
 
 
+
     void Anhxa(){
         toolbar = findViewById(R.id.toolbarPostPurchase);
         postpurchase_price_range = findViewById(R.id.price_range_tv);
         postpurchase_title = findViewById(R.id.purchase_title_edt);
         postpurchase_content = findViewById(R.id.purchase_content_edt);
         postpurchase_btn = findViewById(R.id.postpurchase_btn);
-        spinner_price = findViewById(R.id.spinner_price);
     }
 }
