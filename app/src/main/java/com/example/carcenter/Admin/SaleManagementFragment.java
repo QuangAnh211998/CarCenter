@@ -9,19 +9,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.carcenter.Adapter.PostSaleManagementAdapter;
-import com.example.carcenter.Adapter.ProductsAdapter;
+import com.example.carcenter.Adapter.SaleManagementAdapter;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,28 +29,36 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class PostSaleFragment extends Fragment {
+public class SaleManagementFragment extends Fragment {
 
     private List<ProductsModel> productsModelList;
-    private PostSaleManagementAdapter postSaleManagementAdapter;
+    private SaleManagementAdapter saleManagementAdapter;
     private RecyclerView sale_RecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post_sale, viewGroup, false);
+        View view = inflater.inflate(R.layout.fragment_sale_management, viewGroup, false);
 
         sale_RecyclerView = view.findViewById(R.id.sale_recyclerView);
 
         LinearLayoutManager layoutManager_Product = new LinearLayoutManager(getActivity());
         layoutManager_Product.setOrientation(LinearLayoutManager.VERTICAL);
         sale_RecyclerView.setLayoutManager(layoutManager_Product);
-        productsModelList = new ArrayList<ProductsModel>();
-        postSaleManagementAdapter = new PostSaleManagementAdapter(productsModelList);
-        sale_RecyclerView.setAdapter(postSaleManagementAdapter);
+        productsModelList = new ArrayList<>();
+        saleManagementAdapter = new SaleManagementAdapter(productsModelList,onItemOnCLick);
+        sale_RecyclerView.setAdapter(saleManagementAdapter);
 
         getDataProductbyKey();
         return view;
     }
+
+
+    private SaleManagementAdapter.OnItemOnCLick onItemOnCLick = new SaleManagementAdapter.OnItemOnCLick() {
+        @Override
+        public void onClick(String stutus_sale, int id) {
+            UpdateProducts(stutus_sale, id);
+        }
+    };
 
     ////// get dữ liệu product theo trạng thái
     @SuppressLint("CheckResult")
@@ -58,6 +66,7 @@ public class PostSaleFragment extends Fragment {
         String approval = "Chờ duyệt";
         String query = "SELECT * FROM products WHERE product_PostApproval ='"+approval+"' ORDER BY product_Id";
         productsModelList.clear();
+
         APIRequest.getProductbyKey(getContext(), query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -66,12 +75,31 @@ public class PostSaleFragment extends Fragment {
                     ArrayList<ProductsModel> productsModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<ProductsModel>>() {
                     }.getType());
                     productsModelList.addAll(productsModels);
-                    postSaleManagementAdapter.notifyDataSetChanged();
+                    saleManagementAdapter.notifyDataSetChanged();
                     if (productsModels.get(0).getProduct_Company() != null) {
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
                     Toast.makeText(getContext(), "Không có tin nào", Toast.LENGTH_LONG).show();
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    private void UpdateProducts(String status_sale, int id ){
+        String query = "UPDATE products SET product_PostApproval = '"+status_sale+"' WHERE product_Id ='" +id+ "'";
+
+        APIRequest.UpdateAndDelete(getContext(),query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    String status = jsonObject.getString("status");
+                    if(status.equals("success")) {
+                        getDataProductbyKey();
+                    }
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    Toast.makeText(getContext(), "Duyệt bài thất bại", Toast.LENGTH_LONG).show();
                 });
     }
 

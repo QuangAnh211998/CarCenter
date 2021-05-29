@@ -1,4 +1,4 @@
-package com.example.carcenter.JavaClass;
+package com.example.carcenter.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.carcenter.Adapter.ViewPageAdapter;
 import com.example.carcenter.Adapter.ViewPageManageAdapter;
 import com.example.carcenter.R;
 import com.google.android.material.tabs.TabLayout;
