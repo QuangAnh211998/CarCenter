@@ -58,9 +58,14 @@ public interface APIEndpoints {
 
     @FormUrlEncoded
     @POST("carcenter/PostPurchase.php")
-    Observable<JsonElement> PostPurchase(@Field("title") String title, @Field("price") String price, @Field("content") String content,
-                                         @Field("name") String name, @Field("phone") String phone,
-                                         @Field("address") String address, @Field("user_id") int user_id);
+    Observable<JsonElement> PostPurchase(@Field("title") String title,
+                                         @Field("price") String price,
+                                         @Field("content") String content,
+                                         @Field("name") String name,
+                                         @Field("phone") String phone,
+                                         @Field("address") String address,
+                                         @Field("user_id") int user_id,
+                                         @Field("approval") String approval);
 
     @FormUrlEncoded
     @POST("carcenter/getMySale.php")
@@ -81,6 +86,12 @@ public interface APIEndpoints {
     @FormUrlEncoded
     @POST("carcenter/Search.php")
     Observable<JsonElement> Search (@Field("key") String key);
+
+    @GET("carcenter/getUser.php")
+    Observable<JsonElement> getUser(@QueryMap Map<String, Object> queryMap);
+
+    @GET("carcenter/getCountUser.php")
+    Observable<JsonElement> getCountUser(@QueryMap Map<String, Object> queryMap);
 
     @Multipart
     @POST("carcenter/uploadImage.php")

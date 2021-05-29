@@ -34,6 +34,16 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).getProvince(queryMap);
     }
 
+    public static Observable<JsonElement> getUser(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getUser(queryMap);
+    }
+
+    public static Observable<JsonElement> getCountUser(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getCountUser(queryMap);
+    }
+
     public static Observable<JsonElement> getPurchase (Context context) {
         HashMap<String, Object> queryMap = new HashMap<>();
         return BaseAPIRequest.getInstanceRequestV2(context).getPurchase(queryMap);
@@ -56,8 +66,8 @@ public class APIRequest {
     }
 
     public static Observable<JsonElement> PostPurchase(Context context, String title, String price, String content, String name,
-                                                       String phone, String address, int user_id){
-        return BaseAPIRequest.getInstanceRequestV2(context).PostPurchase(title, price, content, name, phone, address, user_id);
+                                                       String phone, String address, int user_id, String approval){
+        return BaseAPIRequest.getInstanceRequestV2(context).PostPurchase(title, price, content, name, phone, address, user_id, approval);
     }
 
     public static Observable<JsonElement> getMyPost(Context context, int user_id){

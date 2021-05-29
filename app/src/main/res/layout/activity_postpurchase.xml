@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorGrey">
-        
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,24 +22,24 @@
             android:textSize="20dp"
             android:textColor="@color/colorBlack"
             android:gravity="center|left"
-            android:paddingLeft="50dp"/>
+            android:paddingLeft="50dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#bdbdbd"/>
-    
+        android:background="#bdbdbd" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical">
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,20 +48,21 @@
                 android:layout_marginRight="12dp"
                 android:text="Chú ý: Chỉ đăng tin mua xe ở đây. Không đăng tin bán xe hay tin rao vặt khác...\nTiêu đề và nội dung phải nhập bằng tiếng việt có dấu"
                 android:textSize="16dp"
-                android:textColor="@color/colorReb"/>
+                android:textColor="@color/colorReb" />
 
             <TextView
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#bdbdbd"/>
-            
+                android:background="#bdbdbd" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,27 +71,17 @@
                     android:textSize="18dp"
                     android:textColor="@color/colorBlack" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/price_range_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_expand_more"
+                    android:layout_weight="9"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/boderedt"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/price_range_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="9"
-                        android:padding="8dp"
-                        android:paddingRight="8dp"
-                        android:text="Chọn mức tiền"
-                        android:textSize="18dp"/>
-                    <Spinner
-                        android:id="@+id/spinner_price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-                </LinearLayout>
+                    android:padding="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Chọn mức tiền"
+                    android:textSize="18dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,6 +90,7 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,52 +108,49 @@
                     android:padding="8dp"
                     android:hint="Nhập tiêu đề"
                     android:inputType="text"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginTop="12dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Nội dung:"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorBlack" />
+                android:layout_marginRight="12dp"
+                android:text="Nội dung:"
+                android:textSize="18dp"
+                android:textColor="@color/colorBlack" />
 
-                <EditText
-                    android:id="@+id/purchase_content_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/boderedt"
-                    android:padding="8dp"
-                    android:gravity="top"
-                    android:hint="Nhập nội dung"
-                    android:inputType="text"
-                    android:textSize="14dp"/>
-            </LinearLayout>
+            <EditText
+                android:id="@+id/purchase_content_edt"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/boderedt"
+                android:padding="8dp"
+                android:gravity="top"
+                android:hint="Nhập nội dung"
+                android:inputType="text"
+                android:textSize="14dp" />
 
-             <Button
+            <Button
                 android:id="@+id/postpurchase_btn"
                 android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="80dp"
                 android:layout_marginRight="80dp"
-                 android:layout_marginBottom="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/bg2"
                 android:text="Đăng tin"
                 android:textSize="20dp"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
 
 
         </LinearLayout>
-        
+
     </ScrollView>
 
 </LinearLayout>

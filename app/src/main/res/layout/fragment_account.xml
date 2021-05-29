@@ -219,7 +219,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/sms_service_layout"
+                android:id="@+id/signup_vip_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="2dp"
@@ -232,7 +232,7 @@
                     android:layout_weight="8.5"
                     android:gravity="left|center"
                     android:paddingLeft="16dp"
-                    android:text="Dịch vụ SMS"
+                    android:text="Đăng ký tài khoản vip"
                     android:textSize="20dp"
                     android:textColor="@color/colorBlue"/>
 

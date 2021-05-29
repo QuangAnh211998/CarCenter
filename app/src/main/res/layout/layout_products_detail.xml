@@ -42,7 +42,7 @@
             android:layout_weight="3"/>
 
         <TextView
-            android:id="@+id/product_Status_tv"
+            android:id="@+id/product_Price_tv"
             android:text="Xe mới"
             android:textSize="18dp"
             android:textColor="@color/colorBlack"

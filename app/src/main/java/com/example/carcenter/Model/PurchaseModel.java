@@ -12,12 +12,13 @@ public class PurchaseModel implements Parcelable {
     private String purchase_UserName;
     private String purchase_UserPhone;
     private String purchase_UserAddress;
+    private String purchase_PostApproval;
 
     public PurchaseModel() {
     }
 
     public PurchaseModel(int purchase_Id, String purchase_Title, String purchase_PriceRange, String purchase_Content, String purchase_UserName,
-                         String purchase_UserPhone, String purchase_UserAddress) {
+                         String purchase_UserPhone, String purchase_UserAddress, String purchase_PostApproval) {
         this.purchase_Id = purchase_Id;
         this.purchase_Title = purchase_Title;
         this.purchase_PriceRange = purchase_PriceRange;
@@ -25,6 +26,7 @@ public class PurchaseModel implements Parcelable {
         this.purchase_UserName = purchase_UserName;
         this.purchase_UserPhone = purchase_UserPhone;
         this.purchase_UserAddress = purchase_UserAddress;
+        this.purchase_PostApproval = purchase_PostApproval;
     }
 
     protected PurchaseModel(Parcel in) {
@@ -35,6 +37,7 @@ public class PurchaseModel implements Parcelable {
         purchase_UserName = in.readString();
         purchase_UserPhone = in.readString();
         purchase_UserAddress = in.readString();
+        purchase_PostApproval = in.readString();
     }
 
     @Override
@@ -46,6 +49,7 @@ public class PurchaseModel implements Parcelable {
         dest.writeString(purchase_UserName);
         dest.writeString(purchase_UserPhone);
         dest.writeString(purchase_UserAddress);
+        dest.writeString(purchase_PostApproval);
     }
 
     @Override
@@ -119,5 +123,13 @@ public class PurchaseModel implements Parcelable {
 
     public void setPurchase_UserAddress(String purchase_UserAddress) {
         this.purchase_UserAddress = purchase_UserAddress;
+    }
+
+    public String getPurchase_PostApproval() {
+        return purchase_PostApproval;
+    }
+
+    public void setPurchase_PostApproval(String purchase_PostApproval) {
+        this.purchase_PostApproval = purchase_PostApproval;
     }
 }
