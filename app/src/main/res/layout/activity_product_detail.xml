@@ -68,22 +68,37 @@
 
             <include layout="@layout/layout_products_detail"/>
 
-            <TextView
+            <View
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGreyDark"/>
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/productbyename_layout"
                 android:layout_marginTop="16dp"
-                android:paddingStart="8dp"
-                android:padding="4dp"
-                android:text="Các xe khác của"
-                android:textSize="18dp"
-                android:textColor="@color/colorBlue"
                 android:background="@color/colorGreyDark"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingStart="8dp"
+                    android:padding="8dp"
+                    android:text="Các xe khác của"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="ho ten"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
