@@ -15,7 +15,6 @@ import com.example.carcenter.JavaClass.ProductDetailActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.R;
 import com.example.carcenter.Custom.Custom_Price;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             productVersion = itemView.findViewById(R.id.product_Version_tv);
             productYear = itemView.findViewById(R.id.product_Year_tv);
             productPrice = itemView.findViewById(R.id.productPrice_tv);
-            productStatus = itemView.findViewById(R.id.product_Status_tv);
+            productStatus = itemView.findViewById(R.id.product_Price_tv);
             productUserName = itemView.findViewById(R.id.product_UserName_tv);
             productUserLivingAre = itemView.findViewById(R.id.productLivingArea_tv);
 

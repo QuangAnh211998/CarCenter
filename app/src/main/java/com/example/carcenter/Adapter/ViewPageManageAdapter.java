@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.carcenter.Admin.PostPurchaseFragment;
-import com.example.carcenter.Admin.PostSaleFragment;
-import com.example.carcenter.Fragment.MyPurchaseFragment;
-import com.example.carcenter.Fragment.MySaleFragment;
+import com.example.carcenter.Admin.PurchaseManagementFragment;
+import com.example.carcenter.Admin.SaleManagementFragment;
 
 public class ViewPageManageAdapter extends FragmentStatePagerAdapter {
 
@@ -22,11 +20,11 @@ public class ViewPageManageAdapter extends FragmentStatePagerAdapter {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return new PostSaleFragment();
+                    return new SaleManagementFragment();
                 case 1:
-                    return new PostPurchaseFragment();
+                    return new PurchaseManagementFragment();
                 default:
-                    return new PostSaleFragment();
+                    return new SaleManagementFragment();
             }
         }
 
