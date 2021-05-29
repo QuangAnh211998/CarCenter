@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +18,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.carcenter.Admin.AccountManagementActivity;
 import com.example.carcenter.JavaClass.MainActivity;
 import com.example.carcenter.JavaClass.MyWishlistActivity;
 import com.example.carcenter.JavaClass.PostManagementActivity;
-import com.example.carcenter.JavaClass.PostManagement_Admin_Activity;
+import com.example.carcenter.Admin.PostManagement_Admin_Activity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
 import com.example.carcenter.Register.RegisterActivity;
@@ -41,7 +41,7 @@ public class AccountFragment extends Fragment {
     private LinearLayout reset_infor;
     private LinearLayout post_management;
     private LinearLayout my_wishlist;
-    private LinearLayout sms_service;
+    private LinearLayout signup_vip;
     private LinearLayout post_management_admin;
     private LinearLayout account_management;
     private TextView userName_tv;
@@ -63,7 +63,7 @@ public class AccountFragment extends Fragment {
         reset_infor = view.findViewById(R.id.reset_infor_layout);
         post_management = view.findViewById(R.id.post_management_layout);
         my_wishlist = view.findViewById(R.id.my_wishlist_layout);
-        sms_service = view.findViewById(R.id.sms_service_layout);
+        signup_vip = view.findViewById(R.id.signup_vip_layout);
         post_management_admin = view.findViewById(R.id.postmanagement_admin_layout);
         account_management = view.findViewById(R.id.account_management_layout);
         userName_tv = view.findViewById(R.id.tv_name);
@@ -148,7 +148,7 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        sms_service.setOnClickListener(new View.OnClickListener() {
+        signup_vip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(email)){
@@ -163,6 +163,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), PostManagement_Admin_Activity.class));
+            }
+        });
+
+        account_management.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AccountManagementActivity.class));
             }
         });
     }
@@ -198,6 +205,13 @@ public class AccountFragment extends Fragment {
         } else {
             btn_SignIn.setVisibility(View.VISIBLE);
             btn_SignOut.setVisibility(View.GONE);
+            account_management.setVisibility(View.GONE);
+            post_management_admin.setVisibility(View.GONE);
+            post_management.setVisibility(View.VISIBLE);
+            reset_password.setVisibility(View.VISIBLE);
+            reset_infor.setVisibility(View.VISIBLE);
+            my_wishlist.setVisibility(View.VISIBLE);
+            numberPost_tv.setVisibility(View.VISIBLE);
             userName_tv.setText("Họ tên");
             userPhone_tv.setText("Số điện thoại");
             money_tv.setText("");
