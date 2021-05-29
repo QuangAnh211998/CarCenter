@@ -46,6 +46,8 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.example.carcenter.Register.RegisterActivity.setSignUpFragment;
+
 public class ProductDetailActivity extends AppCompatActivity {
 
     List<String> productImage_List;
@@ -56,6 +58,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String phone;
     private int product_id;
     private int user_id;
+    private int product_user_id;
+    private String product_user_name;
     private int wishlist_product_id;
 
     private SharedPreferences saveSignIn;
@@ -98,6 +102,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private LinearLayout layout_view;
     private ImageView imageView_up;
     private ImageView imageView_down;
+    private LinearLayout productbyname;
+    private TextView user_name_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +119,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         editor = saveSignIn.edit();
         user_id = saveSignIn.getInt("user_Id", -1);
 
-        Innit();
+        Init();
         ActionToolBar();
         getsetProductDetail();
         getWishlist();
@@ -125,20 +131,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewpager_tablayout.setupWithViewPager(viewPager_Image, true);
 
         EventOnClick();
-        CheckWishlist();
-        Log.e("www", wishlist_product_id+"");
 
     }
 
-    private void CheckWishlist(){
-        if(wishlist_product_id == product_id){
-            addtowishlist=true;
-            add_to_Wishlist_btn.setSupportImageTintList(getResources().getColorStateList(R.color.colorReb));
-        }else {
-            addtowishlist=false;
-            add_to_Wishlist_btn.setSupportImageTintList(ColorStateList.valueOf(Color.parseColor("#9f9f9f")));
-        }
-    }
+
+
 
     private void EventOnClick(){
         add_to_Wishlist_btn.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +151,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                         PostWishlist();
                     }
                 }else {
-                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                    DialogSignIn();
                 }
             }
         });
@@ -177,6 +174,16 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
+        productbyname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailActivity.this, ProductbyUserActivity.class);
+                intent.putExtra("user_id", product_user_id);
+                intent.putExtra("user_name", product_user_name);
+                startActivity(intent);
+            }
+        });
+
 
         layout_safe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,38 +203,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.main_search){
-            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void ActionToolBar(){
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
 
     private void getsetProductDetail(){
 
         ProductsModel productsModel = getIntent().getParcelableExtra("productDetail");
 
         //// get dữ liệu về
+        product_user_id = productsModel.getUser_Id();
+        product_user_name = productsModel.getUser_Name();
         product_id = productsModel.getProduct_Id();
         int price = productsModel.getProduct_Price();
         image = productsModel.getProduct_Image();
@@ -263,49 +247,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         anti_Slip.setText(productsModel.getSystem_Anti_Slip());
         anti_theft.setText(productsModel.getSystem_Anti_theft());
         reverse_Warning.setText(productsModel.getSystem_Reverse_Warning());
+        user_name_tv.setText(productsModel.getUser_Name());
 
     }
 
-    private void Innit(){
-        toolbar = findViewById(R.id.toolbar_productDetail);
-        viewPager_Image = findViewById(R.id.product_image_viewpager);
-        viewpager_tablayout = findViewById(R.id.viewpager_indicator);
-        add_to_Wishlist_btn = findViewById(R.id.add_to_wishlist);
-        floatingbtn_call = findViewById(R.id.floattingbtn_call);
-        product_company = findViewById(R.id.product_company_tv);
-        product_name = findViewById(R.id.product_name_tv);
-        product_vesion = findViewById(R.id.product_version_tv);
-        product_year = findViewById(R.id.product_year_tv);
-        product_made_in = findViewById(R.id.product_madein_tv);
-        product_status = findViewById(R.id.product_Status_tv);
-        product_km_went = findViewById(R.id.product_km_tv);
-        product_type = findViewById(R.id.product_type_tv);
-        product_price = findViewById(R.id.product_price_tv);
-        product_outside_color = findViewById(R.id.product_outside_tv);
-        product_inside_color = findViewById(R.id.product_inside_tv);
-        product_door = findViewById(R.id.product_door_tv);
-        product_seat = findViewById(R.id.product_seat_tv);
-        product_gear = findViewById(R.id.product_gear_tv);
-        product_drive_train = findViewById(R.id.product_driveTrain_tv);
-        product_fuel = findViewById(R.id.product_fuel_tv);
-        product_consume = findViewById(R.id.product_consume_tv);
-        product_content = findViewById(R.id.product_content_tv);
-        product_username = findViewById(R.id.product_username_tv);
-        product_userphone = findViewById(R.id.product_userphone_tv);
-        product_useraddress = findViewById(R.id.product_address_tv);
-        air_Bag = findViewById(R.id.air_Bag_tv);
-        system_ABS = findViewById(R.id.abs_tv);
-        system_EBA = findViewById(R.id.eba_tv);
-        system_ESP = findViewById(R.id.esp_tv);
-        anti_Slip = findViewById(R.id.anti_Slip_tv);
-        reverse_Warning = findViewById(R.id.reverse_Warning_tv);
-        anti_theft = findViewById(R.id.anti_theft_tv);
-        layout_safe = findViewById(R.id.layout_safe);
-        layout_view = findViewById(R.id.layoutview);
-        imageView_up = findViewById(R.id.imageView_up);
-        imageView_down = findViewById(R.id.imageView_down);
 
-    }
 
     private void DialogCallPhone(String phone){
         Dialog callDialog = new Dialog(ProductDetailActivity.this);
@@ -335,6 +281,38 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
         callDialog.show();
     }
+
+
+    private void DialogSignIn(){
+        Dialog signInDialog = new Dialog(this);
+        signInDialog.setContentView(R.layout.dialog_signin);
+        signInDialog.setCancelable(true);
+        signInDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        Button signIn_btn = signInDialog.findViewById(R.id.signin_dialog_btn);
+        Button signUp_btn = signInDialog.findViewById(R.id.signup_dialog_btn);
+        Intent registerIntent = new Intent(this, RegisterActivity.class);
+        signIn_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInDialog.dismiss();
+                setSignUpFragment = false;
+                startActivity(registerIntent);
+            }
+        });
+
+        signUp_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInDialog.dismiss();
+                setSignUpFragment = true;
+                startActivity(registerIntent);
+            }
+        });
+        signInDialog.show();
+    }
+
+
 
     @SuppressLint("CheckResult")
     private void PostWishlist(){
@@ -382,9 +360,89 @@ public class ProductDetailActivity extends AppCompatActivity {
                 .subscribe(jsonElement -> {
                     JSONObject jsonObject = new JSONObject(jsonElement.toString());
                     wishlist_product_id = jsonObject.getInt("product_Id");
-                    Log.e("ggg", wishlist_product_id+"");
+                    if(wishlist_product_id == product_id){
+                        addtowishlist=true;
+                        add_to_Wishlist_btn.setSupportImageTintList(getResources().getColorStateList(R.color.colorReb));
+                    }else {
+                        addtowishlist=false;
+                        add_to_Wishlist_btn.setSupportImageTintList(ColorStateList.valueOf(Color.parseColor("#9f9f9f")));
+                    }
                 }, throwable -> {
 
                 });
+    }
+
+
+    private void ActionToolBar(){
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.main_search){
+            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private void Init(){
+        toolbar = findViewById(R.id.toolbar_productDetail);
+        viewPager_Image = findViewById(R.id.product_image_viewpager);
+        viewpager_tablayout = findViewById(R.id.viewpager_indicator);
+        add_to_Wishlist_btn = findViewById(R.id.add_to_wishlist);
+        floatingbtn_call = findViewById(R.id.floattingbtn_call);
+        product_company = findViewById(R.id.product_company_tv);
+        product_name = findViewById(R.id.product_name_tv);
+        product_vesion = findViewById(R.id.product_version_tv);
+        product_year = findViewById(R.id.product_year_tv);
+        product_made_in = findViewById(R.id.product_madein_tv);
+        product_status = findViewById(R.id.product_Price_tv);
+        product_km_went = findViewById(R.id.product_km_tv);
+        product_type = findViewById(R.id.product_type_tv);
+        product_price = findViewById(R.id.product_price_tv);
+        product_outside_color = findViewById(R.id.product_outside_tv);
+        product_inside_color = findViewById(R.id.product_inside_tv);
+        product_door = findViewById(R.id.product_door_tv);
+        product_seat = findViewById(R.id.product_seat_tv);
+        product_gear = findViewById(R.id.product_gear_tv);
+        product_drive_train = findViewById(R.id.product_driveTrain_tv);
+        product_fuel = findViewById(R.id.product_fuel_tv);
+        product_consume = findViewById(R.id.product_consume_tv);
+        product_content = findViewById(R.id.product_content_tv);
+        product_username = findViewById(R.id.product_username_tv);
+        product_userphone = findViewById(R.id.product_userphone_tv);
+        product_useraddress = findViewById(R.id.product_address_tv);
+        air_Bag = findViewById(R.id.air_Bag_tv);
+        system_ABS = findViewById(R.id.abs_tv);
+        system_EBA = findViewById(R.id.eba_tv);
+        system_ESP = findViewById(R.id.esp_tv);
+        anti_Slip = findViewById(R.id.anti_Slip_tv);
+        reverse_Warning = findViewById(R.id.reverse_Warning_tv);
+        anti_theft = findViewById(R.id.anti_theft_tv);
+        layout_safe = findViewById(R.id.layout_safe);
+        layout_view = findViewById(R.id.layoutview);
+        imageView_up = findViewById(R.id.imageView_up);
+        imageView_down = findViewById(R.id.imageView_down);
+        user_name_tv = findViewById(R.id.user_name_tv);
+        productbyname = findViewById(R.id.productbyename_layout);
+
     }
 }
