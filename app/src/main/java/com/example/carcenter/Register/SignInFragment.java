@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carcenter.Fragment.ForgotPassWordFragment;
-import com.example.carcenter.Model.Users;
+import com.example.carcenter.Model.UsersModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
 import com.google.gson.Gson;
@@ -160,7 +160,7 @@ public class SignInFragment extends Fragment {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonElement -> {
                             Gson gson = new Gson();
-                            ArrayList<Users> users = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<Users>>(){}.getType());
+                            ArrayList<UsersModel> users = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<UsersModel>>(){}.getType());
                             Log.e("signin", users.get(0).getUser_Email());
 
                             SharedPreferences.Editor editor = seveSignIn.edit();
