@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,11 +13,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -28,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,22 +35,22 @@ import com.example.carcenter.Adapter.ImageAdapter;
 import com.example.carcenter.Adapter.ProvinceAdapter;
 import com.example.carcenter.Custom.BottomSheetCategory;
 import com.example.carcenter.Custom.BottomSheetCompany;
-import com.example.carcenter.Custom.BottomSheetProvince;
 import com.example.carcenter.Custom.BottomSheetSelected;
-import com.example.carcenter.JavaClass.MainActivity;
+import com.example.carcenter.Custom.Custom_Price;
+import com.example.carcenter.JavaClass.SearchActivity;
 import com.example.carcenter.Model.CategoryModel;
 import com.example.carcenter.Model.CompanyModel;
 import com.example.carcenter.Model.ProvinceModel;
-import com.example.carcenter.Network.APIEndpoints;
 import com.example.carcenter.Network.APIRequest;
+import com.example.carcenter.Network.BaseAPIRequest;
 import com.example.carcenter.Register.RegisterActivity;
 import com.example.carcenter.R;
-import com.google.android.gms.common.api.ApiException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
 import java.io.File;
@@ -77,6 +75,7 @@ public class PostFragment extends Fragment {
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
 
+    private ImageButton imageButton_search;
     private Button postsale_btn;
     private Button post_image_btn;
     private Button post_contact_btn;
@@ -115,34 +114,12 @@ public class PostFragment extends Fragment {
     private List<CompanyModel> companyModelList;
     private List<CategoryModel> categoryModelList;
 
-    String company;
-    String name;
-    String version;
-    String year;
-    String madein;
-    String status;
-    int kmwent = 0;
-    String type;
-    int price;
-    String outside;
-    String inside;
-    int door;
-    int seat;
-    String gear;
-    String drivetrain;
-    String fuel;
-    int consume;
-    String content;
-    int airbag;
-    String abs;
-    String eba;
-    String esp;
-    String antislip;
-    String antitheft;
-    String reverse;
+    String company, name, version, year, madein, status, kmwent, type, price, outside, inside, reverse;
+    String door, seat, gear, drivetrain, fuel, consume, content, airbag, abs, eba, esp, antislip, antitheft;
 
-    String realpath = "";
-
+    List<String> listRealpath ;
+    File file;
+    List<String> listfile_path;
 
     @Nullable
     @Override
@@ -153,6 +130,7 @@ public class PostFragment extends Fragment {
         saveSignIn = getContext().getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
         editor = saveSignIn.edit();
 
+        imageButton_search = view.findViewById(R.id.search_post_image);
         postsale_btn = view.findViewById(R.id.postsale_btn);
         post_image_btn = view.findViewById(R.id.post_image_btn);
         post_contact_btn = view.findViewById(R.id.post_contact_btn);
@@ -195,11 +173,12 @@ public class PostFragment extends Fragment {
         recyclerView_image.setLayoutManager(layoutManager);
         recyclerView_image.setAdapter(imageAdapter);
 
-
+        setTextUser();
         ShowBottomSheet();
         getDataCompany();
         checkButton();
         EventButton();
+
 
         return view;
     }
@@ -212,13 +191,14 @@ public class PostFragment extends Fragment {
         listColor.add(new ProvinceModel(4, "Hồng"));
         listColor.add(new ProvinceModel(5, "Đỏ"));
         listColor.add(new ProvinceModel(6, "Trắng"));
-        listColor.add(new ProvinceModel(7, "Vàng"));
-        listColor.add(new ProvinceModel(8, "Cam"));
-        listColor.add(new ProvinceModel(9, "Kem"));
-        listColor.add(new ProvinceModel(10, "Nâu"));
-        listColor.add(new ProvinceModel(11, "Tím"));
-        listColor.add(new ProvinceModel(12, "Xanh"));
-        listColor.add(new ProvinceModel(13, "Xám"));
+        listColor.add(new ProvinceModel(7, "Đen"));
+        listColor.add(new ProvinceModel(8, "Vàng"));
+        listColor.add(new ProvinceModel(9, "Cam"));
+        listColor.add(new ProvinceModel(10, "Kem"));
+        listColor.add(new ProvinceModel(11, "Nâu"));
+        listColor.add(new ProvinceModel(12, "Tím"));
+        listColor.add(new ProvinceModel(13, "Xanh"));
+        listColor.add(new ProvinceModel(14, "Xám"));
 
         post_company_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,31 +239,28 @@ public class PostFragment extends Fragment {
             public void onClick(View v) {
                 List<ProvinceModel> list = new ArrayList<>();
                 list.add(new ProvinceModel(1, "2021"));
-                list.add(new ProvinceModel(13, "2009"));
                 list.add(new ProvinceModel(2, "2020"));
-                list.add(new ProvinceModel(14, "2008"));
                 list.add(new ProvinceModel(3, "2019"));
-                list.add(new ProvinceModel(15, "2007"));
                 list.add(new ProvinceModel(4, "2018"));
-                list.add(new ProvinceModel(16, "2006"));
                 list.add(new ProvinceModel(5, "2017"));
-                list.add(new ProvinceModel(17, "2005"));
                 list.add(new ProvinceModel(6, "2016"));
-                list.add(new ProvinceModel(18, "2004"));
                 list.add(new ProvinceModel(7, "2015"));
-                list.add(new ProvinceModel(18, "2004"));
                 list.add(new ProvinceModel(8, "2014"));
-                list.add(new ProvinceModel(19, "2003"));
                 list.add(new ProvinceModel(9, "2013"));
-                list.add(new ProvinceModel(20, "2002"));
                 list.add(new ProvinceModel(10, "2012"));
-                list.add(new ProvinceModel(20, "2002"));
                 list.add(new ProvinceModel(11, "2011"));
-                list.add(new ProvinceModel(20, "2002"));
                 list.add(new ProvinceModel(12, "2010"));
+                list.add(new ProvinceModel(13, "2009"));
+                list.add(new ProvinceModel(14, "2008"));
+                list.add(new ProvinceModel(15, "2007"));
+                list.add(new ProvinceModel(16, "2006"));
+                list.add(new ProvinceModel(17, "2005"));
+                list.add(new ProvinceModel(18, "2004"));
+                list.add(new ProvinceModel(18, "2004"));
+                list.add(new ProvinceModel(19, "2003"));
+                list.add(new ProvinceModel(20, "2002"));
                 list.add(new ProvinceModel(21, "2001"));
                 list.add(new ProvinceModel(22, "2000"));
-                list.add(new ProvinceModel(23, "Trước 2000"));
                 BottomSheetSelected bottomSheetSelected = new BottomSheetSelected(list, new ProvinceAdapter.OnItemOnCLick() {
                     @SuppressLint("ResourceAsColor")
                     @Override
@@ -446,7 +423,13 @@ public class PostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(email)) {
-
+                    String approval = "Chờ duyệt";
+                    String user_type = saveSignIn.getString("user_Type", "");
+                    if (user_type.equals("Vip1") || user_type.equals("Vip2")) {
+                        approval = "Đã duyệt";
+                        PostProductandImage(approval);
+                    }
+                    PostProductandImage(approval);
                 } else {
                     DialogSignIn();
                 }
@@ -460,112 +443,81 @@ public class PostFragment extends Fragment {
             }
         });
 
-        postsale_btn.setOnClickListener(new View.OnClickListener() {
+
+        imageButton_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file = new File(realpath);
-                String file_path = file.getAbsolutePath();
-                String[] file_name = file_path.split("\\.");
-                file_path = file_name[0] + System.currentTimeMillis() + "." +file_name[1] + "." +file_name[2];
-                Log.d("fff", file_path);
-
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", file_path, requestBody);
-                Call<String> call = APIRequest.uploadImage(getContext(), body);
-                call.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if(response != null){
-                            String message = response.body();
-//                            Log.d("fff", message);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Log.d("fff", t.getMessage());
-                    }
-                });
+                startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
-
     }
 
 
-    ////// kiểm tra cấp quyền
-    private void RequestPermission() {
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                SelectImage();
+    private void PostProductandImage(String approval) {
+        if (listRealpath != null) {
+            String file_path = "";
+            listfile_path = new ArrayList<>();
+            for(int i =0; i < listRealpath.size(); i++) {
+                file = new File(listRealpath.get(i));
+                file_path = file.getAbsolutePath();
+                String[] file_name = file_path.split("\\.");
+                file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1] + "." + file_name[2];
             }
+            listfile_path.add(file_path);
 
-            @Override
-            public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-            }
-        };
-        TedPermission.with(getContext())
-                .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\nPlease turn on permissions at [Setting] > [Permission]")
-                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-                .check();
-    }
-
-
-    ////// chọn ảnh
-    private void SelectImage() {
-        TedBottomPicker.with(getActivity())
-                .setPeekHeight(1000)
-                .showTitle(false)
-                .setCompleteButtonText("Done")
-                .setEmptySelectionText("No Select")
-                .setSelectMaxCount(5)
-                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
-                    @Override
-                    public void onImagesSelected(List<Uri> uriList) {
-                        if(uriList != null && !uriList.isEmpty()){
-                            imageAdapter.setDataImage(uriList);
-                            realpath = String.valueOf(uriList.get(0));
-                        }
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", listfile_path.get(0), requestBody);
+            Call<String> call = APIRequest.uploadImage(getContext(), body);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response != null) {
+                        String message = response.body();
+                        String image1 = BaseAPIRequest.BaseURL + "image/" + message;
+                        Log.d("real", image1);
+                        String image2 = "";
+                        String image3 = "";
+                        String image4 = "";
+                        String image5 = "";
+                        CheckPostProduct(image1, image2, image3, image4, image5, approval);
                     }
-                });
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                }
+            });
+        }
     }
 
 
-    ////// lấy dừ liệu từ textview và edittext
-    private void getText() {
+    ////// Đăng tin
+    private void CheckPostProduct(String image1, String image2, String image3, String image4, String image5, String approval) {
         company = post_company_tv.getText().toString();
         name = post_name_tv.getText().toString();
         version = post_version_edt.getText().toString();
         year = post_year_tv.getText().toString();
         madein = post_madein_tv.getText().toString();
         status = post_status_tv.getText().toString();
-        kmwent = Integer.parseInt(post_kmwent_edt.getText().toString());
+        kmwent = post_kmwent_edt.getText().toString();
         type = post_type_tv.getText().toString();
-        price = Integer.parseInt(post_price_edt.getText().toString());
+        price = post_price_edt.getText().toString();
         outside = post_outside_tv.getText().toString();
         inside = post_inside_tv.getText().toString();
-        door = Integer.parseInt(post_door_edt.getText().toString());
-        seat = Integer.parseInt(post_seat_edt.getText().toString());
+        door = post_door_edt.getText().toString();
+        seat = post_seat_edt.getText().toString();
         gear = post_gear_tv.getText().toString();
         drivetrain = post_drivetrain_tv.getText().toString();
         fuel = post_fuel_tv.getText().toString();
-        consume = Integer.parseInt(post_consume_edt.getText().toString());
+        consume = post_consume_edt.getText().toString();
         content = post_content_edt.getText().toString();
-        airbag = Integer.parseInt(post_airbag_edt.getText().toString());
+        airbag = post_airbag_edt.getText().toString();
         abs = post_abs_edt.getText().toString();
         eba = post_eba_edt.getText().toString();
         esp = post_esp_edt.getText().toString();
         antislip = post_antislip_edt.getText().toString();
         reverse = post_reverse_warning_edt.getText().toString();
         antitheft = post_antitheft_edt.getText().toString();
-
-    }
-
-
-    ////// Đăng tin
-    private void CheckPostSale() {
 
         if (!company.equals("Chọn hãng xe")) {
             if (!name.equals("Chọn đời xe")) {
@@ -584,8 +536,13 @@ public class PostFragment extends Fragment {
                                                                 if (antislip.equals("Có") || antislip.equals("Không")) {
                                                                     if (reverse.equals("Có") || reverse.equals("Không")) {
                                                                         if (antitheft.equals("Có") || antitheft.equals("Không")) {
-
-
+                                                                            if (listRealpath != null) {
+                                                                                postsale_btn.setEnabled(false);
+                                                                                postsale_btn.setTextColor(Color.argb(50, 255, 255, 255));
+                                                                                PostProduct(image1, image2, image3, image4, image5, approval);
+                                                                            } else {
+                                                                                Toast.makeText(getContext(), "Chưa chọn ảnh", Toast.LENGTH_SHORT).show();
+                                                                            }
                                                                         } else {
                                                                             post_antitheft_edt.setError("Bạn chỉ được nhập Có hoặc Không");
                                                                         }
@@ -637,6 +594,81 @@ public class PostFragment extends Fragment {
         } else {
             post_company_tv.setError("Bạn chưa chọn hãng xe!");
         }
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void PostProduct(String image1, String image2, String image3, String image4, String image5, String approval) {
+        String uname = saveSignIn.getString("user_Name", "");
+        String uphone = saveSignIn.getString("user_Phone", "");
+        String uaddress = saveSignIn.getString("user_Address", "");
+        String uliving = saveSignIn.getString("user_LivingArea", "");
+        int userid = saveSignIn.getInt("user_Id", -1);
+        Log.d("post", antitheft);
+        APIRequest.PostProduct(getContext(), company, name, version, year, madein, status, kmwent, type, price, outside, inside, door, seat,
+                gear, drivetrain, fuel, consume, image1, image2, image3, image4, image5, content, uname, uphone, uaddress, uliving, airbag,
+                abs, eba, esp, antislip, reverse, antitheft, userid, approval)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    String status = jsonObject.getString("status");
+                    Log.d("post", status);
+                    if (status.equals("success")) {
+                        Toast.makeText(getContext(), "Đăng bài thành công", Toast.LENGTH_SHORT).show();
+                    }
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    Toast.makeText(getContext(), "Đăng bài thất bại", Toast.LENGTH_LONG).show();
+                });
+    }
+
+
+    ////// kiểm tra cấp quyền
+    private void RequestPermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                SelectImage();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(getContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.with(getContext())
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
+    }
+
+
+    ////// chọn ảnh
+    private void SelectImage() {
+        TedBottomPicker.with(getActivity())
+                .setPeekHeight(1000)
+                .showTitle(false)
+                .setCompleteButtonText("Done")
+                .setEmptySelectionText("No Select")
+                .setSelectMaxCount(5)
+                .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
+                    @Override
+                    public void onImagesSelected(List<Uri> uriList) {
+                        if (uriList != null && !uriList.isEmpty()) {
+                            imageAdapter.setDataImage(uriList);
+                            listRealpath = new ArrayList<>();
+                            String realpath1="";
+                            for(int i = 0; i < uriList.size(); i++) {
+                                realpath1 = String.valueOf(uriList.get(i));
+                                String[] name1 = realpath1.split("\\:");
+                                realpath1 = name1[1];
+                            }
+                            listRealpath.add(realpath1);
+                        }
+                    }
+                });
     }
 
 
@@ -896,6 +928,19 @@ public class PostFragment extends Fragment {
             postsale_btn.setEnabled(false);
             postsale_btn.setTextColor(Color.argb(50, 255, 255, 255));
         }
+    }
+
+
+    private void setTextUser() {
+        String uname = saveSignIn.getString("user_Name", "");
+        String uphone = saveSignIn.getString("user_Phone", "");
+        String uaddress = saveSignIn.getString("user_Address", "");
+        String uliving = saveSignIn.getString("user_LivingArea", "");
+
+        user_name_edt.setText(uname);
+        user_phone_edt.setText(uphone);
+        user_address_edt.setText(uaddress);
+        user_province_tv.setText(uliving);
     }
 
 

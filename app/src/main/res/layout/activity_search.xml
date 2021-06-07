@@ -35,16 +35,342 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorGreyDark"/>
+        android:background="@color/colorGreyDark" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_recyclerView"
-        android:layout_marginTop="10dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:text="Hãng xe:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.5"/>
+
+                <TextView
+                    android:id="@+id/search_company_tv"
+                    android:background="@drawable/boderedt"
+                    android:text="Tất cả"
+                    android:textAlignment="center"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:drawableEnd="@drawable/ic_expand_more"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:padding="8dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.5"/>
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorGreyDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:text="Giá bán:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/search_price_tv"
+                    android:text="Từ"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                android:id="@+id/rangeSeekbar_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:corner_radius="5"
+                app:min_value="100000"
+                app:max_value="2000000"
+                app:steps="100000"
+                app:bar_color="#bdbdbd"
+                app:bar_highlight_color="@color/colorPrimary"
+                app:left_thumb_color="@color/colorPrimary"
+                app:right_thumb_color="@color/colorPrimary"
+                app:left_thumb_color_pressed="@color/colorPrimary"
+                app:right_thumb_color_pressed="@color/colorPrimary"
+                app:data_type="_integer" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:text="Năm sản xuất:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/search_year_tv"
+                    android:text="Từ"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                android:id="@+id/rangeSeekbar_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:corner_radius="5"
+                app:min_value="2000"
+                app:max_value="2021"
+                app:steps="1"
+                app:bar_color="#bdbdbd"
+                app:bar_highlight_color="@color/colorPrimary"
+                app:left_thumb_color="@color/colorPrimary"
+                app:right_thumb_color="@color/colorPrimary"
+                app:left_thumb_color_pressed="@color/colorPrimary"
+                app:right_thumb_color_pressed="@color/colorPrimary"
+                app:data_type="_integer" />
+
+            <View
+                android:background="@color/colorGreyDark"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Tình trạng:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.5" />
+
+                <LinearLayout
+                    android:background="@drawable/boderedt"
+                    android:layout_width="0dp"
+                    android:padding="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.5">
+
+                    <TextView
+                        android:id="@+id/search_status1_tv"
+                        android:text="Xe mới"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        android:padding="6dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:background="@color/colorGreyDark"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/search_status2_tv"
+                        android:text="Xe cũ"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        android:padding="6dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:background="@color/colorGreyDark"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Xuất xứ:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.5" />
+
+                <LinearLayout
+                    android:background="@drawable/boderedt"
+                    android:layout_width="0dp"
+                    android:padding="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.5">
+
+                    <TextView
+                        android:id="@+id/search_madein1_tv"
+                        android:text="Trong nước"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        android:padding="6dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:background="@color/colorGreyDark"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/search_madein2_tv"
+                        android:text="Nhập khẩu"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorBlack"
+                        android:textAlignment="center"
+                        android:padding="6dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:text="Màu xe:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.5"/>
+
+                <TextView
+                    android:id="@+id/search_outside_tv"
+                    android:background="@drawable/boderedt"
+                    android:text="Tất cả"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:textAlignment="center"
+                    android:drawableEnd="@drawable/ic_expand_more"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.5"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:text="Kiểu dáng xe:"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.5"/>
+
+                <TextView
+                    android:id="@+id/search_type_tv"
+                    android:background="@drawable/boderedt"
+                    android:text="Tất cả"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorBlack"
+                    android:textAlignment="center"
+                    android:drawableEnd="@drawable/ic_expand_more"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6.5"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreyDark" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_recyclerView"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

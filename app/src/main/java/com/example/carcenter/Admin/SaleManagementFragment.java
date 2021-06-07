@@ -76,11 +76,7 @@ public class SaleManagementFragment extends Fragment {
                     }.getType());
                     productsModelList.addAll(productsModels);
                     saleManagementAdapter.notifyDataSetChanged();
-                    if (productsModels.get(0).getProduct_Company() != null) {
-                    }
                 }, throwable -> {
-                    throwable.printStackTrace();
-                    Toast.makeText(getContext(), "Không có tin nào", Toast.LENGTH_LONG).show();
                 });
     }
 

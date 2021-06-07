@@ -26,7 +26,7 @@ import com.example.carcenter.Admin.PostManagement_Admin_Activity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
 import com.example.carcenter.Register.RegisterActivity;
-import com.example.carcenter.JavaClass.SMSServiceActivity;
+import com.example.carcenter.JavaClass.SignUp_UserVipActivity;
 import com.example.carcenter.R;
 
 import org.simple.eventbus.EventBus;
@@ -152,7 +152,7 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(email)){
-                    startActivity(new Intent(getContext(), SMSServiceActivity.class));
+                    startActivity(new Intent(getContext(), SignUp_UserVipActivity.class));
                 }else {
                     DialogSignIn();
                 }

@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carcenter.Adapter.ProductImageAdapter;
+import com.example.carcenter.Model.WishlistModel;
 import com.example.carcenter.Register.RegisterActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Network.APIRequest;
@@ -36,7 +37,10 @@ import com.example.carcenter.R;
 import com.example.carcenter.Custom.Custom_Price;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
@@ -60,7 +64,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     private int user_id;
     private int product_user_id;
     private String product_user_name;
-    private int wishlist_product_id;
 
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
@@ -133,7 +136,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         EventOnClick();
 
     }
-
 
 
 
@@ -358,14 +360,14 @@ public class ProductDetailActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    wishlist_product_id = jsonObject.getInt("product_Id");
-                    if(wishlist_product_id == product_id){
-                        addtowishlist=true;
-                        add_to_Wishlist_btn.setSupportImageTintList(getResources().getColorStateList(R.color.colorReb));
-                    }else {
-                        addtowishlist=false;
-                        add_to_Wishlist_btn.setSupportImageTintList(ColorStateList.valueOf(Color.parseColor("#9f9f9f")));
+                    Gson gson = new Gson();
+                    ArrayList<WishlistModel> wishlistModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<WishlistModel>>(){}.getType());
+                    for (int i =0; i<wishlistModels.size(); i++) {
+                        int wishlist_product_id = wishlistModels.get(i).getProduct_Id();
+                        if (wishlist_product_id == product_id) {
+                            addtowishlist = true;
+                            add_to_Wishlist_btn.setSupportImageTintList(getResources().getColorStateList(R.color.colorReb));
+                        }
                     }
                 }, throwable -> {
 

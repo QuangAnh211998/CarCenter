@@ -22,6 +22,7 @@ import com.example.carcenter.Adapter.PurchaseAdapter;
 import com.example.carcenter.Custom.BottomSheetPrice;
 import com.example.carcenter.Custom.BottomSheetProvince;
 import com.example.carcenter.JavaClass.Postpurchase;
+import com.example.carcenter.JavaClass.SearchActivity;
 import com.example.carcenter.Model.ProvinceModel;
 import com.example.carcenter.Model.PurchaseModel;
 import com.example.carcenter.Network.APIRequest;
@@ -215,6 +216,13 @@ public class Purchasefragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), Postpurchase.class));
+            }
+        });
+
+        search_imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
 

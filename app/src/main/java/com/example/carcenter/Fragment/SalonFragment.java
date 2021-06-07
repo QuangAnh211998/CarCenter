@@ -1,5 +1,6 @@
 package com.example.carcenter.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.carcenter.Adapter.SalonAdapter;
+import com.example.carcenter.JavaClass.SearchActivity;
 import com.example.carcenter.Model.SalonModel;
 import com.example.carcenter.R;
 
@@ -24,6 +27,7 @@ public class SalonFragment extends Fragment {
     private List<SalonModel> salonModelList;
     private SalonAdapter salonAdapter;
     private RecyclerView salon_recyclerView;
+    private ImageButton imageButton_search;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class SalonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_salon, container, false);
 
         salon_recyclerView = view.findViewById(R.id.salon_recyclerView);
+        imageButton_search = view.findViewById(R.id.imageButton_search);
 
         LinearLayoutManager layoutManager_Salon = new LinearLayoutManager(getContext());
         layoutManager_Salon.setOrientation(LinearLayoutManager.VERTICAL);
@@ -60,5 +65,12 @@ public class SalonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        imageButton_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
     }
 }

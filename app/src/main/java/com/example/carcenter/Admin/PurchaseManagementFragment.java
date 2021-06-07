@@ -77,11 +77,7 @@ public class PurchaseManagementFragment extends Fragment {
                     }.getType());
                     purchaseModelList.addAll(purchaseModels);
                     purchaseManagamentAdapter.notifyDataSetChanged();
-                    if (purchaseModels.get(0).getPurchase_Title() != null) {
-                    }
                 }, throwable -> {
-                    throwable.printStackTrace();
-                    Toast.makeText(getContext(), "Không có tin nào", Toast.LENGTH_LONG).show();
                 });
     }
 

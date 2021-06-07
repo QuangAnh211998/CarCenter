@@ -3,12 +3,16 @@ import android.content.Context;
 
 import com.google.gson.JsonElement;
 import java.util.HashMap;
+import java.util.List;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 
 public class APIRequest {
+
+
 
     public static Observable<JsonElement> getCompany(Context context) {
         HashMap<String, Object> queryMap = new HashMap<>();
@@ -96,5 +100,16 @@ public class APIRequest {
 
     public static Call<String> uploadImage(Context context, MultipartBody.Part image){
         return BaseAPIRequest.getInstanceRequestV2(context).uploadImage(image);
+    }
+
+    public static Observable<JsonElement> PostProduct(Context context, String company, String name, String version, String year, String madein,
+                                                      String status, String km, String type, String price, String outside, String inside, String door,
+                                                      String seat, String gear, String drive, String fuel, String consume, String image1,
+                                                      String image2, String image3, String image4, String image5, String content, String uname,
+                                                      String uphone, String uaddress, String uliving, String airbag, String abs, String eba,
+                                                      String esp, String antislip, String reverse, String antitheft, int userid, String approval){
+        return BaseAPIRequest.getInstanceRequestV2(context).postProduct(company, name, version, year, madein, status, km, type, price, outside,
+                inside, door, seat, gear, drive, fuel, consume, image1, image2, image3, image4, image5, content, uname, uphone, uaddress, uliving,
+                airbag, abs, eba, esp, antislip, reverse, antitheft, userid, approval);
     }
 }

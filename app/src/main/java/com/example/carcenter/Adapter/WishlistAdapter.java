@@ -16,11 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.carcenter.Custom.Custom_Price;
 import com.example.carcenter.Model.ProductsModel;
+import com.example.carcenter.Model.WishlistModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
-import com.example.carcenter.Custom.Custom_Price;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -29,25 +29,27 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder> {
+public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
 
     private Context context;
     private List<ProductsModel> productsModelList;
+    private List<WishlistModel> wishlistModelList;
 
-    public MySaleAdapter(Context context, List<ProductsModel> productsModelList) {
+    public WishlistAdapter(Context context, List<ProductsModel> productsModelList, List<WishlistModel> wishlistModelList) {
         this.context = context;
         this.productsModelList = productsModelList;
+        this.wishlistModelList = wishlistModelList;
     }
 
     @NonNull
     @Override
-    public MySaleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public WishlistAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_my_sale, viewGroup, false);
-        return new ViewHolder(view);
+        return new WishlistAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MySaleAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull WishlistAdapter.ViewHolder viewHolder, int position) {
         String imageUrl = productsModelList.get(position).getProduct_Image().get(0);
         String company = productsModelList.get(position).getProduct_Company();
         String name = productsModelList.get(position).getProduct_Name();
@@ -67,7 +69,7 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         viewHolder.mySale_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConfirmDelete(productsModelList.get(position).getProduct_Id(), position);
+                ConfirmDelete(wishlistModelList.get(position).getWishlist_Id(), position);
             }
         });
     }
@@ -100,6 +102,12 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
             mySale_UserName = itemView.findViewById(R.id.mySale_UserName_tv);
             mySale_Delete = itemView.findViewById(R.id.mySale_Delete_tv);
 
+            mySale_Delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         }
         private void setProductImage(String imageUrl){
@@ -128,11 +136,11 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
 
     private void ConfirmDelete(final int id, int position){
         AlertDialog.Builder dialogXoa = new AlertDialog.Builder(context);
-        dialogXoa.setMessage("Bạn có muốn xóa tin này không?");
+        dialogXoa.setMessage("Bạn có muốn bỏ lưu tin này không?");
         dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
-                String query = "DELETE FROM products WHERE product_Id ='"+id+"'";
+                String query = "DELETE FROM wishlist WHERE wishlist_id ='"+id+"'";
                 DeleteMySale(query, position);
             }
         });
@@ -158,11 +166,11 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
                     if(status.equals("success")) {
                         productsModelList.remove(position);
                         notifyDataSetChanged();
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Bỏ lưu thành công", Toast.LENGTH_SHORT).show();
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
-                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Bỏ lưu thất bại", Toast.LENGTH_LONG).show();
                 });
     }
 }

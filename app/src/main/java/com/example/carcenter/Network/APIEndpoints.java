@@ -1,6 +1,7 @@
 package com.example.carcenter.Network;
 import com.google.gson.JsonElement;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -96,5 +97,44 @@ public interface APIEndpoints {
     @Multipart
     @POST("carcenter/uploadImage.php")
     Call<String> uploadImage(@Part MultipartBody.Part image);
+
+    @FormUrlEncoded
+    @POST("carcenter/PostProduct.php")
+    Observable<JsonElement> postProduct (@Field("company") String company,
+                                         @Field("name") String name,
+                                         @Field("version") String version,
+                                         @Field("year") String year,
+                                         @Field("madein") String madein,
+                                         @Field("status") String status,
+                                         @Field("km") String km,
+                                         @Field("type") String type,
+                                         @Field("price") String price,
+                                         @Field("outside") String outside,
+                                         @Field("inside") String inside,
+                                         @Field("door") String door,
+                                         @Field("seat") String seat,
+                                         @Field("gear") String gear,
+                                         @Field("drive") String drive,
+                                         @Field("fuel") String fuel,
+                                         @Field("consume") String consume,
+                                         @Field("image1") String image1,
+                                         @Field("image2") String image2,
+                                         @Field("image3") String image3,
+                                         @Field("image4") String image4,
+                                         @Field("image5") String image5,
+                                         @Field("content") String content,
+                                         @Field("uName") String uName,
+                                         @Field("uPhone") String uPhone,
+                                         @Field("uAddress") String uAddress,
+                                         @Field("uLiving") String uLiving,
+                                         @Field("airbag") String airbag,
+                                         @Field("abs") String abs,
+                                         @Field("eba") String eba,
+                                         @Field("esp") String esp,
+                                         @Field("antislip") String antislip,
+                                         @Field("reverse") String reverse,
+                                         @Field("antitheft") String antitheft,
+                                         @Field("userid") int userid,
+                                         @Field("approval") String approval);
 }
 
