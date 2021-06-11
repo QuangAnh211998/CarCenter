@@ -60,6 +60,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private static boolean addtowishlist = false;
     private boolean click_safe = false;
     private String phone;
+    private String company;
+    private String name;
     private int product_id;
     private int user_id;
     private int product_user_id;
@@ -107,6 +109,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ImageView imageView_down;
     private LinearLayout productbyname;
     private TextView user_name_tv;
+    private TextView productModel_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +185,19 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProductDetailActivity.this, ProductbyUserActivity.class);
                 intent.putExtra("user_id", product_user_id);
                 intent.putExtra("user_name", product_user_name);
+                intent.putExtra("product_id", product_id);
+                startActivity(intent);
+            }
+        });
+
+
+        productModel_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailActivity.this, ProductbyModelActivity.class);
+                intent.putExtra("product_id", product_id);
+                intent.putExtra("product_company", company);
+                intent.putExtra("product_name", name);
                 startActivity(intent);
             }
         });
@@ -219,10 +235,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         image = productsModel.getProduct_Image();
         phone = productsModel.getUser_Phone();
         int airbag = productsModel.getSystem_Air_Bag();
+        company = productsModel.getProduct_Company();
+        name = productsModel.getProduct_Name();
 
         //// set dữ liệu lên textView
-        product_company.setText(productsModel.getProduct_Company());
-        product_name.setText(productsModel.getProduct_Name());
+        product_company.setText(company);
+        product_name.setText(name);
         product_vesion.setText(productsModel.getProduct_Version());
         product_year.setText(String.valueOf(productsModel.getProduct_Year()));
         product_price.setText(Custom_Price.format(Long.parseLong(String.valueOf(price))));
@@ -445,6 +463,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         imageView_down = findViewById(R.id.imageView_down);
         user_name_tv = findViewById(R.id.user_name_tv);
         productbyname = findViewById(R.id.productbyename_layout);
-
+        productModel_tv = findViewById(R.id.productModel_tv);
     }
 }

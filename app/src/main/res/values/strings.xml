@@ -18,7 +18,7 @@
     <string name="textvip3_4">- Có trang riêng trên CarCenter.</string>
     <string name="textvip3_5">- Điều kiện tham gia: Salon/Showroom phải có thật. Có cửa hàng, biển hiệu và đang trưng bày bán xe.
                                 Chưa có gian hàng trên CarCenter.</string>
-    
+
     <string-array name="rangeSlider">
         <item>1000</item>
         <item>100000000</item>

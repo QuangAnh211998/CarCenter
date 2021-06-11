@@ -55,7 +55,6 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private SearchView searchView;
     private RecyclerView search_recyclerView;
     private CrystalRangeSeekbar rangeSeekbar_price;
     private CrystalRangeSeekbar rangeSeekbar_year;
@@ -76,8 +75,6 @@ public class SearchActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String approval = "Đã duyệt";
-    String status = "";
-    String madein = "";
     String yearmax;
     String yearmin;
     String pricemax;
@@ -92,7 +89,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         if (Build.VERSION.SDK_INT >= 22) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().setStatusBarColor(ContextCompat.getColor(SearchActivity.this, R.color.colorWhite));
+            getWindow().setStatusBarColor(ContextCompat.getColor(SearchActivity.this, R.color.colorGrey));
         }
         Innit();
 
@@ -106,7 +103,6 @@ public class SearchActivity extends AppCompatActivity {
 
         saveStatus = getSharedPreferences("saveStatus", Context.MODE_PRIVATE);
         editor = saveStatus.edit();
-
         ActionToolBar();
         getDataCompany();
         OnClickRangeSeekbar();
@@ -115,8 +111,7 @@ public class SearchActivity extends AppCompatActivity {
         OnClickCompany();
         OnClickOutside();
         OnClickType();
-        madein = saveStatus.getString("madein", "");
-        status = saveStatus.getString("status", "");
+
     }
 
 
@@ -137,313 +132,366 @@ public class SearchActivity extends AppCompatActivity {
                     price_tv.setText("Từ " + Custom_Price.format(Long.parseLong(String.valueOf(minValue))) + " - "
                             + Custom_Price.format(Long.parseLong(String.valueOf(maxValue))));
                 }
-
+                String status = saveStatus.getString("status", "");
+                String madein = saveStatus.getString("madein", "");
                 String query;
                  if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price <= '"+pricemax+"' AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHEREproduct_Price >= '"+pricemin+"' AND product_Year >= '"+yearmin+"' " +
                             "AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_Year <= '"+yearmax+"' " +
                             "AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                             " AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_Year >= '"+yearmin+"' " +
                             "AND product_PostApproval ='"+approval+"'AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_Year >= '"+yearmin+"' " +
                             "AND product_PostApproval ='"+approval+"' AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_OutSide ='"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Year >= '"+yearmin+"'" +
                             " AND pproduct_Company = '"+company+"' AND product_PostApproval ='"+approval+"' AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_OutSide ='"+outside+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year >= '"+yearmin+"' AND product_OutSide ='"+outside+"' AND product_PostApproval ='"+approval+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year >= '"+yearmin+"' AND product_OutSide ='"+outside+"' AND product_PostApproval ='"+approval+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_OutSide ='"+outside+"' " +
                              "AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"' " +
                              "AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_OutSide ='"+outside+"' " +
                              "AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                         && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_OutSide ='"+outside+"' " +
                              "AND product_PostApproval ='"+approval+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_OutSide ='"+outside+"' " +
                              "AND product_PostApproval ='"+approval+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                              " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >= '"+yearmin+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >= '"+yearmin+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year BETWEEN '"+pricemin+"' AND '"+pricemax+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                              "AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }
                  else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                              "AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'" +
                              "AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                         && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                              "AND product_Type = '"+type+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >= '"+yearmin+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >= '"+yearmin+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year BETWEEN '"+pricemin+"' AND '"+pricemax+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                              "AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }
                  else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                              "AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'" +
                              "AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                         && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                         && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                         && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                              "AND product_Type = '"+type+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
                          && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
-                         && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                         && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                          && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
-                         && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                         && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                          && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
-                         && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                         && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'" +
                              "AND product_Company = '"+company+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                          && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
-                         && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                         && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'" +
                              " AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"'";
                      getDataProductbyKey(query);
                  }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                          && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
-                         && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                         && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                      query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                              " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'" +
                              " AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
@@ -466,322 +514,376 @@ public class SearchActivity extends AppCompatActivity {
                 } else {
                     year_tv.setText("Từ năm " + String.valueOf(minValue) + " - " + String.valueOf(maxValue));
                 }
-
+                String status = saveStatus.getString("status", "");
+                String madein = saveStatus.getString("madein", "");
                 String query;
                 if (!yearmin.equals("2000") && yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year >= '"+yearmin+"' AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (yearmin.equals("2000") && !yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year <= '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (!yearmin.equals("2000") && !yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if (!yearmin.equals("2000") && yearmax.equals("2021") && pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHEREproduct_Price <= '"+pricemax+"' AND product_Year >= '"+yearmin+"' " +
                             "AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if (!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Year >= '"+yearmin+"'";
                     getDataProductbyKey(query);
                 }else if (!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN'"+yearmin+"' AND '"+yearmax+"' " +
                             "AND product_PostApproval ='"+approval+"' AND product_Price >= '"+pricemin+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year >= '"+yearmin+"' " +
                             "AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_Year >= '"+yearmin+"'" +
                             "AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_Year >= '"+yearmin+"' " +
                             "AND product_PostApproval ='"+approval+"'AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_OutSide = '"+outside+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_OutSide = '"+outside+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Year >= '"+yearmin+"'" +
                             " AND pproduct_Company = '"+company+"' AND product_PostApproval ='"+approval+"' AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year >= '"+yearmin+"' AND product_OutSide ='"+outside+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             " AND product_Price >= '"+pricemin+"' AND product_Company ='"+company+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             "AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"'" +
                             "AND product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             " AND product_Price >= '"+yearmin+"' AND product_OutSide ='"+outside+"' AND product_Type = '"+type+"' " +
                             "AND product_Company = '"+company+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             " AND product_Price >= '"+yearmin+"' AND product_OutSide ='"+outside+"'" +
                             "AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             " AND product_Price >= '"+yearmin+"' AND product_OutSide ='"+outside+"' AND product_Type = '"+type+"' " +
                             "AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             " AND product_Price >= '"+yearmin+"'AND product_Type = '"+type+"' " +
                             " AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"'" +
                             " AND product_Price >= '"+yearmin+"' AND product_Type = '"+type+"' " +
                             "AND product_Company = '"+company+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_Company ='"+company+"' " +
                             "AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_OutSide ='"+outside+"' " +
                             "AND product_Company = '"+company+"'AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && !yearmax.equals("2021") && !pricemin.equals("100000") && !pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                             " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year >= '"+yearmin+"'AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >= '"+yearmin+"'";
                     getDataProductbyKey(query);
                 }else if(yearmin.equals("2000") && !yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Price >= '"+pricemin+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                             "AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }
                 else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                             "AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'" +
                             "AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_Status = '"+status+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                             "AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year >= '"+yearmin+"'AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"'AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >= '"+yearmin+"'";
                     getDataProductbyKey(query);
                 }else if(yearmin.equals("2000") && !yearmax.equals("2021") && pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"'";
                     getDataProductbyKey(query);
                 }else if(!yearmin.equals("2000") && yearmax.equals("2021") && !pricemin.equals("100000") && pricemax.equals("2000000")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Price >= '"+pricemin+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                             "AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }
                 else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                             "AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Type = '"+type+"'" +
                             "AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                        && !company.equals("Tất cả") && outside.equals("Tất cả") && !type.equals("Tất cả")
+                        && TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Company = '"+company+"'" +
                             "AND product_Type = '"+type+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
-                        && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                        && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                         && company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
-                        && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                        && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                         && !company.equals("Tất cả") && outside.equals("Tất cả") && type.equals("Tất cả")
-                        && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                        && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'" +
                             "AND product_Company = '"+company+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && type.equals("Tất cả")
-                        && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                        && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'" +
                             " AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"'";
                     getDataProductbyKey(query);
                 }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
                         && !company.equals("Tất cả") && !outside.equals("Tất cả") && !type.equals("Tất cả")
-                        && TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
+                        && !TextUtils.isEmpty(madein) && !TextUtils.isEmpty(status)) {
                     query = "SELECT * FROM products WHERE product_Price >= '"+pricemin+"' AND product_PostApproval ='"+approval+"'" +
                             " AND product_MadeIn = '"+madein+"' AND product_Year >='"+pricemin+"' AND product_Status = '"+status+"'" +
                             " AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
@@ -793,7 +895,6 @@ public class SearchActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void OnClickStatus() {
-
         status1_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -801,7 +902,7 @@ public class SearchActivity extends AppCompatActivity {
                 status2_tv.setBackgroundColor(getColor(R.color.colorWhite));
                 editor.putString("status", "Xe mới");
                 editor.commit();
-
+                checkGetDataStatus();
             }
         });
 
@@ -812,7 +913,7 @@ public class SearchActivity extends AppCompatActivity {
                 status2_tv.setBackground(getDrawable(R.drawable.boder_tv_right));
                 editor.putString("status", "Xe cũ");
                 editor.commit();
-
+                checkGetDataStatus();
             }
         });
 
@@ -821,25 +922,25 @@ public class SearchActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void OnClickMadeIn() {
-        madein1_tv.setOnTouchListener(new View.OnTouchListener() {
+        madein1_tv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
                 madein1_tv.setBackground(getDrawable(R.drawable.boder_tv_left));
                 madein2_tv.setBackgroundColor(getColor(R.color.colorWhite));
                 editor.putString("madein", "Trong nước");
                 editor.commit();
-                return false;
+                checkGetDataMadeIn();
             }
         });
 
-        madein2_tv.setOnTouchListener(new View.OnTouchListener() {
+        madein2_tv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
                 madein1_tv.setBackgroundColor(getColor(R.color.colorWhite));
                 madein2_tv.setBackground(getDrawable(R.drawable.boder_tv_right));
                 editor.putString("madein", "Nhập khẩu");
                 editor.commit();
-                return false;
+                checkGetDataMadeIn();
             }
         });
 
@@ -866,284 +967,286 @@ public class SearchActivity extends AppCompatActivity {
                     public void onClick(String name) {
                         type_tv.setText(name);
                         type = name;
+                        String status = saveStatus.getString("status", "");
+                        String madein = saveStatus.getString("madein", "");
                         String query;
                         if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                !company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Company ='"+company+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_OutSide ='"+outside+"'" +
                                     "AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_OutSide ='"+outside+"'" +
                                     "AND product_Company = '"+company+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && !pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price <= '"+pricemax+"' " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'  " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year <= '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year >= '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year >= '"+yearmax+"' AND product_PostApproval ='"+approval+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year >= '"+yearmax+"' AND product_PostApproval ='"+approval+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year >= '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     "AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price <= '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year <= '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide ='"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Company = '"+company+"'  AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND pproduct_Company = '"+company+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >='"+pricemin+"' " +
                                     "AND product_company = '"+company+"' AND product_Year >= '"+yearmin+"' AND product_OutSide ='"+outside+"' " +
                                     "AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_Company ='"+company+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type = '"+type+"' AND product_Price <= '"+pricemax+"'" +
                                     " AND product_OutSide ='"+outside+"' AND product_PostApproval ='"+approval+"'" +
                                     "AND product_Year >= '"+yearmin+"' AND product_Company ='"+company+"'";
                             getDataProductbyKey(query);
                         }
                         else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Status = '"+status+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Status = '"+status+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_MadeIn = '"+madein+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_MadeIn = '"+madein+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_MadeIn = '"+madein+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_MadeIn = '"+madein+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && !outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_Type ='"+name+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && outside.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && outside.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Type ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
@@ -1182,266 +1285,268 @@ public class SearchActivity extends AppCompatActivity {
                     public void onClick(String name) {
                         outside_tv.setText(name);
                         outside = name;
+                        String status = saveStatus.getString("status", "");
+                        String madein = saveStatus.getString("madein", "");
                         String query;
                         if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                company.equals("Tất cả") && type.equals("Tất cả")) {
+                                company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                !company.equals("Tất cả") && type.equals("Tất cả")) {
+                                !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Company ='"+company+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Type ='"+type+"'" +
                                     "AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                !company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Type ='" + type + "'" +
                                     "AND product_Company = '"+company+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && !pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price <= '"+pricemax+"' " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'  " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year <= '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price <= '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year <= '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Company = '"+company+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Company = '"+company+"'  AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year >= '"+yearmin+"'  AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Company = '"+company+"' AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year >= '"+yearmin+"' product_Type = '"+type+"'  AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }
                         else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND pproduct_Company = '"+company+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+outside+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_Type = '"+type+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Status = '"+status+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Status = '"+status+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_MadeIn = '"+madein+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_MadeIn = '"+madein+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_MadeIn = '"+madein+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_MadeIn = '"+madein+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+company+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && company.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && company.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_OutSide ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
@@ -1465,251 +1570,255 @@ public class SearchActivity extends AppCompatActivity {
                     public void onClick(String name, int id) {
                         company_tv.setText(name);
                         company = name;
+                        String status = saveStatus.getString("status", "");
+                        String madein = saveStatus.getString("madein", "");
+                        Log.d("anh", status);
+                        Log.d("anh", madein);
                         String query;
                         if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='" + name + "' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='" + name + "' AND product_OutSide ='"+outside+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='" +name+ "' AND product_Type ='"+type+"'" +
                                     "AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
-                                !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='" + name + "' AND product_Type ='" + type + "'" +
                                     "AND product_OutSide = '"+outside+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && !pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price <= '"+pricemax+"' " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && year_tv.getText().equals("Không giới hạn")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'  " +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year <= '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price <= '"+pricemax+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year <= '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'" +
                                     " AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_OutSide = '"+outside+"'  AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && !yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Year BETWEEN '"+yearmin+"' AND '"+yearmax+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả")) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_OutSide = '"+outside+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
                         }else if(!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả")) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"'" +
                                     " AND product_Year >= '"+yearmin+"' AND product_Type = '"+type+"' AND product_PostApproval ='"+approval+"'";
                             getDataProductbyKey(query);
 
                         }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Status = '"+status+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_Status = '"+status+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_MadeIn = '"+madein+"'" +
                                     " AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"'" +
                                     " AND product_MadeIn = '"+madein+"' AND product_PostApproval ='" + approval + "'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_MadeIn = '"+madein+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_MadeIn = '"+madein+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(madein) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status)) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && TextUtils.isEmpty(status)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_OutSide = '"+outside+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_Type = '"+type+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && !type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && !type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' AND product_Type = '"+type+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && !outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && !outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"' AND product_OutSide = '"+outside+"'";
                             getDataProductbyKey(query);
                         }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
-                                && outside.equals("Tất cả") && type.equals("Tất cả") && TextUtils.isEmpty(status) && TextUtils.isEmpty(madein)) {
+                                && outside.equals("Tất cả") && type.equals("Tất cả") && !TextUtils.isEmpty(status) && !TextUtils.isEmpty(madein)) {
                             query = "SELECT * FROM products WHERE product_Company ='"+name+"' product_Price >= '"+pricemin+"' " +
                                     " AND product_Year >= '"+yearmin+"' AND product_PostApproval ='"+approval+"' " +
                                     "AND product_MadeIn = '"+madein+"' AND product_Status = '"+status+"'";
@@ -1720,6 +1829,338 @@ public class SearchActivity extends AppCompatActivity {
                 bottomSheetCompany.show(getSupportFragmentManager(), bottomSheetCompany.getTag());
             }
         });
+    }
+
+
+    private void checkGetDataStatus(){
+        String status = saveStatus.getString("status", "");
+        String madein = saveStatus.getString("madein", "");
+        String query;
+        if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
+                outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status ='"+status+"' AND product_PostApproval ='" + approval + "'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_Company ='"+company+"' " +
+                    "AND product_PostApproval ='"+approval+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_Price >= '"+pricemin+"' " +
+                    "AND product_PostApproval ='"+approval+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_Year >= '"+yearmin+"' " +
+                    "AND product_PostApproval ='"+approval+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && !type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Type = '"+type+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_OutSide >= '"+outside+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price >= '"+pricemin+"' AND product_OutSide = '"+outside+"' ";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_OutSide = '"+outside+"' ";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Company = '"+company+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"' ";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"' ";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && !type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Price >= '"+pricemin+"' AND product_MadeIn = '"+madein+"' ";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_MadeIn = '"+madein+"'" +
+                    " AND product_Year >= '"+yearmin+"' ";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"' "+
+                    "AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && !type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(madein)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Company = '"+company+"' AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }
+    }
+
+
+    private void checkGetDataMadeIn(){
+        String status = saveStatus.getString("status", "");
+        String madein = saveStatus.getString("madein", "");
+        String query;
+        if (price_tv.getText().equals("Không giới hạn") && year_tv.getText().equals("Không giới hạn") &&
+                outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='" + approval + "'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_Company ='"+company+"' " +
+                    "AND product_PostApproval ='"+approval+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_Price >= '"+pricemin+"' " +
+                    "AND product_PostApproval ='"+approval+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_Year >= '"+yearmin+"' " +
+                    "AND product_PostApproval ='"+approval+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && !type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Type = '"+type+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_OutSide >= '"+outside+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price >= '"+pricemin+"' AND product_OutSide = '"+outside+"' ";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_MadeIn ='"+madein+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_OutSide = '"+outside+"' ";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Company = '"+company+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"' ";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Price >= '"+pricemin+"' AND product_Company = '"+company+"'" +
+                    "AND product_OutSide = '"+outside+"' AND product_MadeIn = '"+madein+"' ";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && !type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Price >= '"+pricemin+"' AND product_MadeIn = '"+madein+"' ";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Year >= '"+yearmin+"' AND product_Price >= '"+pricemin+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_MadeIn = '"+madein+"'";
+            getDataProductbyKey(query);
+        }else if (!pricemin.equals("100000") && !pricemax.equals("2000000") && !yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && type.equals("Tất cả") && company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    " AND product_Price BETWEEN '"+pricemin+"' AND '"+pricemax+"' AND product_MadeIn = '"+madein+"'" +
+                    " AND product_Year >= '"+yearmin+"' ";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && !outside.equals("Tất cả") && !type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Company = '"+company+"' AND product_OutSide = '"+outside+"' "+
+                    "AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }else if (pricemin.equals("100000") && pricemax.equals("2000000") && yearmin.equals("2000") && yearmax.equals("2021")
+                && outside.equals("Tất cả") && !type.equals("Tất cả") && !company.equals("Tất cả") && !TextUtils.isEmpty(status)) {
+            query = "SELECT * FROM products WHERE product_Status = '"+status+"' AND product_PostApproval ='"+approval+"' " +
+                    "AND product_Company = '"+company+"' AND product_MadeIn = '"+madein+"' AND product_Type ='"+type+"'";
+            getDataProductbyKey(query);
+        }
     }
 
 
@@ -1747,7 +2188,6 @@ public class SearchActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-                    Log.e("getproduct", jsonElement.toString());
                     Gson gson = new Gson();
                     ArrayList<ProductsModel> productsModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<ProductsModel>>() {
                     }.getType());
@@ -1782,7 +2222,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private void Innit() {
         toolbar = findViewById(R.id.toolbarseach);
-        searchView = findViewById(R.id.searchView);
         search_recyclerView = findViewById(R.id.search_recyclerView);
         rangeSeekbar_price = findViewById(R.id.rangeSeekbar_price);
         rangeSeekbar_year = findViewById(R.id.rangeSeekbar_year);

@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".JavaClass.ProductbyUserActivity"></activity>
+        <activity android:name=".JavaClass.ProductbyModelActivity"></activity>
+        <activity android:name=".JavaClass.ProductbyUserActivity" />
         <activity android:name=".Admin.AccountManagementActivity" />
         <activity android:name=".Admin.PostManagement_Admin_Activity" />
         <activity android:name=".JavaClass.SearchActivity" />
@@ -21,8 +22,8 @@
         <activity android:name=".JavaClass.SignUp_UserVipActivity" />
         <activity
             android:name=".JavaClass.SplashScreen"
-            android:theme="@style/SplashTheme"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,11 +36,12 @@
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".JavaClass.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
