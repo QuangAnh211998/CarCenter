@@ -530,12 +530,12 @@ public class PostFragment extends Fragment {
                                         if (!gear.equals("Chọn hộp số")) {
                                             if (!drivetrain.equals("Chọn dẫn động")) {
                                                 if (!fuel.equals("Chọn nhiên liệu")) {
-                                                    if (abs.equals("Có") || abs.equals("Không")) {
-                                                        if (eba.equals("Có") || eba.equals("Không")) {
-                                                            if (esp.equals("Có") || esp.equals("Không")) {
-                                                                if (antislip.equals("Có") || antislip.equals("Không")) {
-                                                                    if (reverse.equals("Có") || reverse.equals("Không")) {
-                                                                        if (antitheft.equals("Có") || antitheft.equals("Không")) {
+                                                    if (abs.equals("có") || abs.equals("không")) {
+                                                        if (eba.equals("có") || eba.equals("không")) {
+                                                            if (esp.equals("có") || esp.equals("không")) {
+                                                                if (antislip.equals("có") || antislip.equals("không")) {
+                                                                    if (reverse.equals("có") || reverse.equals("không")) {
+                                                                        if (antitheft.equals("có") || antitheft.equals("không")) {
                                                                             if (listRealpath != null) {
                                                                                 postsale_btn.setEnabled(false);
                                                                                 postsale_btn.setTextColor(Color.argb(50, 255, 255, 255));

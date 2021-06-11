@@ -791,7 +791,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:hint="Chỉ nhập Có hoặc Không"
+                    android:hint="Chỉ nhập có hoặc không"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -821,7 +821,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:hint="Chỉ nhập Có hoặc Không"
+                    android:hint="Chỉ nhập có hoặc không"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -851,7 +851,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:hint="Chỉ nhập Có hoặc Không"
+                    android:hint="Chỉ nhập có hoặc không"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -881,7 +881,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:hint="Chỉ nhập Có hoặc Không"
+                    android:hint="Chỉ nhập có hoặc không"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -911,7 +911,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:hint="Chỉ nhập Có hoặc Không"
+                    android:hint="Chỉ nhập có hoặc không"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -941,7 +941,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:hint="Chỉ nhập Có hoặc Không"
+                    android:hint="Chỉ nhập có hoặc không"
                     android:inputType="text" />
             </LinearLayout>
 
