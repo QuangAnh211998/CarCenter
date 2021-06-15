@@ -90,12 +90,20 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).postWishlist(user_id, product_id);
     }
 
-    public static Observable<JsonElement> getWishlist(Context context, int user_id){
-        return BaseAPIRequest.getInstanceRequestV2(context).getWishlist(user_id);
+    public static Observable<JsonElement> getWishlist(Context context, int user_id, int product_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getWishlist(user_id, product_id);
     }
 
-    public static Observable<JsonElement> Search(Context context, String key){
-        return BaseAPIRequest.getInstanceRequestV2(context).Search(key);
+    public static Observable<JsonElement> getDataWishlist(Context context, int user_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getDataWishlist(user_id);
+    }
+
+    public static Observable<JsonElement> postImage(Context context, String url, String id){
+        return BaseAPIRequest.getInstanceRequestV2(context).postImage(url, id);
+    }
+
+    public static Observable<JsonElement> getImage(Context context, int id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getImage(id);
     }
 
     public static Call<String> uploadImage(Context context, MultipartBody.Part image){

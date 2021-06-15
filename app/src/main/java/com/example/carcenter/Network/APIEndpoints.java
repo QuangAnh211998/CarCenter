@@ -82,17 +82,27 @@ public interface APIEndpoints {
 
     @FormUrlEncoded
     @POST("carcenter/getWishlist.php")
-    Observable<JsonElement> getWishlist (@Field("key") int user_id);
+    Observable<JsonElement> getWishlist (@Field("user_id") int user_id,
+                                         @Field("product_id") int product_id);
 
     @FormUrlEncoded
-    @POST("carcenter/Search.php")
-    Observable<JsonElement> Search (@Field("key") String key);
+    @POST("carcenter/getDataWishlist.php")
+    Observable<JsonElement> getDataWishlist (@Field("key") int user_id);
 
     @GET("carcenter/getUser.php")
     Observable<JsonElement> getUser(@QueryMap Map<String, Object> queryMap);
 
     @GET("carcenter/getCountUser.php")
     Observable<JsonElement> getCountUser(@QueryMap Map<String, Object> queryMap);
+
+    @FormUrlEncoded
+    @POST("carcenter/PostImage.php")
+    Observable<JsonElement> postImage (@Field("image_url") String url,
+                                       @Field("product_id") String product_id);
+
+    @FormUrlEncoded
+    @POST("carcenter/getImage.php")
+    Observable<JsonElement> getImage (@Field("key") int id);
 
     @Multipart
     @POST("carcenter/uploadImage.php")

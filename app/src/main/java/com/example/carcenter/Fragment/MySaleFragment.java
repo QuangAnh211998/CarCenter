@@ -75,7 +75,7 @@ public class MySaleFragment extends Fragment {
                     //Log.e("product", jsonElement.toString());
                     Gson gson = new Gson();
                     ArrayList<ProductsModel> productsModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<ProductsModel>>(){}.getType());
-                    Log.e("product", productsModels.get(0).getProduct_Image().get(0));
+                    Log.e("product", productsModels.get(0).getProduct_Image());
                     productsModelList.addAll(productsModels);
                     mySaleAdapter.notifyDataSetChanged();
                 }, throwable -> {

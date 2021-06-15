@@ -37,6 +37,7 @@ import com.example.carcenter.Custom.BottomSheetCategory;
 import com.example.carcenter.Custom.BottomSheetCompany;
 import com.example.carcenter.Custom.BottomSheetSelected;
 import com.example.carcenter.Custom.Custom_Price;
+import com.example.carcenter.Custom.FileUtils;
 import com.example.carcenter.JavaClass.SearchActivity;
 import com.example.carcenter.Model.CategoryModel;
 import com.example.carcenter.Model.CompanyModel;
@@ -52,6 +53,7 @@ import com.gun0912.tedpermission.TedPermission;
 
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -117,9 +119,8 @@ public class PostFragment extends Fragment {
     String company, name, version, year, madein, status, kmwent, type, price, outside, inside, reverse;
     String door, seat, gear, drivetrain, fuel, consume, content, airbag, abs, eba, esp, antislip, antitheft;
 
-    List<String> listRealpath ;
+    List<String> listRealpath;
     File file;
-    List<String> listfile_path;
 
     @Nullable
     @Override
@@ -165,6 +166,7 @@ public class PostFragment extends Fragment {
         user_province_tv = view.findViewById(R.id.user_province_tv);
         recyclerView_image = view.findViewById(R.id.post_image_recyclerView);
 
+        listRealpath = new ArrayList<>();
         companyModelList = new ArrayList<>();
         categoryModelList = new ArrayList<>();
         imageAdapter = new ImageAdapter(getContext());
@@ -182,6 +184,13 @@ public class PostFragment extends Fragment {
 
         return view;
     }
+
+
+    @Subscriber(tag = "loginSuccess")
+    private void loginSuccess(boolean b) {
+        EventButton();
+    }
+
 
     private void ShowBottomSheet() {
         List<ProvinceModel> listColor = new ArrayList<>();
@@ -455,18 +464,16 @@ public class PostFragment extends Fragment {
 
     private void PostProductandImage(String approval) {
         if (listRealpath != null) {
+            Log.d("real", listRealpath.toString());
             String file_path = "";
-            listfile_path = new ArrayList<>();
-            for(int i =0; i < listRealpath.size(); i++) {
-                file = new File(listRealpath.get(i));
+                file = new File(listRealpath.get(0));
                 file_path = file.getAbsolutePath();
-                String[] file_name = file_path.split("\\.");
-                file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1] + "." + file_name[2];
-            }
-            listfile_path.add(file_path);
+//                String[] file_name = file_path.split("\\.");
+//                file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1];
+
 
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", listfile_path.get(0), requestBody);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", file_path, requestBody);
             Call<String> call = APIRequest.uploadImage(getContext(), body);
             call.enqueue(new Callback<String>() {
                 @Override
@@ -474,7 +481,6 @@ public class PostFragment extends Fragment {
                     if (response != null) {
                         String message = response.body();
                         String image1 = BaseAPIRequest.BaseURL + "image/" + message;
-                        Log.d("real", image1);
                         String image2 = "";
                         String image3 = "";
                         String image4 = "";
@@ -612,15 +618,58 @@ public class PostFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
                     JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    String status = jsonObject.getString("status");
-                    Log.d("post", status);
-                    if (status.equals("success")) {
-                        Toast.makeText(getContext(), "Đăng bài thành công", Toast.LENGTH_SHORT).show();
+                    String id = jsonObject.getString("status");
+                    Log.d("post", id);
+                    if (id != null) {
+                        PostImage(id);
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
                     Toast.makeText(getContext(), "Đăng bài thất bại", Toast.LENGTH_LONG).show();
                 });
+    }
+
+
+    private void PostImage(String product_id) {
+        String file_path;
+        Log.d("realpath", listRealpath.toString());
+        for (int i = 0; i < listRealpath.size(); i++) {
+            file = new File(listRealpath.get(i));
+            file_path = file.getAbsolutePath();
+//            String[] file_name = file_path.split("\\.");
+//            file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1] + "." + file_name[2];
+
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", file_path, requestBody);
+            Call<String> call = APIRequest.uploadImage(getContext(), body);
+            call.enqueue(new Callback<String>() {
+                @SuppressLint("CheckResult")
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response != null) {
+                        String message = response.body();
+                        String url = BaseAPIRequest.BaseURL + "image/" + message;
+                        APIRequest.postImage(getContext(), url, product_id)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(jsonElement -> {
+                                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                    String status = jsonObject.getString("status");
+                                    if (status.equals("success")) {
+                                        Toast.makeText(getContext(), "Đăng bài thành công", Toast.LENGTH_SHORT).show();
+                                    }
+                                }, throwable -> {
+                                    throwable.printStackTrace();
+                                    Toast.makeText(getContext(), "Đăng bài thất bại", Toast.LENGTH_LONG).show();
+                                });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                }
+            });
+        }
     }
 
 
@@ -658,14 +707,13 @@ public class PostFragment extends Fragment {
                     public void onImagesSelected(List<Uri> uriList) {
                         if (uriList != null && !uriList.isEmpty()) {
                             imageAdapter.setDataImage(uriList);
-                            listRealpath = new ArrayList<>();
-                            String realpath1="";
-                            for(int i = 0; i < uriList.size(); i++) {
+                            String realpath1 = "";
+                            for (int i = 0; i < uriList.size(); i++) {
                                 realpath1 = String.valueOf(uriList.get(i));
                                 String[] name1 = realpath1.split("\\:");
                                 realpath1 = name1[1];
+                                listRealpath.add(realpath1);
                             }
-                            listRealpath.add(realpath1);
                         }
                     }
                 });

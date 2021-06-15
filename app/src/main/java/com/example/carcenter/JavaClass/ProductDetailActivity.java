@@ -57,7 +57,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     List<String> productImage_List;
     ProductImageAdapter productImageAdapter;
     ArrayList<String> image;
-    private static boolean addtowishlist = false;
+    private boolean addtowishlist = false;
     private boolean click_safe = false;
     private String phone;
     private String company;
@@ -128,19 +128,33 @@ public class ProductDetailActivity extends AppCompatActivity {
         Init();
         ActionToolBar();
         getsetProductDetail();
+        getdataImage();
         getWishlist();
 
-        productImage_List = new ArrayList<>();
-        productImage_List.addAll(image);
-        productImageAdapter = new ProductImageAdapter(productImage_List);
-        viewPager_Image.setAdapter(productImageAdapter);
-        viewpager_tablayout.setupWithViewPager(viewPager_Image, true);
+//        productImage_List.addAll(image);
 
         EventOnClick();
 
     }
 
+    @SuppressLint("CheckResult")
+    private void getdataImage(){
+        productImage_List = new ArrayList<>();
+        APIRequest.getImage(getApplicationContext(), product_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    Gson gson = new Gson();
+                    productImage_List = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<String>>(){}.getType());
+                    productImageAdapter = new ProductImageAdapter(productImage_List);
+                    viewPager_Image.setAdapter(productImageAdapter);
+                    viewpager_tablayout.setupWithViewPager(viewPager_Image, true);
 
+                    Log.d("anhdz", productImage_List.toString());
+                }, throwable -> {
+
+                });
+    }
 
     private void EventOnClick(){
         add_to_Wishlist_btn.setOnClickListener(new View.OnClickListener() {
@@ -232,12 +246,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_user_name = productsModel.getUser_Name();
         product_id = productsModel.getProduct_Id();
         int price = productsModel.getProduct_Price();
-        image = productsModel.getProduct_Image();
+//        image = productsModel.getProduct_Image();
         phone = productsModel.getUser_Phone();
         int airbag = productsModel.getSystem_Air_Bag();
         company = productsModel.getProduct_Company();
         name = productsModel.getProduct_Name();
-
         //// set dữ liệu lên textView
         product_company.setText(company);
         product_name.setText(name);
@@ -270,6 +283,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         user_name_tv.setText(productsModel.getUser_Name());
 
     }
+
 
 
 
@@ -374,19 +388,19 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     @SuppressLint("CheckResult")
     private void getWishlist(){
-        APIRequest.getWishlist(getApplicationContext(), user_id)
+        APIRequest.getWishlist(getApplicationContext(), user_id, product_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
                     Gson gson = new Gson();
                     ArrayList<WishlistModel> wishlistModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<WishlistModel>>(){}.getType());
-                    for (int i =0; i<wishlistModels.size(); i++) {
-                        int wishlist_product_id = wishlistModels.get(i).getProduct_Id();
-                        if (wishlist_product_id == product_id) {
+                        if (wishlistModels.size() > 0) {
                             addtowishlist = true;
                             add_to_Wishlist_btn.setSupportImageTintList(getResources().getColorStateList(R.color.colorReb));
+                        }else {
+                            addtowishlist = false;
+                            add_to_Wishlist_btn.setSupportImageTintList(ColorStateList.valueOf(Color.parseColor("#9f9f9f")));
                         }
-                    }
                 }, throwable -> {
 
                 });

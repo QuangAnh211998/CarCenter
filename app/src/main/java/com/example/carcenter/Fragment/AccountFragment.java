@@ -96,6 +96,7 @@ public class AccountFragment extends Fragment {
                 editor.commit();
                 CheckData();
                 MainActivity.CheckAccount();
+                EventLinearLayout();
             }
         });
 
@@ -177,6 +178,8 @@ public class AccountFragment extends Fragment {
     @Subscriber(tag = "loginSuccess")
     private void loginSuccess(boolean b) {
         CheckData();
+        EventLinearLayout();
+        EventButton();
     }
 
     private void CheckData() {

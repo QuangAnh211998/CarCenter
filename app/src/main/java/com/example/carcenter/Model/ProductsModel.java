@@ -26,7 +26,8 @@ public class ProductsModel implements Parcelable {
     private String product_DriveTrain;
     private String product_Fuel;
     private int product_Consume;
-    private ArrayList<String> product_Image;
+//    private ArrayList<String> product_Image;
+    private String product_Image;
     private String product_Content;
     private String user_Name;
     private String user_Phone;
@@ -48,7 +49,7 @@ public class ProductsModel implements Parcelable {
     public ProductsModel(int product_Id, String product_Company, String product_Name, String product_Version, int product_Year,
                          String product_MadeIn, String product_Status, int product_KmWent, String product_Type, int product_Price,
                          String product_OutSide, String product_InSide, int product_Door, int product_Seat, String product_Gear,
-                         String product_DriveTrain, String product_Fuel, int product_Consume, ArrayList<String> product_Image,
+                         String product_DriveTrain, String product_Fuel, int product_Consume, String product_Image,
                          String product_Content, String user_Name, String user_Phone, String user_Address, String user_LivingArea,
                          int system_Air_Bag, String system_ABS, String system_EBA, String system_ESP, String system_Anti_Slip,
                          String system_Reverse_Warning, String system_Anti_theft, int user_Id, String product_PostApproval) {
@@ -106,7 +107,8 @@ public class ProductsModel implements Parcelable {
         product_DriveTrain = in.readString();
         product_Fuel = in.readString();
         product_Consume = in.readInt();
-        product_Image = in.createStringArrayList();
+//        product_Image = in.createStringArrayList();
+        product_Image = in.readString();
         product_Content = in.readString();
         user_Name = in.readString();
         user_Phone = in.readString();
@@ -143,7 +145,8 @@ public class ProductsModel implements Parcelable {
         dest.writeString(product_DriveTrain);
         dest.writeString(product_Fuel);
         dest.writeInt(product_Consume);
-        dest.writeStringList(product_Image);
+        dest.writeString(product_Image);
+//        dest.writeStringList(product_Image);
         dest.writeString(product_Content);
         dest.writeString(user_Name);
         dest.writeString(user_Phone);
@@ -321,11 +324,11 @@ public class ProductsModel implements Parcelable {
         this.product_Consume = product_Consume;
     }
 
-    public ArrayList<String> getProduct_Image() {
+    public String getProduct_Image() {
         return product_Image;
     }
 
-    public void setProduct_Image(ArrayList<String> product_Image) {
+    public void setProduct_Image(String product_Image) {
         this.product_Image = product_Image;
     }
 

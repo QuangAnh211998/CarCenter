@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.carcenter.Custom.Custom_Price;
+import com.example.carcenter.JavaClass.ProductDetailActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Model.WishlistModel;
 import com.example.carcenter.Network.APIRequest;
@@ -50,7 +52,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull WishlistAdapter.ViewHolder viewHolder, int position) {
-        String imageUrl = productsModelList.get(position).getProduct_Image().get(0);
+        String imageUrl = productsModelList.get(position).getProduct_Image();
         String company = productsModelList.get(position).getProduct_Company();
         String name = productsModelList.get(position).getProduct_Name();
         String version = productsModelList.get(position).getProduct_Version();
@@ -102,10 +104,12 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             mySale_UserName = itemView.findViewById(R.id.mySale_UserName_tv);
             mySale_Delete = itemView.findViewById(R.id.mySale_Delete_tv);
 
-            mySale_Delete.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(itemView.getContext(), ProductDetailActivity.class);
+                    intent.putExtra("productDetail", productsModelList.get(getPosition()));
+                    itemView.getContext().startActivity(intent);
                 }
             });
 
@@ -170,7 +174,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
-                    Toast.makeText(context, "Bỏ lưu thất bại", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Bỏ lưu thất bại", Toast.LENGTH_SHORT).show();
                 });
     }
 }

@@ -80,7 +80,7 @@ public class MyWishlistActivity extends AppCompatActivity {
     private void getWishlist() {
         int user_id = saveSignIn.getInt("user_Id", -1);
 
-        APIRequest.getWishlist(getApplicationContext(), user_id)
+        APIRequest.getDataWishlist(getApplicationContext(), user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {

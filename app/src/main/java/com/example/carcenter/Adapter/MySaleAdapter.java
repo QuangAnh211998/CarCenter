@@ -48,7 +48,7 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MySaleAdapter.ViewHolder viewHolder, int position) {
-        String imageUrl = productsModelList.get(position).getProduct_Image().get(0);
+        String imageUrl = productsModelList.get(position).getProduct_Image();
         String company = productsModelList.get(position).getProduct_Company();
         String name = productsModelList.get(position).getProduct_Name();
         String version = productsModelList.get(position).getProduct_Version();

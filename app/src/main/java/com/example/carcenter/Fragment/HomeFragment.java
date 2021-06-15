@@ -236,7 +236,6 @@ public class HomeFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
-                    Log.e("category", jsonElement.toString());
                     Gson gson = new Gson();
                     ArrayList<CompanyModel> companyModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<CompanyModel>>() {
                     }.getType());
@@ -287,7 +286,7 @@ public class HomeFragment extends Fragment {
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
-                    Toast.makeText(getContext(), "Không có xe nào đang bán", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Không có xe nào đang bán", Toast.LENGTH_SHORT).show();
                 });
     }
 
