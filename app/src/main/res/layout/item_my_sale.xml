@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:layout_marginTop="8dp">
 
@@ -121,17 +121,30 @@
         android:id="@+id/mySale_Delete_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="12dp"
-        android:text="Xóa tin"
+        android:background="@drawable/boderedt"
         android:padding="4dp"
+        android:text="Xóa"
         android:textColor="@color/colorReb"
         android:textSize="20dp"
-        android:background="@drawable/boderedt"
         app:layout_constraintBottom_toBottomOf="@+id/mySale_UserName_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productPrice_tv"
         app:layout_constraintVertical_bias="1.0" />
+
+
+    <TextView
+        android:id="@+id/mySale_Update_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:padding="4dp"
+        android:text="Sửa"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:background="@drawable/boderedt"
+        app:layout_constraintBottom_toBottomOf="@+id/mySale_UserName_tv"
+        app:layout_constraintEnd_toStartOf="@+id/mySale_Delete_tv" />
 
     <TextView
         android:id="@+id/textView18"

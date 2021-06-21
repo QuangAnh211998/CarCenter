@@ -1045,7 +1045,7 @@
                 android:hint="Nhập tiếng việt có dấu (từ 50-1000 ký tự)"
                 android:paddingLeft="8dp"
                 android:textSize="14dp"
-                android:inputType="text"/>
+                android:inputType="textMultiLine"/>
 
             <Button
                 android:id="@+id/postsale_btn"

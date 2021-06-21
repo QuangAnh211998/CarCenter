@@ -10,6 +10,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaseAPIRequest {
+//    public static String BaseURL ="http://172.20.10.3:8080/carcenter/";
     public static String BaseURL ="http://192.168.1.6:8080/carcenter/";
     public static APIEndpoints getInstanceRequestV2(Context context) {
         Gson gson = new GsonBuilder().setLenient().create();

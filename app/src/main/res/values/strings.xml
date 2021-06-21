@@ -6,15 +6,15 @@
     <string name="text_dialog">Hãy đăng nhập hoặc đăng ký(nếu chưa có tài khoản) để tiếp tục.</string>
     <string name="textvip1_1">Đối tượng: Dành cho các cá nhân có số lượng xe bán ít. Quyền lợi khi là thành viên VIP1:</string>
     <string name="textvip1_2">- Số lượng xe bán tối đa (tại 1 thời điểm) là 5 xe.</string>
-    <string name="textvip1_3">- Mỗi ngày được cấp 2 lần up tin.</string>
+    <string name="textvip1_3">- Mỗi ngày được cấp 4 lần up tin.</string>
     <string name="textvip2_4">- Có thể thay đổi thông tin liên hệ cho từng tin khác nhau.</string>
     <string name="textvip1_5">- Tin đăng hiển thị ngay không cần kiểm duyệt.</string>
     <string name="textvip2_1">Đối tượng: Dành cho các cá nhân/tổ chức có số lượng xe bán nhiều. Quyền lợi khi là thành viên VIP2:</string>
     <string name="textvip2_2">- Số lượng xe bán tối đa (tại 1 thời điểm) là 10 xe.</string>
-    <string name="textvip2_3">- Mỗi ngày được cấp 4 lần up tin.</string>
+    <string name="textvip2_3">- Mỗi ngày được cấp 6 lần up tin.</string>
     <string name="textvip3_1">Đối tượng: Dành cho các công ty/Salon ô tô. Quyền lợi khi là thành viên VIP3/Salon:</string>
     <string name="textvip3_2">- Số lượng xe bán tối đa (tại 1 thời điểm) là 20 xe.</string>
-    <string name="textvip3_3">- Mỗi ngày được cấp 6 lần up tin.</string>
+    <string name="textvip3_3">- Mỗi ngày được cấp 10 lần up tin.</string>
     <string name="textvip3_4">- Có trang riêng trên CarCenter.</string>
     <string name="textvip3_5">- Điều kiện tham gia: Salon/Showroom phải có thật. Có cửa hàng, biển hiệu và đang trưng bày bán xe.
                                 Chưa có gian hàng trên CarCenter.</string>

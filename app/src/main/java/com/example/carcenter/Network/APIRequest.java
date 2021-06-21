@@ -48,6 +48,14 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).getCountUser(queryMap);
     }
 
+    public static Observable<JsonElement> getCountMySale (Context context, int id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getCountMySale(id);
+    }
+
+    public static Observable<JsonElement> getCountMyPurchase (Context context, int id){
+        return BaseAPIRequest.getInstanceRequestV2(context).getCountMyPurchase(id);
+    }
+
     public static Observable<JsonElement> getPurchase (Context context) {
         HashMap<String, Object> queryMap = new HashMap<>();
         return BaseAPIRequest.getInstanceRequestV2(context).getPurchase(queryMap);

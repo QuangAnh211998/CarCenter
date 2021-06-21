@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.carcenter.JavaClass.ProductDetailActivity;
+import com.example.carcenter.JavaClass.UpdatePurchaseActivity;
 import com.example.carcenter.Model.PurchaseModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
@@ -61,6 +64,7 @@ public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.Vi
                 ConfirmDelete(purchaseModelList.get(position).getPurchase_Id(), position);
             }
         });
+
     }
 
     @Override
@@ -75,6 +79,7 @@ public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.Vi
         private TextView purchase_content;
         private TextView myPurchase_Name;
         private TextView delete_purchase;
+        private TextView update_purchase;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,7 +89,16 @@ public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.Vi
             purchase_content = itemView.findViewById(R.id.myPurchase_content_tv);
             myPurchase_Name = itemView.findViewById(R.id.myPurchase_Name_tv);
             delete_purchase = itemView.findViewById(R.id.myPurchase_Delete_tv);
+            update_purchase = itemView.findViewById(R.id.myPurchase_Update_tv);
 
+            update_purchase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), UpdatePurchaseActivity.class);
+                    intent.putExtra("update_purchase", purchaseModelList.get(getPosition()));
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
 
         private void setPurchase_title(String title){

@@ -49,6 +49,11 @@ public class Postpurchase extends AppCompatActivity {
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
 
+    int post_number = 0;
+    int nb = 0;
+    int number_sale = 0;
+    int number_purchase = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,7 @@ public class Postpurchase extends AppCompatActivity {
 
 
         Anhxa();
+        getCount();
         CheckButton();
         Eventclick();
 
@@ -108,13 +114,18 @@ public class Postpurchase extends AppCompatActivity {
         postpurchase_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String approval = "Chờ duyệt";
-                String user_type = saveSignIn.getString("user_Type", "");
-                if(user_type.equals("Vip1") || user_type.equals("Vip2")){
-                    approval = "Đã duyệt";
+                post_number = number_sale + number_purchase;
+                if (post_number >= nb) {
+                    Toast.makeText(getApplicationContext(), "Số lần đăng tin trong ngày của bạn đã hết!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String approval = "Chờ duyệt";
+                    String user_type = saveSignIn.getString("user_Type", "");
+                    if (user_type.equals("Vip1") || user_type.equals("Vip2")) {
+                        approval = "Đã duyệt";
+                        PostPurchase(approval);
+                    }
                     PostPurchase(approval);
                 }
-              PostPurchase(approval);
             }
         });
     }
@@ -216,6 +227,28 @@ public class Postpurchase extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("CheckResult")
+    private void getCount(){
+        int id = saveSignIn.getInt("user_Id", -1);
+        APIRequest.getCountMySale(getApplicationContext(), id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    number_sale = jsonObject.getInt("number");
+                }, throwable -> {
+
+                });
+        APIRequest.getCountMySale(getApplicationContext(), id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    number_purchase = jsonObject.getInt("number");
+                }, throwable -> {
+
+                });
+    }
 
 
     void Anhxa(){

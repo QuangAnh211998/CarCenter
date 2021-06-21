@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite">
 
-    <TextView
-        android:id="@+id/myPurchase_title_tv"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:text="Tiêu đề"
-        android:textColor="@color/colorBlack"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/myPurchase_content_tv">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_person_outline" />
+
+        <TextView
+            android:id="@+id/myPurchase_Name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:text="Họ tên"
+            android:textColor="@color/colorBlue"
+            android:textSize="18dp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -55,6 +68,35 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/myPurchase_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="Tiêu đề"
+        android:textColor="@color/colorBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/myPurchase_Delete_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/boderedt"
+        android:padding="4dp"
+        android:text="Xóa"
+        android:textColor="@color/colorReb"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myPurchase_content_tv" />
+
+    <TextView
         android:id="@+id/myPurchase_content_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,47 +109,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myPurchase_content_tv">
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_person_outline" />
-
-        <TextView
-            android:id="@+id/myPurchase_Name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="Họ tên"
-            android:layout_gravity="center"
-            android:textColor="@color/colorBlue"
-            android:textSize="18dp" />
-
-    </LinearLayout>
-
     <TextView
-        android:id="@+id/myPurchase_Delete_tv"
+        android:id="@+id/myPurchase_Update_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:text="Xóa tin"
-        android:textSize="18dp"
-        android:textColor="@color/colorReb"
-        android:padding="4dp"
         android:background="@drawable/boderedt"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="4dp"
+        android:text="Sửa"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/myPurchase_Delete_tv"
         app:layout_constraintTop_toBottomOf="@+id/myPurchase_content_tv" />
 
     <TextView

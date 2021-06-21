@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
-    tools:context=".JavaClass.Postpurchase">
-
+    tools:context=".JavaClass.UpdatePurchaseActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarPostPurchase"
+        android:id="@+id/toolbarud"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorGrey">
@@ -18,14 +17,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Đăng tin mua xe"
+            android:text="Cập nhật tin mua"
             android:textSize="20dp"
             android:textColor="@color/colorBlack"
             android:gravity="center|left"
             android:paddingLeft="50dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#bdbdbd" />
@@ -39,22 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:text="Chú ý: Chỉ đăng tin mua xe ở đây. Không đăng tin bán xe hay tin rao vặt khác...\nTiêu đề và nội dung phải nhập bằng tiếng việt có dấu"
-                android:textSize="16dp"
-                android:textColor="@color/colorReb" />
-
-            <TextView
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#bdbdbd" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +55,7 @@
                     android:textColor="@color/colorBlack" />
 
                 <TextView
-                    android:id="@+id/price_range_tv"
+                    android:id="@+id/update_pricerange_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_expand_more"
@@ -100,14 +83,14 @@
                     android:textColor="@color/colorBlack" />
 
                 <EditText
-                    android:id="@+id/purchase_title_edt"
+                    android:id="@+id/update_title_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/boderedt"
-                    android:padding="8dp"
                     android:hint="Nhập tiêu đề"
                     android:inputType="textMultiLine"
+                    android:padding="8dp"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -122,7 +105,7 @@
                 android:textColor="@color/colorBlack" />
 
             <EditText
-                android:id="@+id/purchase_content_edt"
+                android:id="@+id/update_content_edt"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="8dp"
@@ -136,7 +119,7 @@
                 android:textSize="14dp" />
 
             <Button
-                android:id="@+id/postpurchase_btn"
+                android:id="@+id/update_purchase_btn"
                 android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -144,7 +127,7 @@
                 android:layout_marginRight="80dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bg2"
-                android:text="Đăng tin"
+                android:text="Cập nhật"
                 android:textSize="20dp"
                 android:textColor="@color/colorWhite" />
 

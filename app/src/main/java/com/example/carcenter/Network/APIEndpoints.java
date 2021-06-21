@@ -96,6 +96,14 @@ public interface APIEndpoints {
     Observable<JsonElement> getCountUser(@QueryMap Map<String, Object> queryMap);
 
     @FormUrlEncoded
+    @POST("carcenter/getCountMySale.php")
+    Observable<JsonElement> getCountMySale(@Field("userid") int user_id);
+
+    @FormUrlEncoded
+    @POST("carcenter/getCountMyPurchase.php")
+    Observable<JsonElement> getCountMyPurchase(@Field("userid") int user_id);
+
+    @FormUrlEncoded
     @POST("carcenter/PostImage.php")
     Observable<JsonElement> postImage (@Field("image_url") String url,
                                        @Field("product_id") String product_id);

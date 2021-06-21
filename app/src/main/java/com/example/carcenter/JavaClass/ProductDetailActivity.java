@@ -44,6 +44,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     List<String> productImage_List;
     ProductImageAdapter productImageAdapter;
-    ArrayList<String> image;
     private boolean addtowishlist = false;
     private boolean click_safe = false;
     private String phone;
@@ -240,7 +240,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void getsetProductDetail(){
 
         ProductsModel productsModel = getIntent().getParcelableExtra("productDetail");
-
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         //// get dữ liệu về
         product_user_id = productsModel.getUser_Id();
         product_user_name = productsModel.getUser_Name();
@@ -251,6 +251,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         int airbag = productsModel.getSystem_Air_Bag();
         company = productsModel.getProduct_Company();
         name = productsModel.getProduct_Name();
+
+        int km = productsModel.getProduct_KmWent();
         //// set dữ liệu lên textView
         product_company.setText(company);
         product_name.setText(name);
@@ -259,7 +261,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_price.setText(Custom_Price.format(Long.parseLong(String.valueOf(price))));
         product_status.setText(productsModel.getProduct_Status());
         product_made_in.setText(productsModel.getProduct_MadeIn());
-        product_km_went.setText(String.valueOf(productsModel.getProduct_KmWent()));
+        product_km_went.setText(decimalFormat.format(km) + " Km");
         product_type.setText(productsModel.getProduct_Type());
         product_outside_color.setText(productsModel.getProduct_OutSide());
         product_inside_color.setText(productsModel.getProduct_InSide());
@@ -268,7 +270,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_drive_train.setText(productsModel.getProduct_DriveTrain());
         product_gear.setText(productsModel.getProduct_Gear());
         product_fuel.setText(productsModel.getProduct_Fuel());
-        product_consume.setText(String.valueOf(productsModel.getProduct_Consume()));
+        product_consume.setText(productsModel.getProduct_Consume() + " L/Km");
         product_content.setText(productsModel.getProduct_Content());
         product_username.setText(productsModel.getUser_Name());
         product_userphone.setText(phone);

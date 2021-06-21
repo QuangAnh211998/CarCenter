@@ -3,6 +3,7 @@ package com.example.carcenter.Fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,6 +77,7 @@ public class PostFragment extends Fragment {
 
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
+    private ProgressDialog mProgressDialog;
 
     private ImageButton imageButton_search;
     private Button postsale_btn;
@@ -118,6 +120,10 @@ public class PostFragment extends Fragment {
 
     String company, name, version, year, madein, status, kmwent, type, price, outside, inside, reverse;
     String door, seat, gear, drivetrain, fuel, consume, content, airbag, abs, eba, esp, antislip, antitheft;
+    int post_number = 0;
+    int nb = 0;
+    int number_sale = 0;
+    int number_purchase = 0;
 
     List<String> listRealpath;
     File file;
@@ -126,10 +132,12 @@ public class PostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post, container, false);
-
         EventBus.getDefault().register(this);
         saveSignIn = getContext().getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
         editor = saveSignIn.edit();
+
+        mProgressDialog = new ProgressDialog(getContext());
+        mProgressDialog.setMessage("Vùi lòng chờ ...");
 
         imageButton_search = view.findViewById(R.id.search_post_image);
         postsale_btn = view.findViewById(R.id.postsale_btn);
@@ -178,6 +186,7 @@ public class PostFragment extends Fragment {
         setTextUser();
         ShowBottomSheet();
         getDataCompany();
+        getCount();
         checkButton();
         EventButton();
 
@@ -428,17 +437,31 @@ public class PostFragment extends Fragment {
 
     private void EventButton() {
         String email = saveSignIn.getString("user_Email", "");
+        String user_type = saveSignIn.getString("user_Type", "");
+        if(user_type.equals("Thường")){
+            nb = 2;
+        }else if(user_type.equals("Vip1")){
+            nb = 4;
+        }else if(user_type.equals("Vip2")){
+            nb = 6;
+        }else if(user_type.equals("Vip3")){
+            nb = 10;
+        }
         postsale_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                post_number = number_sale + number_purchase;
                 if (!TextUtils.isEmpty(email)) {
-                    String approval = "Chờ duyệt";
-                    String user_type = saveSignIn.getString("user_Type", "");
-                    if (user_type.equals("Vip1") || user_type.equals("Vip2")) {
-                        approval = "Đã duyệt";
+                    if(post_number >= nb){
+                        Toast.makeText(getContext(), "Số lần đăng tin trong ngày của bạn đã hết!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        String approval = "Chờ duyệt";
+                        if (user_type.equals("Vip1") || user_type.equals("Vip2")) {
+                            approval = "Đã duyệt";
+                            PostProductandImage(approval);
+                        }
                         PostProductandImage(approval);
                     }
-                    PostProductandImage(approval);
                 } else {
                     DialogSignIn();
                 }
@@ -464,13 +487,11 @@ public class PostFragment extends Fragment {
 
     private void PostProductandImage(String approval) {
         if (listRealpath != null) {
-            Log.d("real", listRealpath.toString());
             String file_path = "";
-                file = new File(listRealpath.get(0));
-                file_path = file.getAbsolutePath();
-//                String[] file_name = file_path.split("\\.");
-//                file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1];
-
+            file = new File(listRealpath.get(0));
+            file_path = file.getAbsolutePath();
+            String[] file_name = file_path.split("\\.", 2);
+            file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1];
 
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", file_path, requestBody);
@@ -479,6 +500,7 @@ public class PostFragment extends Fragment {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if (response != null) {
+                        mProgressDialog.dismiss();
                         String message = response.body();
                         String image1 = BaseAPIRequest.BaseURL + "image/" + message;
                         String image2 = "";
@@ -491,6 +513,7 @@ public class PostFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
+                    mProgressDialog.dismiss();
                 }
             });
         }
@@ -518,12 +541,12 @@ public class PostFragment extends Fragment {
         consume = post_consume_edt.getText().toString();
         content = post_content_edt.getText().toString();
         airbag = post_airbag_edt.getText().toString();
-        abs = post_abs_edt.getText().toString();
-        eba = post_eba_edt.getText().toString();
-        esp = post_esp_edt.getText().toString();
-        antislip = post_antislip_edt.getText().toString();
-        reverse = post_reverse_warning_edt.getText().toString();
-        antitheft = post_antitheft_edt.getText().toString();
+        abs = post_abs_edt.getText().toString().trim();
+        eba = post_eba_edt.getText().toString().trim();
+        esp = post_esp_edt.getText().toString().trim();
+        antislip = post_antislip_edt.getText().toString().trim();
+        reverse = post_reverse_warning_edt.getText().toString().trim();
+        antitheft = post_antitheft_edt.getText().toString().trim();
 
         if (!company.equals("Chọn hãng xe")) {
             if (!name.equals("Chọn đời xe")) {
@@ -631,13 +654,14 @@ public class PostFragment extends Fragment {
 
 
     private void PostImage(String product_id) {
+        mProgressDialog.show();
         String file_path;
         Log.d("realpath", listRealpath.toString());
         for (int i = 0; i < listRealpath.size(); i++) {
             file = new File(listRealpath.get(i));
             file_path = file.getAbsolutePath();
-//            String[] file_name = file_path.split("\\.");
-//            file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1] + "." + file_name[2];
+            String[] file_name = file_path.split("\\.", 2);
+            file_path = file_name[0] + System.currentTimeMillis() + "." + file_name[1];
 
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("upload_file", file_path, requestBody);
@@ -646,6 +670,7 @@ public class PostFragment extends Fragment {
                 @SuppressLint("CheckResult")
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
+                    mProgressDialog.dismiss();
                     if (response != null) {
                         String message = response.body();
                         String url = BaseAPIRequest.BaseURL + "image/" + message;
@@ -667,6 +692,7 @@ public class PostFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
+                    mProgressDialog.dismiss();
                 }
             });
         }
@@ -1022,6 +1048,30 @@ public class PostFragment extends Fragment {
                     ArrayList<CategoryModel> categoryModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<CategoryModel>>() {
                     }.getType());
                     categoryModelList.addAll(categoryModels);
+                }, throwable -> {
+
+                });
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void getCount(){
+        int id = saveSignIn.getInt("user_Id", -1);
+        APIRequest.getCountMySale(getContext(), id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    number_sale = jsonObject.getInt("number");
+                }, throwable -> {
+
+                });
+        APIRequest.getCountMySale(getContext(), id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    number_purchase = jsonObject.getInt("number");
                 }, throwable -> {
 
                 });
