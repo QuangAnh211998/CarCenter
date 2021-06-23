@@ -132,7 +132,7 @@ public class UpdatePurchaseActivity extends AppCompatActivity {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+               startActivity(new Intent(getApplicationContext(), PostManagementActivity.class));
             }
         });
     }

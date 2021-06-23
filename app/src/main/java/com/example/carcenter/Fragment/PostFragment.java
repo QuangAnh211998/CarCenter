@@ -226,7 +226,6 @@ public class PostFragment extends Fragment {
                     @Override
                     public void onClick(String name, int id) {
                         post_company_tv.setText(name);
-                        Log.e("xxx", id + "");
                         getDataCategory(id);
                     }
                 });
@@ -566,9 +565,13 @@ public class PostFragment extends Fragment {
                                                                     if (reverse.equals("có") || reverse.equals("không")) {
                                                                         if (antitheft.equals("có") || antitheft.equals("không")) {
                                                                             if (listRealpath != null) {
-                                                                                postsale_btn.setEnabled(false);
-                                                                                postsale_btn.setTextColor(Color.argb(50, 255, 255, 255));
-                                                                                PostProduct(image1, image2, image3, image4, image5, approval);
+                                                                                if(content.length() >= 30) {
+                                                                                    postsale_btn.setEnabled(false);
+                                                                                    postsale_btn.setTextColor(Color.argb(50, 255, 255, 255));
+                                                                                    PostProduct(image1, image2, image3, image4, image5, approval);
+                                                                                }else {
+                                                                                    post_content_edt.setError("Nội dụng phải từ 30 - 500 ký tự!");
+                                                                                }
                                                                             } else {
                                                                                 Toast.makeText(getContext(), "Chưa chọn ảnh", Toast.LENGTH_SHORT).show();
                                                                             }

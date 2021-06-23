@@ -104,6 +104,10 @@ public interface APIEndpoints {
     Observable<JsonElement> getCountMyPurchase(@Field("userid") int user_id);
 
     @FormUrlEncoded
+    @POST("carcenter/SearchUser.php")
+    Observable<JsonElement> searchUser(@Field("id") int user_id);
+
+    @FormUrlEncoded
     @POST("carcenter/PostImage.php")
     Observable<JsonElement> postImage (@Field("image_url") String url,
                                        @Field("product_id") String product_id);

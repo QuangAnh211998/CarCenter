@@ -14,14 +14,17 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorGrey">
 
-        <TextView
+        <SearchView
+            android:id="@+id/searchView"
+            android:background="@drawable/boderedt"
+            android:queryHint="Nhập mã tài khoản"
+            app:submitBackground="@null"
+            app:iconifiedByDefault="false"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Quản lý tài khoản"
-            android:textSize="20dp"
-            android:textColor="@color/colorBlack"
-            android:gravity="center|left"
-            android:paddingLeft="50dp"/>
+            android:layout_height="wrap_content"/>
     </androidx.appcompat.widget.Toolbar>
 
     <View

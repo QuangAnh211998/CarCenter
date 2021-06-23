@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class AccountManagementActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private TextView mUser_number;
     private Toolbar mToolbar;
+    private SearchView searchView;
     private int number;
 
     @Override
@@ -55,6 +57,19 @@ public class AccountManagementActivity extends AppCompatActivity {
             setToolbar();
             getDataUser();
             getCountUser();
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    SearchUser();
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
 
         }
     }
@@ -88,6 +103,25 @@ public class AccountManagementActivity extends AppCompatActivity {
 
                 });
 
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void SearchUser(){
+        usersModelList.clear();
+        int id = Integer.parseInt(searchView.getQuery().toString().trim());
+        APIRequest.searchUser(getApplicationContext(), id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(jsonElement -> {
+                    Gson gson = new Gson();
+                    ArrayList<UsersModel> usersModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<UsersModel>>() {
+                    }.getType());
+                    usersModelList.addAll(usersModels);
+                    userAdapter.notifyDataSetChanged();
+                }, throwable -> {
+
+                });
     }
 
 
@@ -174,6 +208,7 @@ public class AccountManagementActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.user_recyclerView);
         mUser_number = findViewById(R.id.user_number);
         mToolbar = findViewById(R.id.toolbar_user);
+        searchView = findViewById(R.id.searchView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);

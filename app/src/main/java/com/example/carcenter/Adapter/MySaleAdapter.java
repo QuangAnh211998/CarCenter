@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.carcenter.JavaClass.UpdateProductActivity;
+import com.example.carcenter.JavaClass.UpdatePurchaseActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
@@ -87,6 +90,7 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         private TextView productPrice;
         private TextView mySale_UserName;
         private TextView mySale_Delete;
+        private TextView mySale_Update;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +103,16 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
             productPrice = itemView.findViewById(R.id.mySale_Price_tv);
             mySale_UserName = itemView.findViewById(R.id.mySale_UserName_tv);
             mySale_Delete = itemView.findViewById(R.id.mySale_Delete_tv);
+            mySale_Update = itemView.findViewById(R.id.mySale_Update_tv);
+
+            mySale_Update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), UpdateProductActivity.class);
+                    intent.putExtra("update_product", productsModelList.get(getPosition()));
+                    itemView.getContext().startActivity(intent);
+                }
+            });
 
 
         }

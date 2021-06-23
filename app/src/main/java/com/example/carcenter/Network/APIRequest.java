@@ -106,6 +106,10 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).getDataWishlist(user_id);
     }
 
+    public static Observable<JsonElement> searchUser(Context context, int user_id){
+        return BaseAPIRequest.getInstanceRequestV2(context).searchUser(user_id);
+    }
+
     public static Observable<JsonElement> postImage(Context context, String url, String id){
         return BaseAPIRequest.getInstanceRequestV2(context).postImage(url, id);
     }
