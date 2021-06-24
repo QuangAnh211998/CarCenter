@@ -23,6 +23,7 @@
             android:id="@+id/wishlist_ImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/vinfast" />
 
     </androidx.cardview.widget.CardView>
@@ -124,27 +125,13 @@
         android:layout_marginEnd="12dp"
         android:background="@drawable/boderedt"
         android:padding="4dp"
-        android:text="Xóa"
+        android:text="Bỏ lưu"
         android:textColor="@color/colorReb"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/wishlist_UserName_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productPrice_tv"
         app:layout_constraintVertical_bias="1.0" />
-
-
-    <TextView
-        android:id="@+id/mySale_Update_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:padding="4dp"
-        android:text="Sửa"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20dp"
-        android:background="@drawable/boderedt"
-        app:layout_constraintBottom_toBottomOf="@+id/wishlist_UserName_tv"
-        app:layout_constraintEnd_toStartOf="@+id/wishlist_Delete_tv" />
 
     <TextView
         android:id="@+id/textView18"

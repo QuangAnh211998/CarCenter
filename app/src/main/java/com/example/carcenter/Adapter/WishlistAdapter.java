@@ -46,7 +46,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
     @NonNull
     @Override
     public WishlistAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_my_sale, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_wishlist, viewGroup, false);
         return new WishlistAdapter.ViewHolder(view);
     }
 
@@ -95,14 +95,14 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            productImage = itemView.findViewById(R.id.mySale_ImageView);
-            productCompany = itemView.findViewById(R.id.mySale_Company_tv);
-            productName = itemView.findViewById(R.id.mySale_Name_tv);
-            productVersion = itemView.findViewById(R.id.mySale_Version_tv);
-            productYear = itemView.findViewById(R.id.mySale_Year_tv);
-            productPrice = itemView.findViewById(R.id.mySale_Price_tv);
-            mySale_UserName = itemView.findViewById(R.id.mySale_UserName_tv);
-            mySale_Delete = itemView.findViewById(R.id.mySale_Delete_tv);
+            productImage = itemView.findViewById(R.id.wishlist_ImageView);
+            productCompany = itemView.findViewById(R.id.wishlist_Company_tv);
+            productName = itemView.findViewById(R.id.wishlist_Name_tv);
+            productVersion = itemView.findViewById(R.id.wishlist_Version_tv);
+            productYear = itemView.findViewById(R.id.wishlist_Year_tv);
+            productPrice = itemView.findViewById(R.id.wishlist_Price_tv);
+            mySale_UserName = itemView.findViewById(R.id.wishlist_UserName_tv);
+            mySale_Delete = itemView.findViewById(R.id.wishlist_Delete_tv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

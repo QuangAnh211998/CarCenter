@@ -80,7 +80,7 @@
                     app:srcCompat="@drawable/ic_person" />
 
                 <TextView
-                    android:id="@+id/mySale_Delete_tv"
+                    android:id="@+id/wishlist_Delete_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

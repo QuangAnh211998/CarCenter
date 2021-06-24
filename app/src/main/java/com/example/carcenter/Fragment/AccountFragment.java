@@ -19,12 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carcenter.Admin.AccountManagementActivity;
+import com.example.carcenter.JavaClass.CovenientServiceActivity;
 import com.example.carcenter.JavaClass.MainActivity;
 import com.example.carcenter.JavaClass.MyWishlistActivity;
 import com.example.carcenter.JavaClass.PostManagementActivity;
 import com.example.carcenter.Admin.PostManagement_Admin_Activity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
+import com.example.carcenter.JavaClass.TransactionHistoryActivity;
 import com.example.carcenter.Register.RegisterActivity;
 import com.example.carcenter.JavaClass.SignUp_UserVipActivity;
 import com.example.carcenter.R;
@@ -44,8 +46,10 @@ public class AccountFragment extends Fragment {
     private LinearLayout signup_vip;
     private LinearLayout post_management_admin;
     private LinearLayout account_management;
+    private LinearLayout service_layout;
+    private LinearLayout transaction_history_layout;
     private TextView userName_tv;
-    private TextView userPhone_tv;
+    private TextView userId_tv;
     private TextView numberPost_tv;
     private TextView money_tv;
 
@@ -67,9 +71,11 @@ public class AccountFragment extends Fragment {
         post_management_admin = view.findViewById(R.id.postmanagement_admin_layout);
         account_management = view.findViewById(R.id.account_management_layout);
         userName_tv = view.findViewById(R.id.tv_name);
-        userPhone_tv = view.findViewById(R.id.tv_phone);
+        userId_tv = view.findViewById(R.id.tv_id);
         money_tv = view.findViewById(R.id.tv_money);
         numberPost_tv = view.findViewById(R.id.tv_numberpost);
+        service_layout = view.findViewById(R.id.service_layout);
+        transaction_history_layout = view.findViewById(R.id.transaction_history_layout);
 
         EventBus.getDefault().register(this);
         saveSignIn = getContext().getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
@@ -149,6 +155,28 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        service_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(email)){
+                    startActivity(new Intent(getContext(), CovenientServiceActivity.class));
+                }else {
+                    DialogSignIn();
+                }
+            }
+        });
+
+        transaction_history_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(email)){
+                    startActivity(new Intent(getContext(), TransactionHistoryActivity.class));
+                }else {
+                    DialogSignIn();
+                }
+            }
+        });
+
         signup_vip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,12 +213,13 @@ public class AccountFragment extends Fragment {
     private void CheckData() {
         String email = saveSignIn.getString("user_Email", "");
         String type = saveSignIn.getString("user_Type", "");
+        int id = saveSignIn.getInt("user_Id", -1);
 
         if (!TextUtils.isEmpty(email)) {
             btn_SignOut.setVisibility(View.VISIBLE);
             btn_SignIn.setVisibility(View.GONE);
             userName_tv.setText(saveSignIn.getString("user_Name", ""));
-            userPhone_tv.setText(saveSignIn.getString("user_Phone", ""));
+            userId_tv.setText("Mã tài khoản: " + id);
             money_tv.setText("0");
             if(type.equals("Admin")){
                 account_management.setVisibility(View.VISIBLE);
@@ -216,7 +245,7 @@ public class AccountFragment extends Fragment {
             my_wishlist.setVisibility(View.VISIBLE);
             numberPost_tv.setVisibility(View.VISIBLE);
             userName_tv.setText("Họ tên");
-            userPhone_tv.setText("Số điện thoại");
+            userId_tv.setText("Mã tài khoản");
             money_tv.setText("");
         }
     }

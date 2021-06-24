@@ -18,6 +18,11 @@
     <string name="textvip3_4">- Có trang riêng trên CarCenter.</string>
     <string name="textvip3_5">- Điều kiện tham gia: Salon/Showroom phải có thật. Có cửa hàng, biển hiệu và đang trưng bày bán xe.
                                 Chưa có gian hàng trên CarCenter.</string>
+    <string name="contentbanking">- Nội dung chuyển khoản: Loại tài khoản + mã tài khoản.</string>
+    <string name="contentbanking2">- Nội dung chuyển khoản: Nạp tiền + mã tài khoản.</string>
+    <string name="textmoney">- Nạp tiền vào tài khoản bằng cách chuyển khoản theo thông tin bên dưới.</string>
+    <string name="textdk">Mỗi lần nạp tối thiểu 50,000 VNĐ, mỗi ngày tối đa 3 lần nạp và sẽ tính phí 10% mỗi lần nạp.</string>
+    <string name="textupdate">Không giới hạn số lần sửa, tiền sẽ trừ vào tài khoản của bạn.</string>
 
     <string-array name="rangeSlider">
         <item>1000</item>

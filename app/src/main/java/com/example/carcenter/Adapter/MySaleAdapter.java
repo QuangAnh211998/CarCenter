@@ -18,12 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.carcenter.JavaClass.UpdateProductActivity;
-import com.example.carcenter.JavaClass.UpdatePurchaseActivity;
 import com.example.carcenter.Model.ProductsModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
 import com.example.carcenter.Custom.Custom_Price;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -95,14 +93,14 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            productImage = itemView.findViewById(R.id.mySale_ImageView);
-            productCompany = itemView.findViewById(R.id.mySale_Company_tv);
-            productName = itemView.findViewById(R.id.mySale_Name_tv);
-            productVersion = itemView.findViewById(R.id.mySale_Version_tv);
-            productYear = itemView.findViewById(R.id.mySale_Year_tv);
-            productPrice = itemView.findViewById(R.id.mySale_Price_tv);
-            mySale_UserName = itemView.findViewById(R.id.mySale_UserName_tv);
-            mySale_Delete = itemView.findViewById(R.id.mySale_Delete_tv);
+            productImage = itemView.findViewById(R.id.wishlist_ImageView);
+            productCompany = itemView.findViewById(R.id.wishlist_Company_tv);
+            productName = itemView.findViewById(R.id.wishlist_Name_tv);
+            productVersion = itemView.findViewById(R.id.wishlist_Version_tv);
+            productYear = itemView.findViewById(R.id.wishlist_Year_tv);
+            productPrice = itemView.findViewById(R.id.wishlist_Price_tv);
+            mySale_UserName = itemView.findViewById(R.id.wishlist_UserName_tv);
+            mySale_Delete = itemView.findViewById(R.id.wishlist_Delete_tv);
             mySale_Update = itemView.findViewById(R.id.mySale_Update_tv);
 
             mySale_Update.setOnClickListener(new View.OnClickListener() {

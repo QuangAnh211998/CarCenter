@@ -57,11 +57,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_phone"
+                        android:id="@+id/tv_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="Số điện thoại: "
+                        android:text="Mã tài khoản: "
                         android:textSize="20dp" />
 
                     <TextView
@@ -233,6 +233,64 @@
                     android:gravity="left|center"
                     android:paddingLeft="16dp"
                     android:text="Đăng ký tài khoản vip"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorBlue"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|right"
+                    android:paddingRight="24dp"
+                    android:text=">"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorBlue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/service_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8.5"
+                    android:gravity="left|center"
+                    android:paddingLeft="16dp"
+                    android:text="Dịch vụ tiện ích"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorBlue"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|right"
+                    android:paddingRight="24dp"
+                    android:text=">"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorBlue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/transaction_history_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8.5"
+                    android:gravity="left|center"
+                    android:paddingLeft="16dp"
+                    android:text="Lịch sử giao dịch"
                     android:textSize="20dp"
                     android:textColor="@color/colorBlue"/>
 
