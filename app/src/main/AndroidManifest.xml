@@ -26,8 +26,7 @@
         <activity android:name=".JavaClass.SignUp_UserVipActivity" />
         <activity
             android:name=".JavaClass.SplashScreen"
-            android:noHistory="true"
-            android:theme="@style/SplashTheme">
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
