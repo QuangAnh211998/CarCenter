@@ -446,6 +446,7 @@ public class PostFragment extends Fragment {
         }else if(user_type.equals("Vip3")){
             nb = 10;
         }
+
         postsale_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -502,11 +503,7 @@ public class PostFragment extends Fragment {
                         mProgressDialog.dismiss();
                         String message = response.body();
                         String image1 = BaseAPIRequest.BaseURL + "image/" + message;
-                        String image2 = "";
-                        String image3 = "";
-                        String image4 = "";
-                        String image5 = "";
-                        CheckPostProduct(image1, image2, image3, image4, image5, approval);
+                        CheckPostProduct(image1, approval);
                     }
                 }
 
@@ -520,7 +517,7 @@ public class PostFragment extends Fragment {
 
 
     ////// Đăng tin
-    private void CheckPostProduct(String image1, String image2, String image3, String image4, String image5, String approval) {
+    private void CheckPostProduct(String image1, String approval) {
         company = post_company_tv.getText().toString();
         name = post_name_tv.getText().toString();
         version = post_version_edt.getText().toString();
@@ -568,7 +565,7 @@ public class PostFragment extends Fragment {
                                                                                 if(content.length() >= 30) {
                                                                                     postsale_btn.setEnabled(false);
                                                                                     postsale_btn.setTextColor(Color.argb(50, 255, 255, 255));
-                                                                                    PostProduct(image1, image2, image3, image4, image5, approval);
+                                                                                    PostProduct(image1, approval);
                                                                                 }else {
                                                                                     post_content_edt.setError("Nội dụng phải từ 30 - 500 ký tự!");
                                                                                 }
@@ -630,7 +627,7 @@ public class PostFragment extends Fragment {
 
 
     @SuppressLint("CheckResult")
-    private void PostProduct(String image1, String image2, String image3, String image4, String image5, String approval) {
+    private void PostProduct(String image1, String approval) {
         String uname = saveSignIn.getString("user_Name", "");
         String uphone = saveSignIn.getString("user_Phone", "");
         String uaddress = saveSignIn.getString("user_Address", "");
@@ -638,7 +635,7 @@ public class PostFragment extends Fragment {
         int userid = saveSignIn.getInt("user_Id", -1);
         Log.d("post", antitheft);
         APIRequest.PostProduct(getContext(), company, name, version, year, madein, status, kmwent, type, price, outside, inside, door, seat,
-                gear, drivetrain, fuel, consume, image1, image2, image3, image4, image5, content, uname, uphone, uaddress, uliving, airbag,
+                gear, drivetrain, fuel, consume, image1, content, uname, uphone, uaddress, uliving, airbag,
                 abs, eba, esp, antislip, reverse, antitheft, userid, approval)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -725,12 +722,19 @@ public class PostFragment extends Fragment {
 
     ////// chọn ảnh
     private void SelectImage() {
+        int sl = 0;
+        String user_type = saveSignIn.getString("user_Type", "");
+        if(user_type.equals("Thường")){
+            sl = 5;
+        }else{
+            sl = 10;
+        }
         TedBottomPicker.with(getActivity())
                 .setPeekHeight(1000)
                 .showTitle(false)
                 .setCompleteButtonText("Done")
                 .setEmptySelectionText("No Select")
-                .setSelectMaxCount(5)
+                .setSelectMaxCount(sl)
                 .showMultiImage(new TedBottomSheetDialogFragment.OnMultiImageSelectedListener() {
                     @Override
                     public void onImagesSelected(List<Uri> uriList) {

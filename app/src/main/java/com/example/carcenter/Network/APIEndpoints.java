@@ -58,6 +58,10 @@ public interface APIEndpoints {
     Observable<JsonElement> UpdateAndDelete(@Field("query") String query);
 
     @FormUrlEncoded
+    @POST("carcenter/DeleteProduct.php")
+    Observable<JsonElement> DeleteProduct(@Field("id") int id);
+
+    @FormUrlEncoded
     @POST("carcenter/PostPurchase.php")
     Observable<JsonElement> PostPurchase(@Field("title") String title,
                                          @Field("price") String price,
@@ -140,10 +144,6 @@ public interface APIEndpoints {
                                          @Field("fuel") String fuel,
                                          @Field("consume") String consume,
                                          @Field("image1") String image1,
-                                         @Field("image2") String image2,
-                                         @Field("image3") String image3,
-                                         @Field("image4") String image4,
-                                         @Field("image5") String image5,
                                          @Field("content") String content,
                                          @Field("uName") String uName,
                                          @Field("uPhone") String uPhone,

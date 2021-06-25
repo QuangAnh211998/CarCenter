@@ -265,8 +265,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         product_type.setText(productsModel.getProduct_Type());
         product_outside_color.setText(productsModel.getProduct_OutSide());
         product_inside_color.setText(productsModel.getProduct_InSide());
-        product_door.setText(String.valueOf(productsModel.getProduct_Door()));
-        product_seat.setText(String.valueOf(productsModel.getProduct_Seat()));
+        product_door.setText(String.valueOf(productsModel.getProduct_Door()) + " cửa");
+        product_seat.setText(String.valueOf(productsModel.getProduct_Seat()) + " chỗ");
         product_drive_train.setText(productsModel.getProduct_DriveTrain());
         product_gear.setText(productsModel.getProduct_Gear());
         product_fuel.setText(productsModel.getProduct_Fuel());

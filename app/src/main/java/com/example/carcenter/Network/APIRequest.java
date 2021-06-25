@@ -94,6 +94,10 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).UpdateAndDelete(query);
     }
 
+    public static Observable<JsonElement> DeleteProduct(Context context, int id){
+        return BaseAPIRequest.getInstanceRequestV2(context).DeleteProduct(id);
+    }
+
     public static Observable<JsonElement> postWishlist(Context context, int user_id, int product_id){
         return BaseAPIRequest.getInstanceRequestV2(context).postWishlist(user_id, product_id);
     }
@@ -125,11 +129,10 @@ public class APIRequest {
     public static Observable<JsonElement> PostProduct(Context context, String company, String name, String version, String year, String madein,
                                                       String status, String km, String type, String price, String outside, String inside, String door,
                                                       String seat, String gear, String drive, String fuel, String consume, String image1,
-                                                      String image2, String image3, String image4, String image5, String content, String uname,
-                                                      String uphone, String uaddress, String uliving, String airbag, String abs, String eba,
+                                                      String content, String uname, String uphone, String uaddress, String uliving, String airbag, String abs, String eba,
                                                       String esp, String antislip, String reverse, String antitheft, int userid, String approval){
         return BaseAPIRequest.getInstanceRequestV2(context).postProduct(company, name, version, year, madein, status, km, type, price, outside,
-                inside, door, seat, gear, drive, fuel, consume, image1, image2, image3, image4, image5, content, uname, uphone, uaddress, uliving,
+                inside, door, seat, gear, drive, fuel, consume, image1, content, uname, uphone, uaddress, uliving,
                 airbag, abs, eba, esp, antislip, reverse, antitheft, userid, approval);
     }
 }

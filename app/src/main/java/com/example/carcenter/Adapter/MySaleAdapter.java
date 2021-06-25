@@ -144,8 +144,7 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
-                String query = "DELETE FROM products WHERE product_Id ='"+id+"'";
-                DeleteMySale(query, position);
+                DeleteMySale(id, position);
             }
         });
         dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -158,9 +157,9 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
     }
 
     @SuppressLint("CheckResult")
-    private void DeleteMySale(String query, int position){
+    private void DeleteMySale(int id, int position){
 
-        APIRequest.UpdateAndDelete(context,query)
+        APIRequest.DeleteProduct(context,id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
