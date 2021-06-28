@@ -26,7 +26,6 @@ public class ProductsModel implements Parcelable {
     private String product_DriveTrain;
     private String product_Fuel;
     private int product_Consume;
-//    private ArrayList<String> product_Image;
     private String product_Image;
     private String product_Content;
     private String user_Name;
@@ -42,6 +41,7 @@ public class ProductsModel implements Parcelable {
     private String system_Anti_theft;
     private int user_Id;
     private String product_PostApproval;
+    private String product_Create_Day;
 
     public ProductsModel() {
     }
@@ -49,10 +49,10 @@ public class ProductsModel implements Parcelable {
     public ProductsModel(int product_Id, String product_Company, String product_Name, String product_Version, int product_Year,
                          String product_MadeIn, String product_Status, int product_KmWent, String product_Type, int product_Price,
                          String product_OutSide, String product_InSide, int product_Door, int product_Seat, String product_Gear,
-                         String product_DriveTrain, String product_Fuel, int product_Consume, String product_Image,
-                         String product_Content, String user_Name, String user_Phone, String user_Address, String user_LivingArea,
-                         int system_Air_Bag, String system_ABS, String system_EBA, String system_ESP, String system_Anti_Slip,
-                         String system_Reverse_Warning, String system_Anti_theft, int user_Id, String product_PostApproval) {
+                         String product_DriveTrain, String product_Fuel, int product_Consume, String product_Image, String product_Content,
+                         String user_Name, String user_Phone, String user_Address, String user_LivingArea, int system_Air_Bag,
+                         String system_ABS, String system_EBA, String system_ESP, String system_Anti_Slip, String system_Reverse_Warning,
+                         String system_Anti_theft, int user_Id, String product_PostApproval, String product_Create_Day) {
         this.product_Id = product_Id;
         this.product_Company = product_Company;
         this.product_Name = product_Name;
@@ -86,6 +86,7 @@ public class ProductsModel implements Parcelable {
         this.system_Anti_theft = system_Anti_theft;
         this.user_Id = user_Id;
         this.product_PostApproval = product_PostApproval;
+        this.product_Create_Day = product_Create_Day;
     }
 
     protected ProductsModel(Parcel in) {
@@ -107,7 +108,6 @@ public class ProductsModel implements Parcelable {
         product_DriveTrain = in.readString();
         product_Fuel = in.readString();
         product_Consume = in.readInt();
-//        product_Image = in.createStringArrayList();
         product_Image = in.readString();
         product_Content = in.readString();
         user_Name = in.readString();
@@ -123,6 +123,7 @@ public class ProductsModel implements Parcelable {
         system_Anti_theft = in.readString();
         user_Id = in.readInt();
         product_PostApproval = in.readString();
+        product_Create_Day = in.readString();
     }
 
     @Override
@@ -146,7 +147,6 @@ public class ProductsModel implements Parcelable {
         dest.writeString(product_Fuel);
         dest.writeInt(product_Consume);
         dest.writeString(product_Image);
-//        dest.writeStringList(product_Image);
         dest.writeString(product_Content);
         dest.writeString(user_Name);
         dest.writeString(user_Phone);
@@ -161,6 +161,7 @@ public class ProductsModel implements Parcelable {
         dest.writeString(system_Anti_theft);
         dest.writeInt(user_Id);
         dest.writeString(product_PostApproval);
+        dest.writeString(product_Create_Day);
     }
 
     @Override
@@ -442,5 +443,17 @@ public class ProductsModel implements Parcelable {
 
     public void setProduct_PostApproval(String product_PostApproval) {
         this.product_PostApproval = product_PostApproval;
+    }
+
+    public String getProduct_Create_Day() {
+        return product_Create_Day;
+    }
+
+    public void setProduct_Create_Day(String product_Create_Day) {
+        this.product_Create_Day = product_Create_Day;
+    }
+
+    public static Creator<ProductsModel> getCREATOR() {
+        return CREATOR;
     }
 }

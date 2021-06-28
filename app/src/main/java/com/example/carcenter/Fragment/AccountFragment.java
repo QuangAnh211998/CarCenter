@@ -229,6 +229,9 @@ public class AccountFragment extends Fragment {
                 reset_infor.setVisibility(View.GONE);
                 my_wishlist.setVisibility(View.GONE);
                 numberPost_tv.setVisibility(View.GONE);
+                service_layout.setVisibility(View.GONE);
+                transaction_history_layout.setVisibility(View.GONE);
+                signup_vip.setVisibility(View.GONE);
             }else {
                 account_management.setVisibility(View.GONE);
                 post_management_admin.setVisibility(View.GONE);
@@ -244,6 +247,9 @@ public class AccountFragment extends Fragment {
             reset_infor.setVisibility(View.VISIBLE);
             my_wishlist.setVisibility(View.VISIBLE);
             numberPost_tv.setVisibility(View.VISIBLE);
+            service_layout.setVisibility(View.VISIBLE);
+            transaction_history_layout.setVisibility(View.VISIBLE);
+            signup_vip.setVisibility(View.VISIBLE);
             userName_tv.setText("Họ tên");
             userId_tv.setText("Mã tài khoản");
             money_tv.setText("");

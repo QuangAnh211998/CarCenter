@@ -111,6 +111,17 @@ public class Postpurchase extends AppCompatActivity {
             }
         });
 
+        String user_type = saveSignIn.getString("user_Type", "");
+        if(user_type.equals("Thường")){
+            nb = 2;
+        }else if(user_type.equals("Vip1")){
+            nb = 4;
+        }else if(user_type.equals("Vip2")){
+            nb = 6;
+        }else if(user_type.equals("Vip3")){
+            nb = 10;
+        }
+
         postpurchase_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

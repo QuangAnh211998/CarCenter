@@ -103,6 +103,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private TextView anti_Slip;
     private TextView reverse_Warning;
     private TextView anti_theft;
+    private TextView date_tv;
     private LinearLayout layout_safe;
     private LinearLayout layout_view;
     private ImageView imageView_up;
@@ -283,6 +284,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         anti_theft.setText(productsModel.getSystem_Anti_theft());
         reverse_Warning.setText(productsModel.getSystem_Reverse_Warning());
         user_name_tv.setText(productsModel.getUser_Name());
+        date_tv.setText(productsModel.getProduct_Create_Day());
 
     }
 
@@ -480,5 +482,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         user_name_tv = findViewById(R.id.user_name_tv);
         productbyname = findViewById(R.id.productbyename_layout);
         productModel_tv = findViewById(R.id.productModel_tv);
+        date_tv = findViewById(R.id.product_date_tv);
     }
 }

@@ -451,11 +451,18 @@ public class PostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 post_number = number_sale + number_purchase;
+                String approval = "Chờ duyệt";
+                int key = 0;
                 if (!TextUtils.isEmpty(email)) {
                     if(post_number >= nb){
                         Toast.makeText(getContext(), "Số lần đăng tin trong ngày của bạn đã hết!", Toast.LENGTH_SHORT).show();
+//                        if (user_type.equals("Vip1") || user_type.equals("Vip2")) {
+//                            approval = "Đã duyệt";
+//                            PostProductandImage(approval);
+//                        }
+//                        PostProductandImage(approval);
                     }else {
-                        String approval = "Chờ duyệt";
+
                         if (user_type.equals("Vip1") || user_type.equals("Vip2")) {
                             approval = "Đã duyệt";
                             PostProductandImage(approval);
