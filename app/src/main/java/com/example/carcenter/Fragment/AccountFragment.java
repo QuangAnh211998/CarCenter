@@ -19,12 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carcenter.Admin.AccountManagementActivity;
-import com.example.carcenter.Admin.BrowseActivity;
+import com.example.carcenter.Admin.PostManagement_Admin_Activity;
 import com.example.carcenter.JavaClass.CovenientServiceActivity;
 import com.example.carcenter.JavaClass.MainActivity;
 import com.example.carcenter.JavaClass.MyWishlistActivity;
 import com.example.carcenter.JavaClass.PostManagementActivity;
-import com.example.carcenter.Admin.PostManagement_Admin_Activity;
+import com.example.carcenter.Admin.BrowseActivity;
 import com.example.carcenter.JavaClass.ResetInformationActivity;
 import com.example.carcenter.JavaClass.ResetPasswordActivity;
 import com.example.carcenter.JavaClass.TransactionHistoryActivity;
@@ -194,7 +194,7 @@ public class AccountFragment extends Fragment {
         post_management_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), BrowseActivity.class));
+                startActivity(new Intent(getContext(), PostManagement_Admin_Activity.class));
             }
         });
 
@@ -208,7 +208,7 @@ public class AccountFragment extends Fragment {
         admin_browse_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), PostManagement_Admin_Activity.class));
+                startActivity(new Intent(getContext(), BrowseActivity.class));
             }
         });
     }
