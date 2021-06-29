@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Quản lý bài đăng"
+            android:text="Kiểm duyệt bài đăng"
             android:textSize="20dp"
             android:textColor="@color/colorBlack"
             android:gravity="center|left"

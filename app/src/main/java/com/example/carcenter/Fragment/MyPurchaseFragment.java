@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.carcenter.Adapter.MyPurchaseAdapter;
 import com.example.carcenter.Adapter.MySaleAdapter;
@@ -38,6 +39,7 @@ public class MyPurchaseFragment extends Fragment {
     private List<PurchaseModel> purchaseModelList;
     private MyPurchaseAdapter myPurchaseAdapter;
     private RecyclerView my_purchase_recyclerView;
+    private TextView number_purchase_tv;
 
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
@@ -52,6 +54,7 @@ public class MyPurchaseFragment extends Fragment {
 
 
         my_purchase_recyclerView = view.findViewById(R.id.my_purchase_recyclerView);
+        number_purchase_tv = view.findViewById(R.id.number_postpurchase_tv);
 
         LinearLayoutManager layoutManager_purchase = new LinearLayoutManager(getActivity());
         layoutManager_purchase.setOrientation(LinearLayoutManager.VERTICAL);
@@ -76,6 +79,8 @@ public class MyPurchaseFragment extends Fragment {
                     ArrayList<PurchaseModel> purchaseModels = gson.fromJson(jsonElement.getAsJsonArray(), new TypeToken<ArrayList<PurchaseModel>>(){}.getType());
                     purchaseModelList.addAll(purchaseModels);
                     myPurchaseAdapter.notifyDataSetChanged();
+
+                    number_purchase_tv.setText(String.valueOf(purchaseModelList.size())+ " lần đăng tin");
                 }, throwable -> {
 
                 });

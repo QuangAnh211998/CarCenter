@@ -52,6 +52,8 @@ public class ResetInformationActivity extends AppCompatActivity {
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
 
+    private String phonePattern = "[0]+[0-9&&[^01246]]+[0-9]+";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +152,7 @@ public class ResetInformationActivity extends AppCompatActivity {
         String livingArea = user_livingArea_tv.getText().toString();
         String address = user_address_edt.getText().toString();
 
-        if (phone.length() ==10){
+        if (phone.length() ==10 && phone.matches(phonePattern)){
             reset_infor_btn.setEnabled(false);
             reset_infor_btn.setTextColor(Color.argb(50, 255, 255, 255));
 
@@ -180,7 +182,7 @@ public class ResetInformationActivity extends AppCompatActivity {
                         Toast.makeText(this, "Cập nhật thất bại", Toast.LENGTH_LONG).show();
                     });
         }else {
-            user_phone_edt.setError("phải là loại 10 số!");
+            user_phone_edt.setError("SĐT không hợp lệ!");
         }
 
     }

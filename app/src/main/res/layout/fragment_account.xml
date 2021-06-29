@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -145,6 +146,36 @@
                     android:gravity="left|center"
                     android:paddingLeft="16dp"
                     android:text="Quản lý bài đăng"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center|right"
+                    android:paddingRight="24dp"
+                    android:text=">"
+                    android:textSize="25dp"
+                    android:textColor="@color/colorBlue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/admin_browse_layout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8.5"
+                    android:gravity="left|center"
+                    android:paddingLeft="16dp"
+                    android:text="Duyệt bài đăng"
                     android:textColor="@color/colorBlue"
                     android:textSize="20dp" />
 

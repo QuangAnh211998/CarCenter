@@ -161,29 +161,33 @@ public class SignInFragment extends Fragment {
                         .subscribe(jsonElement -> {
                             Gson gson = new Gson();
                             ArrayList<UsersModel> users = gson.fromJson(jsonElement.getAsJsonArray(),new TypeToken<ArrayList<UsersModel>>(){}.getType());
-                            Log.e("signin", users.get(0).getUser_Email());
+                            String type = users.get(0).getUser_Type();
+                            if(type.equals("Khóa")){
+                                Toast.makeText(getContext(), "Tài khoản của bạn đã bị khóa!", Toast.LENGTH_SHORT).show();
+                            }else {
 
-                            SharedPreferences.Editor editor = seveSignIn.edit();
-                            editor.putInt("user_Id", users.get(0).getUser_Id());
-                            editor.putString("user_Name", users.get(0).getUser_Name());
-                            editor.putString("user_Email", users.get(0).getUser_Email());
-                            editor.putString("user_Phone", users.get(0).getUser_Phone());
-                            editor.putString("user_Address", users.get(0).getUser_Address());
-                            editor.putString("user_LivingArea", users.get(0).getUser_LivingArea());
-                            editor.putString("user_PassWord", users.get(0).getUser_PassWord());
-                            editor.putString("user_Type", users.get(0).getUser_Type());
-                            editor.putInt("user_Money", users.get(0).getUser_Money());
-                            editor.commit();
+                                SharedPreferences.Editor editor = seveSignIn.edit();
+                                editor.putInt("user_Id", users.get(0).getUser_Id());
+                                editor.putString("user_Name", users.get(0).getUser_Name());
+                                editor.putString("user_Email", users.get(0).getUser_Email());
+                                editor.putString("user_Phone", users.get(0).getUser_Phone());
+                                editor.putString("user_Address", users.get(0).getUser_Address());
+                                editor.putString("user_LivingArea", users.get(0).getUser_LivingArea());
+                                editor.putString("user_PassWord", users.get(0).getUser_PassWord());
+                                editor.putString("user_Type", users.get(0).getUser_Type());
+                                editor.putInt("user_Money", users.get(0).getUser_Money());
+                                editor.commit();
 
-                            EventBus.getDefault().post(true,"loginSuccess");
+                                EventBus.getDefault().post(true, "loginSuccess");
 
-                            getActivity().finish();
+                                getActivity().finish();
+                            }
                         }, throwable -> {
                             throwable.printStackTrace();
                             Toast.makeText(getContext(), "Email hoặc mật khẩu không đúng", Toast.LENGTH_LONG).show();
                         });
         }else {
-            edt_name.setError("Email không đúng");
+            edt_name.setError("Email không hợp lệ!");
         }
     }
 

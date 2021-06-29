@@ -131,11 +131,26 @@ public class ProductDetailActivity extends AppCompatActivity {
         getsetProductDetail();
         getdataImage();
         getWishlist();
+        CheckUserType();
 
 //        productImage_List.addAll(image);
-
         EventOnClick();
 
+    }
+
+    private void CheckUserType(){
+        String type = saveSignIn.getString("user_Type", "");
+        if(type.equals("Admin")){
+            add_to_Wishlist_btn.setVisibility(View.GONE);
+            floatingbtn_call.setVisibility(View.GONE);
+            productModel_tv.setVisibility(View.GONE);
+            productbyname.setVisibility(View.GONE);
+        }else {
+            add_to_Wishlist_btn.setVisibility(View.VISIBLE);
+            floatingbtn_call.setVisibility(View.VISIBLE);
+            productModel_tv.setVisibility(View.VISIBLE);
+            productbyname.setVisibility(View.VISIBLE);
+        }
     }
 
     @SuppressLint("CheckResult")

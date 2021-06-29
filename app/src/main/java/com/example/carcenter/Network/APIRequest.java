@@ -33,6 +33,11 @@ public class APIRequest {
         return BaseAPIRequest.getInstanceRequestV2(context).getProduct(queryMap);
     }
 
+    public static Observable<JsonElement> getAllProduct(Context context) {
+        HashMap<String, Object> queryMap = new HashMap<>();
+        return BaseAPIRequest.getInstanceRequestV2(context).getAllProduct(queryMap);
+    }
+
     public static Observable<JsonElement> getProvince(Context context) {
         HashMap<String, Object> queryMap = new HashMap<>();
         return BaseAPIRequest.getInstanceRequestV2(context).getProvince(queryMap);

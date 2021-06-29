@@ -17,11 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.carcenter.JavaClass.UpdateProductActivity;
+import com.example.carcenter.Custom.Custom_Price;
+import com.example.carcenter.JavaClass.ProductDetailActivity;
 import com.example.carcenter.Model.ProductsModel;
+import com.example.carcenter.Model.WishlistModel;
 import com.example.carcenter.Network.APIRequest;
 import com.example.carcenter.R;
-import com.example.carcenter.Custom.Custom_Price;
 
 import org.json.JSONObject;
 
@@ -30,25 +31,25 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder> {
+public class PostManagamentAdapter extends RecyclerView.Adapter<PostManagamentAdapter.ViewHolder> {
 
     private Context context;
     private List<ProductsModel> productsModelList;
 
-    public MySaleAdapter(Context context, List<ProductsModel> productsModelList) {
+    public PostManagamentAdapter(Context context, List<ProductsModel> productsModelList) {
         this.context = context;
         this.productsModelList = productsModelList;
     }
 
     @NonNull
     @Override
-    public MySaleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_my_sale, viewGroup, false);
-        return new ViewHolder(view);
+    public PostManagamentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_wishlist, viewGroup, false);
+        return new PostManagamentAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MySaleAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull PostManagamentAdapter.ViewHolder viewHolder, int position) {
         String imageUrl = productsModelList.get(position).getProduct_Image();
         String company = productsModelList.get(position).getProduct_Company();
         String name = productsModelList.get(position).getProduct_Name();
@@ -88,7 +89,6 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         private TextView productPrice;
         private TextView mySale_UserName;
         private TextView mySale_Delete;
-        private TextView mySale_Update;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,17 +101,15 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
             productPrice = itemView.findViewById(R.id.wishlist_Price_tv);
             mySale_UserName = itemView.findViewById(R.id.wishlist_UserName_tv);
             mySale_Delete = itemView.findViewById(R.id.wishlist_Delete_tv);
-            mySale_Update = itemView.findViewById(R.id.mySale_Update_tv);
 
-            mySale_Update.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), UpdateProductActivity.class);
-                    intent.putExtra("update_product", productsModelList.get(getPosition()));
+                    Intent intent = new Intent(itemView.getContext(), ProductDetailActivity.class);
+                    intent.putExtra("productDetail", productsModelList.get(getPosition()));
                     itemView.getContext().startActivity(intent);
                 }
             });
-
 
         }
         private void setProductImage(String imageUrl){
@@ -144,7 +142,8 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
         dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
-                DeleteMySale(id, position);
+                String query = "DELETE FROM products WHERE product_Id ='"+id+"'";
+                DeleteMySale(query, position);
             }
         });
         dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -157,9 +156,9 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
     }
 
     @SuppressLint("CheckResult")
-    private void DeleteMySale(int id, int position){
+    private void DeleteMySale(String query, int position){
 
-        APIRequest.DeleteProduct(context,id)
+        APIRequest.UpdateAndDelete(context,query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(jsonElement -> {
@@ -168,11 +167,11 @@ public class MySaleAdapter extends RecyclerView.Adapter<MySaleAdapter.ViewHolder
                     if(status.equals("success")) {
                         productsModelList.remove(position);
                         notifyDataSetChanged();
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
                     }
                 }, throwable -> {
                     throwable.printStackTrace();
-                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Xóa thất bại!", Toast.LENGTH_SHORT).show();
                 });
     }
 }

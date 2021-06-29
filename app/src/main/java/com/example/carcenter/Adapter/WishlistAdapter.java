@@ -144,7 +144,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
         dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
-                String query = "DELETE FROM wishlist WHERE wishlist_id ='"+id+"'";
+                String query = "DELETE FROM wishlist WHERE wishlist_Id ='"+id+"'";
                 DeleteMySale(query, position);
             }
         });

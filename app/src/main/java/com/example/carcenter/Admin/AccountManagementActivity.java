@@ -154,6 +154,7 @@ public class AccountManagementActivity extends AppCompatActivity {
         RadioButton vip0_radio = dialog.findViewById(R.id.radio_vip0);
         RadioButton vip1_radio = dialog.findViewById(R.id.radio_vip1);
         RadioButton vip2_radio = dialog.findViewById(R.id.radio_vip2);
+        RadioButton disable_radio = dialog.findViewById(R.id.radio_disable);
         Button btn_done = dialog.findViewById(R.id.btndone);
         Button btn_exit = dialog.findViewById(R.id.btnexit);
 
@@ -171,6 +172,10 @@ public class AccountManagementActivity extends AppCompatActivity {
                 }
                 if(vip2_radio.isChecked()){
                     type = "Vip2";
+                    UpdateUser_Type(type, user_id);
+                }
+                if(disable_radio.isChecked()){
+                    type = "Khóa";
                     UpdateUser_Type(type, user_id);
                 }
                 dialog.dismiss();

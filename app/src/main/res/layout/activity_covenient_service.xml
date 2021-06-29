@@ -39,6 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="24dp"
             android:orientation="vertical">
 
             <TextView
@@ -241,9 +242,24 @@
                 android:textColor="@color/colorBlack"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginBottom="24dp"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGreyDark"/>
+
+            <TextView
+                android:text="@string/contentmy"
+                android:textSize="16dp"
+                android:textColor="@color/colorReb"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>

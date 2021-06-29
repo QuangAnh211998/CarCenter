@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.carcenter.Adapter.MySaleAdapter;
@@ -38,6 +39,8 @@ public class MySaleFragment extends Fragment {
     private List<ProductsModel> productsModelList;
     private MySaleAdapter mySaleAdapter;
     private RecyclerView my_sale_recyclerView;
+    private TextView number_sale_tv;
+
 
     private SharedPreferences saveSignIn;
     private SharedPreferences.Editor editor;
@@ -52,6 +55,7 @@ public class MySaleFragment extends Fragment {
 
 
         my_sale_recyclerView = view.findViewById(R.id.my_sale_recyclerView);
+        number_sale_tv = view.findViewById(R.id.number_postsale_tv);
 
         LinearLayoutManager layoutManager_Product = new LinearLayoutManager(getActivity());
         layoutManager_Product.setOrientation(LinearLayoutManager.VERTICAL);
@@ -61,6 +65,7 @@ public class MySaleFragment extends Fragment {
         my_sale_recyclerView.setAdapter(mySaleAdapter);
 
         getMyPost();
+
         return view;
     }
 
@@ -78,6 +83,8 @@ public class MySaleFragment extends Fragment {
                     Log.e("product", productsModels.get(0).getProduct_Image());
                     productsModelList.addAll(productsModels);
                     mySaleAdapter.notifyDataSetChanged();
+
+                    number_sale_tv.setText(String.valueOf(productsModelList.size())+ " lần đăng tin");
                 }, throwable -> {
 
                 });

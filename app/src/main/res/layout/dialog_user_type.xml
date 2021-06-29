@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:text="Nâng cấp tài khoản"
+        android:text="Cập nhật tài khoản"
         android:textColor="@color/colorAccent"
         android:textSize="23dp"
         android:gravity="center"
@@ -37,6 +37,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Vip 2"
+            android:textSize="20dp"/>
+        <RadioButton
+            android:id="@+id/radio_disable"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Khóa"
             android:textSize="20dp"/>
     </RadioGroup>
 

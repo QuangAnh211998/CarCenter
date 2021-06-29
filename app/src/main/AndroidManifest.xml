@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".JavaClass.TransactionHistoryActivity"></activity>
+        <activity android:name=".Admin.BrowseActivity"></activity>
+        <activity android:name=".JavaClass.TransactionHistoryActivity" />
         <activity android:name=".JavaClass.CovenientServiceActivity" />
         <activity android:name=".JavaClass.UpdateProductActivity" />
         <activity android:name=".JavaClass.UpdatePurchaseActivity" />
@@ -39,12 +40,12 @@
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".JavaClass.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

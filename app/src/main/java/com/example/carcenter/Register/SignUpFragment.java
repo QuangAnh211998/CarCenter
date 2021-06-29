@@ -57,6 +57,7 @@ public class SignUpFragment extends Fragment {
     private Button SignUp_btn;
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private String phonePattern = "[0]+[0-9&&[^01246]]+[0-9]+";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -244,33 +245,38 @@ public class SignUpFragment extends Fragment {
     @SuppressLint("CheckResult")
     private void SignUp(String livingarea, String name, String email, String phone, String address, String pass){
         if (email_edt.getText().toString().matches(emailPattern)) {
-            if (password_edt.getText().toString().equals(confirm_password_edt.getText().toString())) {
-                SignUp_btn.setEnabled(false);
-                SignUp_btn.setTextColor(Color.argb(50, 255, 255, 255));
+            if(phone_edt.getText().toString().matches(phonePattern)) {
+                if (password_edt.getText().toString().equals(confirm_password_edt.getText().toString())) {
+                    SignUp_btn.setEnabled(false);
+                    SignUp_btn.setTextColor(Color.argb(50, 255, 255, 255));
 
-                APIRequest.SignUp(getActivity(),livingarea, name, email, phone, address, pass)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(jsonElement -> {
-                            Log.e("SignUp", jsonElement.toString());
-                            JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                            String status = jsonObject.getString("status");
-                           if(status.equals("emailalrealy")){
-                               Toast.makeText(getContext(), "Email đã tồn tại! \nVui lòng nhập email khác", Toast.LENGTH_SHORT).show();
-                           }else if(status.equals("success")){
-                               getActivity().finish();
-                           }
-                        }, throwable -> {
-                            throwable.printStackTrace();
-                            Toast.makeText(getContext(), "Đăng ký thất bại", Toast.LENGTH_LONG).show();
-                        });
+                    APIRequest.SignUp(getActivity(), livingarea, name, email, phone, address, pass)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(jsonElement -> {
+                                Log.e("SignUp", jsonElement.toString());
+                                JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                String status = jsonObject.getString("status");
+                                if (status.equals("emailalrealy")) {
+                                    Toast.makeText(getContext(), "Email đã tồn tại! \nVui lòng nhập email khác", Toast.LENGTH_SHORT).show();
+                                } else if (status.equals("success")) {
+                                    getActivity().finish();
+                                }
+                            }, throwable -> {
+                                throwable.printStackTrace();
+                                Toast.makeText(getContext(), "Đăng ký thất bại", Toast.LENGTH_LONG).show();
+                            });
 
+                } else {
+                    confirm_password_edt.setError("Mật khẩu không khớp!");
+                }
             }else {
-                confirm_password_edt.setError("Mật khẩu không khớp!");
+                phone_edt.setError("SĐT không hợp lệ!");
             }
         }else {
-            email_edt.setError("Email không hợp lệ !");
+            email_edt.setError("Email không hợp lệ!");
         }
+
     }
 
 

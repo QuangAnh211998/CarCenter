@@ -23,6 +23,7 @@
     <string name="textmoney">- Nạp tiền vào tài khoản bằng cách chuyển khoản theo thông tin bên dưới.</string>
     <string name="textdk">Mỗi lần nạp tối thiểu 50,000 VNĐ, mỗi ngày tối đa 3 lần nạp và sẽ tính phí 10% mỗi lần nạp.</string>
     <string name="textupdate">Không giới hạn số lần sửa, tiền sẽ trừ vào tài khoản của bạn.</string>
+    <string name="contentmy">Mọi thắc mắc và đóng góp ý kiến vui lòng liên hệ với chúng tôi qua số điện thoại 0346945454. Trân trọng cảm ơn!</string>
 
     <string-array name="rangeSlider">
         <item>1000</item>

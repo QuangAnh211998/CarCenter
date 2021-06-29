@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carcenter.Admin.AccountManagementActivity;
+import com.example.carcenter.Admin.BrowseActivity;
 import com.example.carcenter.JavaClass.CovenientServiceActivity;
 import com.example.carcenter.JavaClass.MainActivity;
 import com.example.carcenter.JavaClass.MyWishlistActivity;
@@ -48,6 +49,7 @@ public class AccountFragment extends Fragment {
     private LinearLayout account_management;
     private LinearLayout service_layout;
     private LinearLayout transaction_history_layout;
+    private LinearLayout admin_browse_layout;
     private TextView userName_tv;
     private TextView userId_tv;
     private TextView numberPost_tv;
@@ -76,6 +78,7 @@ public class AccountFragment extends Fragment {
         numberPost_tv = view.findViewById(R.id.tv_numberpost);
         service_layout = view.findViewById(R.id.service_layout);
         transaction_history_layout = view.findViewById(R.id.transaction_history_layout);
+        admin_browse_layout = view.findViewById(R.id.admin_browse_layout);
 
         EventBus.getDefault().register(this);
         saveSignIn = getContext().getSharedPreferences("saveSignIn", Context.MODE_PRIVATE);
@@ -191,7 +194,7 @@ public class AccountFragment extends Fragment {
         post_management_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), PostManagement_Admin_Activity.class));
+                startActivity(new Intent(getContext(), BrowseActivity.class));
             }
         });
 
@@ -199,6 +202,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AccountManagementActivity.class));
+            }
+        });
+
+        admin_browse_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PostManagement_Admin_Activity.class));
             }
         });
     }
@@ -224,6 +234,7 @@ public class AccountFragment extends Fragment {
             if(type.equals("Admin")){
                 account_management.setVisibility(View.VISIBLE);
                 post_management_admin.setVisibility(View.VISIBLE);
+                admin_browse_layout.setVisibility(View.VISIBLE);
                 post_management.setVisibility(View.GONE);
                 reset_password.setVisibility(View.GONE);
                 reset_infor.setVisibility(View.GONE);
@@ -235,6 +246,7 @@ public class AccountFragment extends Fragment {
             }else {
                 account_management.setVisibility(View.GONE);
                 post_management_admin.setVisibility(View.GONE);
+                admin_browse_layout.setVisibility(View.GONE);
             }
 
         } else {

@@ -125,7 +125,7 @@
         android:layout_marginEnd="12dp"
         android:background="@drawable/boderedt"
         android:padding="4dp"
-        android:text="Bỏ lưu"
+        android:text="Xóa tin"
         android:textColor="@color/colorReb"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/wishlist_UserName_tv"

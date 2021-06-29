@@ -29,6 +29,9 @@ public interface APIEndpoints {
     @GET("carcenter/getProduct.php")
     Observable<JsonElement> getProduct(@QueryMap Map<String, Object> queryMap);
 
+    @GET("carcenter/getAllProduct.php")
+    Observable<JsonElement> getAllProduct(@QueryMap Map<String, Object> queryMap);
+
     @GET("carcenter/getProvince.php")
     Observable<JsonElement> getProvince(@QueryMap Map<String, Object> queryMap);
 
